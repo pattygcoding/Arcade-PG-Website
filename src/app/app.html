@@ -5,6 +5,31 @@
     class="shrink-0 bg-ink-900/80 backdrop-blur border-b border-line/5 px-4 sm:px-5 py-4 flex items-center justify-between gap-3"
   >
     <div class="flex items-center gap-4 sm:gap-7 min-w-0">
+      <!-- Escape hatch back to the portfolio.  Same chrome as the theme toggle. -->
+      <a
+        href="https://pattygcoding.com"
+        target="_blank"
+        rel="noopener"
+        [title]="t.app.backHome.title"
+        [attr.aria-label]="t.app.backHome.label"
+        class="shrink-0 flex items-center justify-center w-9 h-9 rounded-md bg-ink-950 border border-line/10 text-fg-muted hover:text-accent hover:border-accent/40 transition"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+      </a>
       <a
         routerLink="/"
         class="micro text-fg-dim hover:text-accent transition shrink-0 hidden sm:inline"

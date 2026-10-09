@@ -4,6 +4,10 @@
   },
   "app": {
     "brand": "PG / Arcade",
+    "backHome": {
+      "title": "pattygcoding.com",
+      "label": "Back to pattygcoding.com"
+    },
     "nav": {
       "label": "Projects",
       "home": "Home",
