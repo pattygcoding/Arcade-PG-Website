@@ -9,7 +9,7 @@
   max-width: 100%;
   border: 1px solid var(--repo-accent);
   border-radius: 6px;
-  color: var(--on-accent);
+  color: rgb(var(--on-accent));
   background: var(--repo-accent);
   text-decoration: none;
   box-shadow: 0 10px 30px -18px var(--repo-accent);
@@ -20,7 +20,7 @@
 
 .repo-button:hover,
 .repo-button:focus-visible {
-  color: var(--on-accent);
+  color: rgb(var(--on-accent));
   transform: translateY(-2px);
   box-shadow: 0 16px 36px -16px var(--repo-accent);
 }
@@ -32,7 +32,7 @@
   display: grid;
   place-items: center;
   border-radius: 4px;
-  background: color-mix(in srgb, var(--on-accent) 16%, transparent);
+  background: color-mix(in srgb, rgb(var(--on-accent)) 16%, transparent);
   font-size: 1.45rem;
 }
 

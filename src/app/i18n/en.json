@@ -83,6 +83,7 @@
   },
   "alkalab": {
     "eyebrow": "Alkalab",
+    "kicker": "RUST / WASM",
     "title": "Alkalab",
     "description": "Alkalab is a powder-sand chemistry lab that runs in the browser, written in Rust and compiled to WebAssembly.",
     "section_label": "Chemistry sandbox",

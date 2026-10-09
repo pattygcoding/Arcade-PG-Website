@@ -25,7 +25,9 @@ module.exports = {
           600: '#4fb894',
         },
         accent: 'rgb(var(--accent) / <alpha-value>)',
-        'on-accent': '#05070c',
+        // Filled-accent foreground: near-black in both themes, because both
+        // accent values are light enough that white text would wash out.
+        'on-accent': 'rgb(var(--on-accent) / <alpha-value>)',
         fg: 'rgb(var(--fg) / <alpha-value>)',
         'fg-strong': 'rgb(var(--fg-strong) / <alpha-value>)',
         'fg-soft': 'rgb(var(--fg-soft) / <alpha-value>)',
