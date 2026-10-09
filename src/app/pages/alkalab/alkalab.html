@@ -1,0 +1,162 @@
+<main class="alkalab-page portfolio-shell">
+  <header class="page-heading">
+    <div class="page-eyebrow">
+      <span>{{ t.alkalab.eyebrow }}</span>
+    </div>
+    <h1>{{ t.alkalab.title }}</h1>
+    <p>
+      {{ t.alkalab.description }}
+    </p>
+    <app-repo-button href="https://github.com/pattygcoding/Alkalab" />
+  </header>
+
+  <section class="alkalab-section" aria-labelledby="alkalab-lab-title">
+    <div class="alkalab-section-head">
+      <div>
+        <span class="alkalab-section-label">{{ t.alkalab.section_label }}</span>
+        <h2 id="alkalab-lab-title">{{ t.alkalab.lab_title }}</h2>
+      </div>
+      <span class="alkalab-status" role="status">{{ statusLabel() }}</span>
+    </div>
+
+    <div class="alkalab-lab">
+      <div class="alkalab-hud">
+        <span><b>{{ stats().fps.toFixed(0) }}</b> {{ t.alkalab.hud.fps }}</span>
+        <span><b>{{ speed() }}</b> {{ t.alkalab.hud.speed }}</span>
+        <span><b>{{ stats().frame }}</b> {{ t.alkalab.hud.frame }}</span>
+        <span><b>{{ stats().particles }}</b> {{ t.alkalab.hud.particles }}</span>
+      </div>
+
+      <div class="alkalab-layout">
+        <div class="alkalab-stage">
+          <div class="alkalab-canvas-frame">
+            <canvas
+              #canvas
+              class="alkalab-canvas"
+              width="320"
+              height="200"
+              tabindex="0"
+              [attr.aria-label]="ariaLabel"
+              (pointerdown)="handlePointerDown($event)"
+              (pointermove)="handlePointerMove($event)"
+              (pointerup)="stopPainting()"
+              (pointercancel)="stopPainting()"
+              (contextmenu)="handleContextMenu($event)"
+            ></canvas>
+          </div>
+
+          <div class="alkalab-toolbar">
+            <div class="alkalab-field">
+              <label for="alkalab-brush">{{ t.alkalab.controls.brush }}</label>
+              <input
+                id="alkalab-brush"
+                type="range"
+                min="0"
+                max="24"
+                [value]="brush()"
+                (input)="setBrush($event)"
+              />
+              <output>{{ brush() }}</output>
+            </div>
+            <div class="alkalab-field">
+              <label for="alkalab-shape">{{ t.alkalab.controls.shape }}</label>
+              <select id="alkalab-shape" [value]="shape()" (change)="setShape($event)">
+                <option value="circle">{{ t.alkalab.controls.circle }}</option>
+                <option value="square">{{ t.alkalab.controls.square }}</option>
+                <option value="spray">{{ t.alkalab.controls.spray }}</option>
+              </select>
+            </div>
+            <div class="alkalab-buttons">
+              <button type="button" [class.active]="tool() === 'boom'" (click)="toggleBoom()">
+                {{ t.alkalab.controls.boom }}
+              </button>
+              <button type="button" (click)="toggleRunning()">
+                {{ running() ? t.alkalab.controls.pause : t.alkalab.controls.play }}
+              </button>
+              <button type="button" (click)="step()">{{ t.alkalab.controls.step }}</button>
+              <button type="button" (click)="clear()">{{ t.alkalab.controls.clear }}</button>
+              <button type="button" [disabled]="!stats().canUndo" (click)="handleUndo()">
+                {{ t.alkalab.controls.undo }}
+              </button>
+              <button type="button" (click)="savePng()">{{ t.alkalab.controls.save }}</button>
+            </div>
+            <div class="alkalab-field">
+              <label for="alkalab-speed">{{ t.alkalab.controls.speed }}</label>
+              <select id="alkalab-speed" [value]="speed()" (change)="setSpeed($event)">
+                @for (value of speedOptions; track value) {
+                  <option [value]="value">{{ value }}&times;</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <p class="alkalab-hint">
+            {{ t.alkalab.hint }}
+          </p>
+        </div>
+
+        <aside class="alkalab-sidebar">
+          <section class="alkalab-panel">
+            <h2>{{ t.alkalab.panels.experiments }}</h2>
+            <div class="alkalab-presets">
+              @for (preset of presets; track preset.key) {
+                <button type="button" (click)="runPreset(preset)">{{ preset.label }}</button>
+              }
+            </div>
+          </section>
+
+          <section class="alkalab-panel">
+            <h2>{{ t.alkalab.panels.elements }}</h2>
+            <p class="alkalab-selected">{{ selectedLabel() }}</p>
+            <div class="alkalab-palette">
+              @for (entry of palette(); track entry.id) {
+                <button
+                  type="button"
+                  class="alkalab-element"
+                  [class.is-selected]="selected()?.id === entry.id"
+                  [title]="entry.name + ' (' + entry.formula + ') - ' + entry.desc"
+                  (click)="selectElement(entry)"
+                >
+                  <span
+                    class="alkalab-swatch"
+                    [style.background]="entry.color"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="alkalab-element-name">{{ entry.name }}</span>
+                  <span class="alkalab-formula">{{ entry.formula }}</span>
+                </button>
+              }
+            </div>
+          </section>
+
+          <section class="alkalab-panel">
+            <h2>{{ t.alkalab.panels.log }}</h2>
+            <ul class="alkalab-log">
+              @if (log().length === 0) {
+                <li class="alkalab-log-empty">{{ t.alkalab.panels.empty_log }}</li>
+              } @else {
+                @for (entry of log(); track $index) {
+                  <li>
+                    {{ entry.equation }}
+                    @if (entry.count > 1) {
+                      <b>&times;{{ entry.count }}</b>
+                    }
+                  </li>
+                }
+              }
+            </ul>
+          </section>
+
+          <section class="alkalab-panel">
+            <h2>{{ t.alkalab.panels.notes }}</h2>
+            <ul class="alkalab-notes">
+              @for (note of notes; track $index) {
+                <li>{{ note }}</li>
+              }
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>

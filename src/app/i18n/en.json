@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "appName": "Patrick Goodwin Arcade"
+  },
+  "app": {
+    "brand": "PG / Arcade",
+    "nav": {
+      "label": "Arcade games",
+      "home": "Home",
+      "alkalab": "Alkalab",
+      "snake": "Snake",
+      "suprememc": "SupremeMC"
+    },
+    "theme": {
+      "title": "Switch colour theme",
+      "toLight": "Switch to light theme",
+      "toDark": "Switch to dark theme"
+    }
+  },
+  "home": {
+    "eyebrow": "Browser games & simulations",
+    "titleLead": "Patrick Goodwin",
+    "titleHighlight": "Arcade",
+    "tagline": "Small games and simulations, each built from scratch - and compiled to WebAssembly where it counts.",
+    "selectLabel": "Choose a game",
+    "play": "Play"
+  },
+  "games": {
+    "alkalab": {
+      "name": "Alkalab",
+      "kind": "Chemistry sandbox",
+      "summary": "Paint elements onto a powder-sand grid, then watch them burn, dissolve, flow and explode.",
+      "stack": "Rust \u2192 WebAssembly"
+    },
+    "snake": {
+      "name": "Snake",
+      "kind": "Arcade game",
+      "summary": "The classic snake game: collect food, grow, and keep clear of the walls and your own trail.",
+      "stack": "Rust \u2192 WebAssembly"
+    },
+    "suprememc": {
+      "name": "SupremeMC",
+      "kind": "Minecraft mod",
+      "summary": "A content-packed Minecraft mod: new tools, armor, mobs, blocks, dimensions and structures, shipped on Fabric and NeoForge.",
+      "stack": "Java & Kotlin"
+    }
+  },
+  "repoButton": {
+    "label": "View the repository"
+  },
+  "snake": {
+    "title": "Snake Game",
+    "kicker": "RUST / WASM",
+    "description": "A classic arcade game built with Rust and WebAssembly. Collect food, grow your snake, and keep clear of the walls and your own trail.",
+    "section_label": "Playground",
+    "game_title": "Snake",
+    "aria_label": "Snake game. Arrow keys or WASD to move, Space to start or restart, P to pause.",
+    "status": {
+      "loading": "Loading game...",
+      "ready": "Ready to play",
+      "start_failed": "Unable to start the game",
+      "runtime_failed": "Unable to load the game runtime"
+    },
+    "controls": {
+      "group": "Snake direction controls",
+      "up": "Move up",
+      "down": "Move down",
+      "left": "Move left",
+      "right": "Move right"
+    }
+  },
+  "alkalab": {
+    "eyebrow": "Alkalab",
+    "title": "Alkalab",
+    "description": "Alkalab is a powder-sand chemistry lab that runs in the browser, written in Rust and compiled to WebAssembly.",
+    "section_label": "Chemistry sandbox",
+    "lab_title": "Reaction Chamber",
+    "aria_label": "Alkalab sandbox. Drag to paint, right-click to erase, Space to pause, S to step, C to clear, Ctrl+Z to undo, X for the boom tool.",
+    "hint": "Drag to paint \u00b7 right-click to erase \u00b7 Space pause \u00b7 S step \u00b7 C clear \u00b7 Ctrl+Z undo \u00b7 X boom tool",
+    "status": {
+      "loading": "Loading lab...",
+      "ready": "Ready",
+      "runtime_failed": "Unable to load the lab runtime"
+    },
+    "hud": {
+      "fps": "fps",
+      "speed": "tick/frame",
+      "frame": "ticks",
+      "particles": "cells"
+    },
+    "controls": {
+      "brush": "Brush",
+      "shape": "Shape",
+      "circle": "Circle",
+      "square": "Square",
+      "spray": "Spray",
+      "boom": "Boom",
+      "pause": "Pause",
+      "play": "Play",
+      "step": "Step",
+      "clear": "Clear",
+      "undo": "Undo",
+      "save": "Save PNG",
+      "speed": "Speed"
+    },
+    "panels": {
+      "experiments": "Experiments",
+      "elements": "Elements",
+      "log": "Reaction log",
+      "notes": "How it works",
+      "empty_log": "Nothing has reacted yet."
+    },
+    "presets": {
+      "sodium_water": "Sodium vs water",
+      "volcano": "Volcano",
+      "density_column": "Density column",
+      "vine": "Vine",
+      "demolition": "Demolition",
+      "carbide_cannon": "Carbide cannon"
+    },
+    "notes": [
+      "One flat buffer: the grid is a single Vec<Cell>, (x, y) maps to y * width + x, and a one-cell inert border removes every bounds check.",
+      "Bottom-up ticks: rows scan bottom to top so falling material cannot update twice, and the column direction flips each frame so water has no favourite side.",
+      "Density, not special cases: sand sinks in water, oil floats on it, and mercury sinks through both, all from one comparison.",
+      "Zero-copy pixels: Rust renders straight into a Uint8ClampedArray view of wasm memory, so nothing crosses the boundary per frame.",
+      "Declarative chemistry: 2 Na + 2 H2O -> 2 NaOH + H2, CaC2 + 2 H2O -> Ca(OH)2 + C2H2, and lava + sand -> glass are single table rows."
+    ]
+  },
+  "suprememc": {
+    "title": "SupremeMC",
+    "description": "SupremeMC is a content-packed Minecraft mod that adds new tools, armor, mobs, blocks, dimensions, and much more, maintained across Minecraft versions 1.16 through 26.2.",
+    "image_alt": "SupremeMC mod logo",
+    "github": {
+      "cta": "View on GitHub",
+      "subtitle": "Explore the Java and Kotlin source code"
+    },
+    "curseforge": {
+      "eyebrow": "Download on CurseForge.",
+      "cta": "Download on CurseForge",
+      "subtitle": "Get the latest SupremeMC release for Fabric and NeoForge"
+    },
+    "overview": {
+      "label": "Minecraft Mod",
+      "title": "A whole new layer of survival",
+      "text": "Built primarily with Java and Kotlin, SupremeMC expands every stage of the game, from new ores and gear in the Overworld to custom dimensions, structures, and creatures. The latest version ships for both Fabric and NeoForge from a single shared codebase."
+    },
+    "stats": {
+      "items": "Items",
+      "blocks": "Blocks",
+      "enchantments": "Enchantments",
+      "potions": "Potions"
+    },
+    "features": {
+      "label": "What's inside",
+      "title": "Feature highlights",
+      "examples": "Examples",
+      "gear": {
+        "title": "Tools, Weapons & Armor",
+        "text": "New materials with full tool and armor sets, plus specialty weapons with their own behavior.",
+        "examples": [
+          "Abyssalite",
+          "Amber",
+          "Aquamarine",
+          "Experience",
+          "Burning Netherite",
+          "Abyssalite Trident"
+        ]
+      },
+      "mobs": {
+        "title": "Creatures",
+        "text": "New hostile and passive mobs that bring fresh threats and wildlife to the world.",
+        "examples": ["Fire Creeper", "Snow Creeper", "Ender Spider", "Grizzly Bear"]
+      },
+      "worlds": {
+        "title": "Dimensions & Biomes",
+        "text": "Custom dimensions and hand-tuned biomes with their own terrain, trees, and vegetation.",
+        "examples": [
+          "Skylands",
+          "Icether",
+          "Florida Plains",
+          "Cays",
+          "Lavender Highlands",
+          "Ice Caves"
+        ]
+      },
+      "structures": {
+        "title": "Structures & Blocks",
+        "text": "Hundreds of new building blocks alongside generated structures to explore in the Nether and the End.",
+        "examples": [
+          "Nether Mineshaft",
+          "End Mineshaft",
+          "Nether Reactor Core",
+          "Palm Trees"
+        ]
+      },
+      "explosives": {
+        "title": "Explosives",
+        "text": "Specialty TNT variants that do more than just blow things up.",
+        "examples": ["Fire TNT", "Snow TNT", "Shelter TNT"]
+      },
+      "magic": {
+        "title": "Enchantments & Potions",
+        "text": "New enchantments and brewable potions that add depth to combat, mining, and exploration.",
+        "examples": ["18 Enchantments", "13 Potions"]
+      }
+    },
+    "build": {
+      "label": "Engineering",
+      "title": "How it's built",
+      "text": "The current release uses a MultiLoader architecture: gameplay code lives in a shared common module compiled against vanilla Minecraft, while thin Fabric and NeoForge modules load it into each platform. Recipes, models, tags, and translations are produced with data generators to keep hundreds of assets consistent.",
+      "stack": "Technology stack",
+      "timeline": [
+        {
+          "version": "1.16",
+          "text": "SupremeMC is born, introducing its first custom ores, tools, and armor."
+        },
+        {
+          "version": "1.19.3 \u2013 1.20.2",
+          "text": "Ported forward on Forge as the mod grows into a large content pack with new mobs, dimensions, and structures."
+        },
+        {
+          "version": "1.21.10",
+          "text": "Updated for 1.21 alongside companion SupremeMC enchantment and wood-cutting data packs."
+        },
+        {
+          "version": "26.2",
+          "text": "Rebuilt on a MultiLoader template to ship on both Fabric and NeoForge from one codebase."
+        }
+      ]
+    }
+  }
+}

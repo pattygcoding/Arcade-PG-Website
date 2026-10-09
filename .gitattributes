@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Game binaries: never line-ending normalise these.
+*.wasm binary
+*.png binary

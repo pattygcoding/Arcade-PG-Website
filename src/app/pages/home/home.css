@@ -1,0 +1,6 @@
+/* Fills the space the header leaves; content is top-aligned like a landing page. */
+:host {
+  flex: 1 1 auto;
+  display: block;
+}
+

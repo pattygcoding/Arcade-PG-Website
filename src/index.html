@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Patrick Goodwin Arcade</title>
+  <!-- The site's canonical address.  Paths are derived from wherever the app is
+       served, so this is declarative only. -->
+  <link rel="canonical" href="https://arcade.pattygcoding.com/">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta name="theme-color" content="#05070c">
+  <meta name="author" content="Patrick Goodwin">
+  <!--
+    Link previews (LinkedIn, Slack, Discord, X) read these from the raw HTML and do
+    not run JavaScript.  The values here are the home page's; after `ng build`,
+    scripts/generate-og-pages.js rewrites this block once per route.  Keep every tag
+    below, because that script looks each one up by name and fails loudly if missing.
+  -->
+  <meta name="description" content="Small games and simulations, each built from scratch - and compiled to WebAssembly where it counts.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Patrick Goodwin Arcade">
+  <meta property="og:title" content="Patrick Goodwin Arcade">
+  <meta property="og:description" content="Small games and simulations, each built from scratch - and compiled to WebAssembly where it counts.">
+  <meta property="og:url" content="https://arcade.pattygcoding.com/">
+  <meta property="og:image" content="https://arcade.pattygcoding.com/og/home.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Patrick Goodwin Arcade">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Patrick Goodwin Arcade">
+  <meta name="twitter:description" content="Small games and simulations, each built from scratch - and compiled to WebAssembly where it counts.">
+  <meta name="twitter:image" content="https://arcade.pattygcoding.com/og/home.png">
+  <script>
+    // Choose the theme before first paint so there is no flash of the wrong palette.
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("pg-arcade-theme"); } catch (error) { stored = null; }
+      var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      document.documentElement.setAttribute("data-theme", stored || (prefersLight ? "light" : "dark"));
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <app-root></app-root>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+</body>
+</html>
+

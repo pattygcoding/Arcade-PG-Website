@@ -1,0 +1,2 @@
+# Keeps the published output free of Jekyll processing.  The Actions-based Pages
+# deploy does not run Jekyll, but this makes a branch-based deploy safe too.

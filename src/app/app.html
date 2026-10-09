@@ -1,0 +1,86 @@
+<div class="flex flex-col min-h-dvh">
+  <!-- Top bar: the portfolio's "PG / ..." micro label and game navigation on the
+       left, theme toggle on the right.  Same chrome as the Connect Four showcase. -->
+  <header
+    class="shrink-0 bg-ink-900/80 backdrop-blur border-b border-line/5 px-4 sm:px-5 py-4 flex items-center justify-between gap-3"
+  >
+    <div class="flex items-center gap-4 sm:gap-7 min-w-0">
+      <a
+        routerLink="/"
+        class="micro text-fg-dim hover:text-accent transition shrink-0 hidden sm:inline"
+        >{{ t.app.brand }}</a
+      >
+      <nav
+        class="flex items-center gap-3 sm:gap-5 overflow-x-auto min-w-0"
+        [attr.aria-label]="t.app.nav.label"
+      >
+        <a
+          routerLink="/"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link shrink-0"
+          >{{ t.app.nav.home }}</a
+        >
+        <a routerLink="/alkalab" routerLinkActive="is-active" class="nav-link shrink-0">{{
+          t.app.nav.alkalab
+        }}</a>
+        <a routerLink="/snake" routerLinkActive="is-active" class="nav-link shrink-0">{{
+          t.app.nav.snake
+        }}</a>
+        <a routerLink="/suprememc" routerLinkActive="is-active" class="nav-link shrink-0">{{
+          t.app.nav.suprememc
+        }}</a>
+      </nav>
+    </div>
+    <button
+      type="button"
+      [title]="t.app.theme.title"
+      [attr.aria-label]="
+        theme.theme() === 'dark' ? t.app.theme.toLight : t.app.theme.toDark
+      "
+      (click)="theme.toggle()"
+      class="shrink-0 flex items-center justify-center w-9 h-9 rounded-md bg-ink-950 border border-line/10 text-fg-muted hover:text-accent hover:border-accent/40 transition"
+    >
+      <span class="theme-icon-sun flex" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2" />
+          <path d="M12 20v2" />
+          <path d="m4.93 4.93 1.41 1.41" />
+          <path d="m17.66 17.66 1.41 1.41" />
+          <path d="M2 12h2" />
+          <path d="M20 12h2" />
+          <path d="m6.34 17.66-1.41 1.41" />
+          <path d="m19.07 4.93-1.41 1.41" />
+        </svg>
+      </span>
+      <span class="theme-icon-moon flex" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+      </span>
+    </button>
+  </header>
+
+  <router-outlet />
+</div>

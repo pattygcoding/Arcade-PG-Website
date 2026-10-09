@@ -1,0 +1,22 @@
+/* Header navigation.  Same JetBrains Mono micro-label voice as the brand. */
+.nav-link {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(var(--fg-muted));
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+.nav-link:hover {
+  color: rgb(var(--fg));
+}
+.nav-link.is-active {
+  color: rgb(var(--accent));
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-link {
+    transition: none;
+  }
+}
+

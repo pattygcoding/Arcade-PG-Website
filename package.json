@@ -1,0 +1,38 @@
+{
+  "name": "arcade-pg-website",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "postbuild": "node scripts/generate-og-pages.js",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "og:images": "python tools/generate_og_images.py",
+    "check:previews": "python tools/check_link_previews.py"
+  },
+  "private": true,
+  "packageManager": "npm@10.9.4",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.26",
+    "@angular/cli": "^21.2.26",
+    "@angular/compiler-cli": "^21.2.0",
+    "autoprefixer": "^10.6.1",
+    "jsdom": "^28.0.0",
+    "postcss": "^8.5.29",
+    "prettier": "^3.8.1",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  }
+}
