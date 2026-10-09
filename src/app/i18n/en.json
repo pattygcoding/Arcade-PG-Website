@@ -12,6 +12,10 @@
       "title": "Arcade-PG-Website on GitHub",
       "label": "Open the Arcade-PG-Website repository on GitHub"
     },
+    "menu": {
+      "open": "Open the page menu",
+      "close": "Close the page menu"
+    },
     "nav": {
       "label": "Projects",
       "home": "Home",

@@ -1,11 +1,37 @@
 <div class="flex flex-col min-h-dvh">
   <!-- Top bar: the portfolio's "PG / ..." micro label, the icon buttons and the
-       game navigation.  On phones the links wrap onto their own full-width row,
-       so the bar never needs a horizontal scroller. -->
+       game navigation.  Phones get the menu button and a left-hand drawer instead
+       of the links, so the bar is always one row with no horizontal scroller. -->
   <header
-    class="shrink-0 bg-ink-900/80 backdrop-blur border-b border-line/5 px-4 sm:px-5 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 sm:flex-nowrap sm:justify-start sm:gap-x-7"
+    class="shrink-0 bg-ink-900/80 backdrop-blur border-b border-line/5 px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between gap-x-3 sm:justify-start sm:gap-x-7"
   >
     <div class="flex items-center gap-4 sm:gap-7 min-w-0">
+      <!-- Phone menu: opens the drawer below, which carries the page links. -->
+      <button
+        type="button"
+        class="sm:hidden shrink-0 flex items-center justify-center w-9 h-9 rounded-md bg-ink-950 border border-line/10 text-fg-muted hover:text-accent hover:border-accent/40 transition"
+        [attr.aria-label]="t.app.menu.open"
+        aria-controls="site-menu"
+        [attr.aria-expanded]="menuOpen()"
+        (click)="openMenu()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="4" x2="20" y1="6" y2="6" />
+          <line x1="4" x2="20" y1="12" y2="12" />
+          <line x1="4" x2="20" y1="18" y2="18" />
+        </svg>
+      </button>
       <!-- The two icon buttons: the portfolio escape hatch and this repo.  Same
            chrome as the theme toggle, but grouped so they sit closer to each
            other than they do to the label groups. -->
@@ -68,28 +94,26 @@
         class="micro text-fg-dim hover:text-accent transition shrink-0 hidden sm:inline"
         >{{ t.app.brand }}</a
       >
-      <nav
-        class="order-last w-full flex items-center justify-between gap-4 sm:order-none sm:w-auto sm:justify-start sm:gap-5"
-        [attr.aria-label]="t.app.nav.label"
-      >
-        <a
-          routerLink="/"
-          routerLinkActive="is-active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="nav-link shrink-0"
-          >{{ t.app.nav.home }}</a
-        >
-        <a routerLink="/alkalab" routerLinkActive="is-active" class="nav-link shrink-0">{{
-          t.app.nav.alkalab
-        }}</a>
-        <a routerLink="/snake" routerLinkActive="is-active" class="nav-link shrink-0">{{
-          t.app.nav.snake
-        }}</a>
-        <a routerLink="/suprememc" routerLinkActive="is-active" class="nav-link shrink-0">{{
-          t.app.nav.suprememc
-        }}</a>
-      </nav>
     </div>
+    <!-- The inline links, from `sm` up.  Phones use the drawer below instead. -->
+    <nav class="hidden sm:flex items-center gap-5" [attr.aria-label]="t.app.nav.label">
+      <a
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link shrink-0"
+        >{{ t.app.nav.home }}</a
+      >
+      <a routerLink="/alkalab" routerLinkActive="is-active" class="nav-link shrink-0">{{
+        t.app.nav.alkalab
+      }}</a>
+      <a routerLink="/snake" routerLinkActive="is-active" class="nav-link shrink-0">{{
+        t.app.nav.snake
+      }}</a>
+      <a routerLink="/suprememc" routerLinkActive="is-active" class="nav-link shrink-0">{{
+        t.app.nav.suprememc
+      }}</a>
+    </nav>
     <button
       type="button"
       [title]="t.app.theme.title"
@@ -139,6 +163,75 @@
       </span>
     </button>
   </header>
+
+  <!-- The phone drawer.  A sibling of the header rather than a child, because the
+       header's `backdrop-blur` makes it a containing block: a fixed panel inside
+       it would size to the bar instead of the viewport.  The links are repeated
+       rather than reflowing the one nav so that a closed menu mounts nothing - no
+       off-screen links in the tab order or the accessibility tree. -->
+  @if (menuOpen()) {
+    <div
+      class="sm:hidden fixed inset-0 z-40 touch-none bg-ink-950/70 backdrop-blur-sm"
+      (click)="closeMenu()"
+      aria-hidden="true"
+    ></div>
+    <nav
+      id="site-menu"
+      class="menu-panel sm:hidden fixed inset-y-0 left-0 z-50 w-64 max-w-[80%] bg-ink-900 border-r border-line/10 px-4 py-4 flex flex-col gap-1 overflow-y-auto"
+      [attr.aria-label]="t.app.nav.label"
+    >
+      <div class="flex items-center justify-between gap-3 mb-3">
+        <span class="micro text-fg-dim">{{ t.app.brand }}</span>
+        <button
+          type="button"
+          class="shrink-0 flex items-center justify-center w-9 h-9 rounded-md bg-ink-950 border border-line/10 text-fg-muted hover:text-accent hover:border-accent/40 transition"
+          [attr.aria-label]="t.app.menu.close"
+          (click)="closeMenu()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </button>
+      </div>
+      <a
+        routerLink="/"
+        routerLinkActive="is-active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="menu-link"
+        (click)="closeMenu()"
+        >{{ t.app.nav.home }}</a
+      >
+      <a
+        routerLink="/alkalab"
+        routerLinkActive="is-active"
+        class="menu-link"
+        (click)="closeMenu()"
+        >{{ t.app.nav.alkalab }}</a
+      >
+      <a routerLink="/snake" routerLinkActive="is-active" class="menu-link" (click)="closeMenu()">{{
+        t.app.nav.snake
+      }}</a>
+      <a
+        routerLink="/suprememc"
+        routerLinkActive="is-active"
+        class="menu-link"
+        (click)="closeMenu()"
+        >{{ t.app.nav.suprememc }}</a
+      >
+    </nav>
+  }
 
   <router-outlet />
 </div>

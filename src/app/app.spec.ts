@@ -27,6 +27,26 @@ describe('App', () => {
     expect(compiled.querySelector('a[href="/snake"]')).not.toBeNull();
   });
 
+  it('should open the phone menu and close it again', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const trigger = compiled.querySelector<HTMLButtonElement>('button[aria-controls="site-menu"]');
+    expect(trigger).not.toBeNull();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('false');
+    expect(compiled.querySelector('#site-menu')).toBeNull();
+
+    trigger?.click();
+    await fixture.whenStable();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('true');
+    expect(compiled.querySelectorAll('#site-menu a[href]')).toHaveLength(4);
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    await fixture.whenStable();
+    expect(trigger?.getAttribute('aria-expanded')).toBe('false');
+    expect(compiled.querySelector('#site-menu')).toBeNull();
+  });
+
   it('should link the site header to its GitHub repository', async () => {
     const fixture = TestBed.createComponent(App);
     await fixture.whenStable();
