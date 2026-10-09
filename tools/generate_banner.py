@@ -2,8 +2,8 @@
 
 Self-contained SVGs in the arcade's navy/mint palette, matching the banners in
 the Connect Four showcase: the brand label, the title, the toolchain and a row of
-chips.  No web fonts, no scripts and no network, so they render on GitHub, in a
-preview pane and offline.
+chips.  The language and framework chips carry a brand glyph.  No web fonts, no
+scripts and no network, so they render on GitHub, in a preview pane and offline.
 
     python tools/generate_banner.py
 
@@ -17,6 +17,12 @@ from __future__ import annotations
 import sys
 import xml.sax.saxutils as sax
 from pathlib import Path
+
+# The glyph data lives beside this script, so make it importable from any cwd.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from banner_icons import ICONS as BRAND_ICONS
+from banner_icons import VIEWBOX as ICON_VIEWBOX
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = ROOT / "docs"
@@ -46,6 +52,25 @@ CHIP_PAD = 15
 CHIP_GAP = 10
 CHIP_TEXT_SIZE = 13
 CHIP_LIMIT = 760  # right edge the chips may reach; the card motif starts at x=780
+
+# Brand glyph geometry: the mark sits in the chip's left padding and the label
+# shifts right by the room it takes.  Kept compact so every hero chip still fits
+# inside CHIP_LIMIT once the glyphs are added.
+ICON_SIZE = 14
+ICON_GAP = 7
+
+# The language and framework chips that carry a glyph.  Skills, `wasm-bindgen`
+# and the project categories stay text-only, so nothing implies a logo it lacks.
+ICON_FOR_LABEL = {
+    "TypeScript": "typescript",
+    "HTML + CSS": "html5",
+    "Rust": "rust",
+    "Java": "java",
+    "Kotlin": "kotlin",
+    "Angular 21": "angular",
+    "Tailwind CSS": "tailwindcss",
+    "WebAssembly": "webassembly",
+}
 
 # The hero's three groups: the accent chip names the group, the rest are entries.
 HERO_ROWS = [
@@ -94,13 +119,32 @@ def text_width(text: str, size: float, ratio: float) -> float:
     return len(text) * size * ratio
 
 
+def chip_width(label: str) -> float:
+    """Chip width: padding, the brand glyph when there is one, then the label."""
+    room = ICON_SIZE + ICON_GAP if label in ICON_FOR_LABEL else 0.0
+    return CHIP_PAD * 2 + room + text_width(label, CHIP_TEXT_SIZE, 0.62)
+
+
+def chip_glyph(label: str, x: float, top: int, colour: str) -> str:
+    """The chip's brand mark, scaled from its 24x24 viewBox into the chip."""
+    paths = BRAND_ICONS.get(ICON_FOR_LABEL.get(label, ""))
+    if not paths:
+        return ""
+    scale = ICON_SIZE / ICON_VIEWBOX
+    y = top + (CHIP_H - ICON_SIZE) / 2
+    return "\n".join(
+        '    <g transform="translate(%.1f,%.1f) scale(%.4f)"><path d="%s" fill="%s"/></g>'
+        % (x, y, scale, path, colour)
+        for path in paths
+    )
+
+
 def chips_for(category: str, skills: list[str], limit: float) -> list[tuple[str, str]]:
     """Pick the chips that fit on one row: the category first, then skills."""
     picked: list[tuple[str, str]] = []
     used = 0.0
     for kind, label in [("category", category)] + [("skill", skill) for skill in skills]:
-        width = CHIP_PAD * 2 + text_width(label, CHIP_TEXT_SIZE, 0.62)
-        step = width + (CHIP_GAP if picked else 0)
+        step = chip_width(label) + (CHIP_GAP if picked else 0)
         if used + step > limit:
             break
         used += step
@@ -113,7 +157,7 @@ def chip_row(category: str, skills: list[str], top: int) -> str:
     parts = []
     x = 56.0
     for kind, label in chips_for(category, skills, CHIP_LIMIT - 56):
-        width = CHIP_PAD * 2 + text_width(label, CHIP_TEXT_SIZE, 0.62)
+        width = chip_width(label)
         fill, stroke, colour = (
             (MINT_DEEP, MINT_EDGE, MINT) if kind == "category" else (PANEL, LINE_SOFT, SOFT)
         )
@@ -121,9 +165,13 @@ def chip_row(category: str, skills: list[str], top: int) -> str:
             '    <rect x="%.0f" y="%d" width="%.0f" height="%d" rx="%d" fill="%s" '
             'stroke="%s" stroke-width="1"/>' % (x, top, width, CHIP_H, CHIP_H // 2, fill, stroke)
         )
+        glyph = chip_glyph(label, x + CHIP_PAD, top, colour)
+        if glyph:
+            parts.append(glyph)
+        label_x = x + CHIP_PAD + (ICON_SIZE + ICON_GAP if glyph else 0.0)
         parts.append(
             '    <text x="%.0f" y="%d" font-family="%s" font-size="%d" fill="%s">%s</text>'
-            % (x + CHIP_PAD, top + 22, MONO, CHIP_TEXT_SIZE, colour, esc(label))
+            % (label_x, top + 22, MONO, CHIP_TEXT_SIZE, colour, esc(label))
         )
         x += width + CHIP_GAP
     return "\n".join(parts)

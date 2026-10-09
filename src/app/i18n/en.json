@@ -8,6 +8,10 @@
       "title": "pattygcoding.com",
       "label": "Back to pattygcoding.com"
     },
+    "repo": {
+      "title": "Arcade-PG-Website on GitHub",
+      "label": "Open the Arcade-PG-Website repository on GitHub"
+    },
     "nav": {
       "label": "Projects",
       "home": "Home",
