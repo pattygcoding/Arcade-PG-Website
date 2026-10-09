@@ -111,6 +111,35 @@ Paste each URL into LinkedIn's [Post Inspector](https://www.linkedin.com/post-in
 once. LinkedIn caches previews hard, so the inspector is what forces a refresh —
 worth doing on the first launch or after changing any copy or card image.
 
+## Deployment
+
+The site is published to **https://arcade.pattygcoding.com/**.
+
+`.github/workflows/deploy.yml` runs on every push to `main` (or on demand via
+**Actions → Deploy to GitHub Pages → Run workflow**). It installs, runs the unit
+tests, builds, runs the link-preview check, and only then uploads
+`dist/arcade-pg-website/browser` as the Pages artifact — so a failing test or a
+regressed OG tag can never reach the live site.
+
+Repository Pages settings, already configured:
+
+| Setting | Value |
+| --- | --- |
+| Source | GitHub Actions (`build_type: workflow`) |
+| Custom domain | `arcade.pattygcoding.com` |
+| HTTPS | enforced (certificate approved) |
+
+DNS for the subdomain is a `CNAME` record pointing at `pattygcoding.github.io`,
+and `public/CNAME` carries the same domain into the build output so the setting
+survives a redeploy.
+
+To ship a change, push to `main`:
+
+```sh
+git push origin main
+gh run watch          # follow the run to completion
+```
+
 ## Development server
 
 To start a local development server, run:
