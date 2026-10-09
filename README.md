@@ -2,8 +2,8 @@
 
 # Patrick Goodwin Arcade
 
-The arcade supporting website for the PG-Website repository: a small collection of
-games and simulations, each built from scratch.
+The arcade supporting website for the PG-Website repository: a place to collect the
+games, tools and experiments I build.
 
 It is an **Angular 21 + TypeScript** app (Angular CLI 21.2.26) that reuses the
 design language of `pattygcoding.dev` and the Connect Four showcase: a navy canvas
@@ -42,8 +42,8 @@ npm run banners      # python tools/generate_banner.py
 
 ## Pages
 
-Routing lives in `src/app/app.routes.ts`; every page is lazily loaded so the
-games only ship when visited.
+Routing lives in `src/app/app.routes.ts`; every page is lazily loaded so each
+project only ships when visited.
 
 | Route | Component | Notes |
 | --- | --- | --- |
@@ -52,9 +52,9 @@ games only ship when visited.
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
 | `/suprememc` | `pages/suprememc` | Showcase for the SupremeMC Minecraft mod (no runtime WASM). |
 
-The game pages are adapted from the PG-Website portfolio and re-themed to this
-site's palette and fonts (Inter + JetBrains Mono). The wasm-backed games keep
-their binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
+These pages are adapted from the PG-Website portfolio and re-themed to this site's
+palette and fonts (Inter + JetBrains Mono). The wasm-backed projects keep their
+binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
 `alkalab.wasm` and `snake.wasm` — which Angular copies to the build output
 verbatim, so they are fetched at runtime from `/wasm/...`.
 

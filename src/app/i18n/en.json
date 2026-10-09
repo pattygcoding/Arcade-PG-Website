@@ -5,7 +5,7 @@
   "app": {
     "brand": "PG / Arcade",
     "nav": {
-      "label": "Arcade games",
+      "label": "Projects",
       "home": "Home",
       "alkalab": "Alkalab",
       "snake": "Snake",
@@ -18,12 +18,12 @@
     }
   },
   "home": {
-    "eyebrow": "Browser games & simulations",
+    "eyebrow": "Games, tools & experiments",
     "titleLead": "Patrick Goodwin",
     "titleHighlight": "Arcade",
-    "tagline": "Small games and simulations, each built from scratch - and compiled to WebAssembly where it counts.",
-    "selectLabel": "Choose a game",
-    "play": "Play"
+    "tagline": "A collection of the games, tools and experiments I build - and whatever else seems worth keeping.",
+    "selectLabel": "Browse the collection",
+    "play": "Open"
   },
   "games": {
     "alkalab": {

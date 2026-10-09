@@ -36,8 +36,8 @@ CARDS = {
         "eyebrow": "PG / ARCADE",
         "title": [("Patrick Goodwin", False), ("Arcade", True)],
         "body": [
-            "Small games and simulations,",
-            "built from scratch.",
+            "A collection of the games, tools and",
+            "experiments I build.",
         ],
         "tags": ["ALKALAB", "SNAKE", "SUPREMEMC"],
     },
