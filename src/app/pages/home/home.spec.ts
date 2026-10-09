@@ -25,5 +25,16 @@ describe('Home', () => {
     expect(compiled.querySelector('a[href="/alkalab"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/snake"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/suprememc"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/rustcraft"]')).not.toBeNull();
+  });
+
+  it('should list the games alphabetically', async () => {
+    const fixture = TestBed.createComponent(Home);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const routes = Array.from(compiled.querySelectorAll('a[href]')).map((link) =>
+      link.getAttribute('href'),
+    );
+    expect(routes).toEqual(['/alkalab', '/rustcraft', '/snake', '/suprememc']);
   });
 });

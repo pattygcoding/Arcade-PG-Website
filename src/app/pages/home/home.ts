@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { strings } from '../../i18n/i18n';
 
-type GameIcon = 'flask' | 'gamepad' | 'blocks';
+type GameIcon = 'flask' | 'gamepad' | 'blocks' | 'pickaxe';
 
 interface GameCard {
   route: string;
@@ -23,6 +23,14 @@ const GAME_CARDS: readonly GameCard[] = [
     kind: strings.games.alkalab.kind,
     summary: strings.games.alkalab.summary,
     stack: strings.games.alkalab.stack,
+  },
+  {
+    route: '/rustcraft',
+    icon: 'pickaxe',
+    name: strings.games.rustcraft.name,
+    kind: strings.games.rustcraft.kind,
+    summary: strings.games.rustcraft.summary,
+    stack: strings.games.rustcraft.stack,
   },
   {
     route: '/snake',

@@ -39,7 +39,7 @@ CARDS = {
             "A collection of the games, tools and",
             "experiments I build.",
         ],
-        "tags": ["ALKALAB", "SNAKE", "SUPREMEMC"],
+        "tags": ["ALKALAB", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
     },
     "alkalab": {
         "eyebrow": "CHEMISTRY SANDBOX",
@@ -67,6 +67,15 @@ CARDS = {
             "dimensions and structures.",
         ],
         "tags": ["JAVA", "KOTLIN", "FABRIC", "NEOFORGE"],
+    },
+    "rustcraft": {
+        "eyebrow": "VOXEL GAME",
+        "title": [("Rustcraft", False)],
+        "body": [
+            "A Minecraft-style voxel game written",
+            "from scratch in Rust on winit and wgpu.",
+        ],
+        "tags": ["RUST", "WGPU", "WGSL"],
     },
 }
 

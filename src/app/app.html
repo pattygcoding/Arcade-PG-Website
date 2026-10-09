@@ -107,6 +107,9 @@
       <a routerLink="/alkalab" routerLinkActive="is-active" class="nav-link shrink-0">{{
         t.app.nav.alkalab
       }}</a>
+      <a routerLink="/rustcraft" routerLinkActive="is-active" class="nav-link shrink-0">{{
+        t.app.nav.rustcraft
+      }}</a>
       <a routerLink="/snake" routerLinkActive="is-active" class="nav-link shrink-0">{{
         t.app.nav.snake
       }}</a>
@@ -219,6 +222,13 @@
         class="menu-link"
         (click)="closeMenu()"
         >{{ t.app.nav.alkalab }}</a
+      >
+      <a
+        routerLink="/rustcraft"
+        routerLinkActive="is-active"
+        class="menu-link"
+        (click)="closeMenu()"
+        >{{ t.app.nav.rustcraft }}</a
       >
       <a routerLink="/snake" routerLinkActive="is-active" class="menu-link" (click)="closeMenu()">{{
         t.app.nav.snake

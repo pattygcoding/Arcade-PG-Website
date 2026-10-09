@@ -21,6 +21,12 @@ lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
 The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
 nothing crosses the boundary per frame.
 
+![Rustcraft — a Minecraft-style voxel game written from scratch in Rust](docs/banner-rustcraft.svg)
+
+[**Rustcraft**](https://arcade.pattygcoding.com/rustcraft) — a lightweight
+Minecraft-style voxel game written from scratch on winit and wgpu, with an
+infinite noise-generated world, carved caves and deferred lighting.
+
 ![Snake — the classic game, written in Rust and compiled to WebAssembly](docs/banner-snake.svg)
 
 [**Snake**](https://arcade.pattygcoding.com/snake) — the classic snake game, written
@@ -49,6 +55,7 @@ project only ships when visited.
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
 | `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
+| `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
 | `/suprememc` | `pages/suprememc` | Showcase for the SupremeMC Minecraft mod (no runtime WASM). |
 
@@ -62,6 +69,11 @@ SupremeMC has no runtime dependency: its Game Icons / Simple Icons artwork is
 inlined as path data in `pages/suprememc/suprememc-icons.ts` (lifted from the
 `react-icons` sets the portfolio uses, so the arcade does not depend on React),
 and its logo is served from `public/assets/images/suprememc.png`.
+
+Rustcraft is likewise static: its page reads the screenshots from
+`public/assets/images/rustcraft/` into a carousel, so dropping in a new PNG and
+listing it in the page's `SHOTS` array plus `en.json` is all it takes to add a
+slide.
 
 
 ## Language
@@ -132,7 +144,7 @@ URL          STATUS  PAGE TITLE
 /alkalab     200     Alkalab - Patrick Goodwin Arcade
                        card alkalab.png 1200x630 OK
 ...
-PASS - 4 shared URLs all serve distinct, crawler-readable OG tags.
+PASS - 5 shared URLs all serve distinct, crawler-readable OG tags.
 ```
 
 ### After deploying

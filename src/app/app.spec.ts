@@ -39,7 +39,7 @@ describe('App', () => {
     trigger?.click();
     await fixture.whenStable();
     expect(trigger?.getAttribute('aria-expanded')).toBe('true');
-    expect(compiled.querySelectorAll('#site-menu a[href]')).toHaveLength(4);
+    expect(compiled.querySelectorAll('#site-menu a[href]')).toHaveLength(5);
 
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     await fixture.whenStable();

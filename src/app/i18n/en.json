@@ -21,7 +21,8 @@
       "home": "Home",
       "alkalab": "Alkalab",
       "snake": "Snake",
-      "suprememc": "SupremeMC"
+      "suprememc": "SupremeMC",
+      "rustcraft": "Rustcraft"
     },
     "theme": {
       "title": "Switch colour theme",
@@ -55,6 +56,12 @@
       "kind": "Minecraft mod",
       "summary": "A content-packed Minecraft mod: new tools, armor, mobs, blocks, dimensions and structures, shipped on Fabric and NeoForge.",
       "stack": "Java & Kotlin"
+    },
+    "rustcraft": {
+      "name": "Rustcraft",
+      "kind": "Voxel game",
+      "summary": "A lightweight Minecraft-style voxel game written from scratch in Rust, with an infinite noise-generated world, carved caves and deferred lighting.",
+      "stack": "Rust & wgpu"
     }
   },
   "repoButton": {
@@ -239,6 +246,69 @@
           "version": "26.2",
           "text": "Rebuilt on a MultiLoader template to ship on both Fabric and NeoForge from one codebase."
         }
+      ]
+    }
+  },
+  "rustcraft": {
+    "title": "Rustcraft",
+    "kicker": "RUST / WGPU",
+    "description": "Rustcraft is a lightweight Minecraft-style voxel game written from scratch in Rust. Built on winit for windowing and wgpu for rendering rather than a full game engine, it owns its world, meshing and physics code, and grows an infinite noise-generated world of hills, cliffs, oceans and caves on the desktop.",
+    "gallery": {
+      "label": "Screenshots",
+      "title": "From inside the world",
+      "text": "Every chunk is generated from multi-octave Perlin noise, carved by Minecraft Beta's own cave and ravine carvers, then meshed and lit as it streams in around the player.",
+      "roledescription": "carousel",
+      "prev": "Previous screenshot",
+      "next": "Next screenshot",
+      "go_to": "Go to screenshot {{n}}",
+      "slide_status": "Screenshot {{current}} of {{total}}",
+      "shots": {
+        "world": {
+          "alt": "A Rustcraft landscape of rolling grass hills, cliffs and a translucent ocean under a bright sky",
+          "caption": "Rolling hills, cliffs and translucent oceans stream in around the player."
+        },
+        "caves": {
+          "alt": "A Rustcraft cave network glowing with the light of a lava pool below the surface",
+          "caption": "Cave and ravine carvers worm through the rock, pooling as lava at the bottom of the world."
+        },
+        "house": {
+          "alt": "A small wooden Rustcraft house built on a grass hillside",
+          "caption": "Break and place blocks to build, then stock the hotbar from a creative inventory."
+        }
+      }
+    },
+    "features": {
+      "label": "What's inside",
+      "title": "Feature highlights",
+      "world": {
+        "title": "Infinite world",
+        "text": "An infinite, noise-generated world of rolling hills, cliffs, overhangs and oceans, streamed in chunks around the player on worker threads."
+      },
+      "terrain": {
+        "title": "Carved terrain",
+        "text": "Minecraft Beta's own cave and ravine carvers cut networks of ellipsoids through the rock, and anything still open at lava level becomes a glowing lava sea."
+      },
+      "lighting": {
+        "title": "Deferred lighting",
+        "text": "The world renders into a G-buffer and is lit in one fullscreen pass: baked per-corner sky light with smooth lighting and ambient occlusion, plus a real sun shadow map."
+      },
+      "building": {
+        "title": "Build & explore",
+        "text": "A first-person fly camera where right-click breaks and left-click places, backed by a creative inventory of blocks you open with E."
+      }
+    },
+    "build": {
+      "label": "Engineering",
+      "title": "How it's built",
+      "text": "Rustcraft owns its world, meshing and physics code outright. Chunks are generated on worker threads while the frame loop keeps drawing, meshed with cross-chunk hidden-face culling, and drawn from individual PNGs in a texture_2d_array, so there is no engine sitting between the code and the GPU.",
+      "stack": "Technology stack",
+      "stack_items": [
+        "Rust",
+        "winit",
+        "wgpu",
+        "Edition 2024",
+        "Perlin noise",
+        "Shadow mapping"
       ]
     }
   }

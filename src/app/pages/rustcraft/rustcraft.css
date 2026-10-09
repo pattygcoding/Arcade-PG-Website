@@ -1,0 +1,244 @@
+/* Rustcraft page.  Shares the ported page shell (`portfolio-shell`, `page-heading`)
+   from src/styles.css and adds a screenshot carousel plus feature/build blocks in
+   the same navy-and-mint voice as the SupremeMC showcase. */
+
+:host {
+  display: block;
+  flex: 1 1 auto;
+}
+
+.rustcraft-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--page-accent);
+  font: 700 0.72rem 'Inter', sans-serif;
+  text-transform: uppercase;
+}
+
+.rustcraft-page h2 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.rustcraft-section {
+  padding: clamp(36px, 5vw, 60px) 0 0;
+}
+
+.rustcraft-section__head {
+  margin-bottom: 26px;
+}
+
+.rustcraft-section__head > p {
+  max-width: 760px;
+  margin: 14px 0 0;
+  color: var(--page-muted);
+  line-height: 1.8;
+}
+
+/* ---------------------------------------------------------------- carousel -- */
+
+.rustcraft-carousel {
+  position: relative;
+  border: 1px solid var(--page-line);
+  background: var(--page-surface);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+}
+
+.rustcraft-carousel:focus-visible {
+  outline: 2px solid var(--page-accent);
+  outline-offset: 4px;
+}
+
+.rustcraft-viewport {
+  overflow: hidden;
+}
+
+.rustcraft-track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: transform 420ms ease;
+}
+
+.rustcraft-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.rustcraft-slide__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--console);
+}
+
+.rustcraft-slide__caption {
+  flex: 1;
+  margin: 0;
+  padding: 14px 18px;
+  border-top: 1px solid var(--page-line);
+  color: var(--page-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.rustcraft-carousel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--page-line);
+}
+
+.rustcraft-carousel__nav {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--page-line);
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.rustcraft-carousel__nav:hover {
+  color: var(--page-accent);
+  border-color: var(--page-accent);
+}
+
+.rustcraft-carousel__status {
+  margin: 0;
+  color: var(--page-muted);
+  font: 0.78rem 'JetBrains Mono', ui-monospace, monospace;
+  text-align: center;
+}
+
+.rustcraft-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 16px;
+  list-style: none;
+}
+
+.rustcraft-dot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid var(--page-line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.rustcraft-dot:hover {
+  border-color: var(--page-accent);
+}
+
+.rustcraft-dot.is-active {
+  background: var(--page-accent);
+  border-color: var(--page-accent);
+  transform: scale(1.2);
+}
+
+/* ---------------------------------------------------------------- features -- */
+
+.rustcraft-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--page-line);
+  background: var(--page-line);
+}
+
+.rustcraft-feature {
+  padding: 26px 24px;
+  background: var(--bg-color);
+  transition: background-color 160ms ease;
+}
+
+.rustcraft-feature:hover {
+  background: var(--page-surface);
+}
+
+.rustcraft-feature h3 {
+  margin: 0 0 8px;
+  color: var(--text-color);
+  font-size: 1.15rem;
+}
+
+.rustcraft-feature p {
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------- build -- */
+
+.rustcraft-build {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: clamp(28px, 4vw, 64px);
+  align-items: start;
+}
+
+.rustcraft-build__copy p {
+  margin: 14px 0 0;
+  color: var(--page-muted);
+  line-height: 1.8;
+}
+
+.rustcraft-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rustcraft-tags li {
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--page-accent) 55%, var(--page-line));
+  color: var(--text-color);
+  font: 0.72rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+@media (max-width: 767px) {
+  .rustcraft-features,
+  .rustcraft-build {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rustcraft-track,
+  .rustcraft-dot,
+  .rustcraft-carousel__nav,
+  .rustcraft-feature {
+    transition: none;
+  }
+}

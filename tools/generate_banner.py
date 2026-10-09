@@ -89,6 +89,13 @@ PROJECTS = [
         "skills": ["wasm-bindgen glue", "Zero-copy pixels", "RAF render loop"],
     },
     {
+        "file": "banner-rustcraft.svg",
+        "name": "Rustcraft",
+        "toolchain": "Rust, winit and wgpu",
+        "category": "Rust + wgpu",
+        "skills": ["Chunk streaming", "Deferred lighting", "Procedural world"],
+    },
+    {
         "file": "banner-snake.svg",
         "name": "Snake",
         "toolchain": "Rust + miniquad, compiled to WebAssembly",

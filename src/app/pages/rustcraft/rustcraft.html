@@ -1,0 +1,164 @@
+<main class="rustcraft-page portfolio-shell">
+  <header class="page-heading">
+    <div class="page-eyebrow">
+      <span>{{ t.rustcraft.title }}</span>
+      <span class="eyebrow-tech">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+          />
+          <path d="m3.3 7 8.7 5 8.7-5" />
+          <path d="M12 22V12" />
+        </svg>
+        {{ t.rustcraft.kicker }}
+      </span>
+    </div>
+    <h1>{{ t.rustcraft.title }}</h1>
+    <p>{{ t.rustcraft.description }}</p>
+    <app-repo-button [href]="repo" />
+  </header>
+
+  <section class="rustcraft-section" aria-labelledby="rustcraft-gallery-title">
+    <div class="rustcraft-section__head">
+      <span class="rustcraft-label">{{ t.rustcraft.gallery.label }}</span>
+      <h2 id="rustcraft-gallery-title">{{ t.rustcraft.gallery.title }}</h2>
+      <p>{{ t.rustcraft.gallery.text }}</p>
+    </div>
+
+    <!-- A single track translates by one viewport width per slide, so adding a
+         PNG and a matching entry to `shots` is all it takes to grow the set. -->
+    <div
+      class="rustcraft-carousel"
+      role="group"
+      [attr.aria-roledescription]="t.rustcraft.gallery.roledescription"
+      [attr.aria-label]="t.rustcraft.gallery.title"
+      tabindex="0"
+      (keydown)="onKeydown($event)"
+      (pointerdown)="onPointerDown($event)"
+      (pointerup)="onPointerUp($event)"
+      (pointercancel)="onPointerUp($event)"
+    >
+      <div class="rustcraft-viewport">
+        <ul class="rustcraft-track" [style.transform]="'translateX(' + -index() * 100 + '%)'">
+          @for (shot of shots; track shot.src; let i = $index) {
+            <li class="rustcraft-slide" [attr.aria-hidden]="index() !== i">
+              <img
+                class="rustcraft-slide__img"
+                [src]="shot.src"
+                [attr.alt]="shot.alt"
+                [attr.loading]="i === 0 ? 'eager' : 'lazy'"
+                decoding="async"
+              />
+              <p class="rustcraft-slide__caption">{{ shot.caption }}</p>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="rustcraft-carousel__bar">
+        <button
+          type="button"
+          class="rustcraft-carousel__nav"
+          [attr.aria-label]="t.rustcraft.gallery.prev"
+          (click)="prev()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+
+        <p class="rustcraft-carousel__status" aria-live="polite">{{ slideStatus() }}</p>
+
+        <button
+          type="button"
+          class="rustcraft-carousel__nav"
+          [attr.aria-label]="t.rustcraft.gallery.next"
+          (click)="next()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1em"
+            height="1em"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      <ul class="rustcraft-carousel__dots">
+        @for (shot of shots; track shot.src; let i = $index) {
+          <li>
+            <button
+              type="button"
+              class="rustcraft-dot"
+              [class.is-active]="index() === i"
+              [attr.aria-label]="dotLabel(i)"
+              [attr.aria-current]="index() === i ? 'true' : null"
+              (click)="goTo(i)"
+            ></button>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="rustcraft-section" aria-labelledby="rustcraft-features-title">
+    <div class="rustcraft-section__head">
+      <span class="rustcraft-label">{{ t.rustcraft.features.label }}</span>
+      <h2 id="rustcraft-features-title">{{ t.rustcraft.features.title }}</h2>
+    </div>
+    <ul class="rustcraft-features">
+      @for (feature of features; track feature.key) {
+        <li class="rustcraft-feature">
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.text }}</p>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="rustcraft-section rustcraft-build" aria-labelledby="rustcraft-build-title">
+    <div class="rustcraft-build__copy">
+      <span class="rustcraft-label">{{ t.rustcraft.build.label }}</span>
+      <h2 id="rustcraft-build-title">{{ t.rustcraft.build.title }}</h2>
+      <p>{{ t.rustcraft.build.text }}</p>
+    </div>
+    <div class="rustcraft-build__stack">
+      <span class="rustcraft-label">{{ t.rustcraft.build.stack }}</span>
+      <ul class="rustcraft-tags">
+        @for (tech of stack; track tech) {
+          <li>{{ tech }}</li>
+        }
+      </ul>
+    </div>
+  </section>
+</main>

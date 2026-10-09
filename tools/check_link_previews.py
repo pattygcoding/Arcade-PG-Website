@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DIST = ROOT / "dist" / "arcade-pg-website" / "browser"
 ORIGIN = "https://arcade.pattygcoding.com"
 
-ROUTES = ["/", "/alkalab", "/snake", "/suprememc"]
+ROUTES = ["/", "/alkalab", "/rustcraft", "/snake", "/suprememc"]
 
 REQUIRED_META = [
     ("property", "og:type"),
