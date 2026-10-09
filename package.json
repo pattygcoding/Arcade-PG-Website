@@ -9,6 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "og:images": "python tools/generate_og_images.py",
+    "banners": "python tools/generate_banner.py",
     "check:previews": "python tools/check_link_previews.py"
   },
   "private": true,

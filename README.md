@@ -1,14 +1,44 @@
+![Patrick Goodwin Arcade — Angular, TypeScript and WebAssembly](docs/banner.svg)
+
 # Patrick Goodwin Arcade
 
-The arcade supporting website for the PG-Website repository. This is an
-**Angular + TypeScript** app (created with Angular CLI 21.2.26) whose landing page
-is intentionally blank apart from the arcade's name.
+The arcade supporting website for the PG-Website repository: a small collection of
+games and simulations, each built from scratch.
 
-It reuses the design language of `pattygcoding.dev` and the Connect Four showcase:
-a navy canvas with a mint accent, Inter for text and JetBrains Mono for the small
-uppercase `micro` labels, and a light/dark theme that is remembered between
-visits. Styling is Tailwind CSS v3 driven by CSS-variable colour tokens declared
-in `src/styles.css` and exposed through `tailwind.config.js`.
+It is an **Angular 21 + TypeScript** app (Angular CLI 21.2.26) that reuses the
+design language of `pattygcoding.dev` and the Connect Four showcase: a navy canvas
+with a mint accent, Inter for text and JetBrains Mono for the small uppercase
+`micro` labels, and a light/dark theme that is remembered between visits. Styling
+is Tailwind CSS v3 driven by CSS-variable colour tokens declared in
+`src/styles.css` and exposed through `tailwind.config.js`.
+
+## Projects
+
+![Alkalab — a powder-sand chemistry lab in Rust and WebAssembly](docs/banner-alkalab.svg)
+
+[**Alkalab**](https://arcade.pattygcoding.com/alkalab) — a powder-sand chemistry
+lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
+The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
+nothing crosses the boundary per frame.
+
+![Snake — the classic game, written in Rust and compiled to WebAssembly](docs/banner-snake.svg)
+
+[**Snake**](https://arcade.pattygcoding.com/snake) — the classic snake game, written
+in Rust and compiled to WebAssembly, driven by miniquad's JS runtime.
+
+![SupremeMC — a content-packed Minecraft mod](docs/banner-suprememc.svg)
+
+[**SupremeMC**](https://arcade.pattygcoding.com/suprememc) — a showcase for the
+content-packed Minecraft mod: 330+ items, 260+ blocks, custom dimensions and
+structures, shipped on Fabric and NeoForge from one MultiLoader codebase.
+
+The banners above are self-contained SVGs generated in the site's palette — no web
+fonts, no scripts and no network, so they render on GitHub, in a preview pane and
+offline. Regenerate them with:
+
+```sh
+npm run banners      # python tools/generate_banner.py
+```
 
 ## Pages
 
