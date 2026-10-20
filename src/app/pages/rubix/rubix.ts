@@ -9,6 +9,13 @@ import { RubixNet } from './rubix-net';
 const REPO = 'https://github.com/pattygcoding/Rubix-Cube-Solver';
 
 /**
+ * The SvelteKit front end this page was ported from, kept as an archive and
+ * offered as the second button beside the live repository, the way the portfolio
+ * links the legacy Go implementations of Tiger and the JSON/YAML formatter.
+ */
+const LEGACY_REPO = 'https://github.com/pattygcoding/Rubik-Cube-Solver-Legacy-Svelte';
+
+/**
  * Rubik's Cube solver: paint a cube, let the Rust/WebAssembly two-phase engine
  * solve it, then step through the solution.
  *
@@ -25,6 +32,7 @@ const REPO = 'https://github.com/pattygcoding/Rubix-Cube-Solver';
 export class Rubix implements OnInit {
   protected readonly t = strings;
   protected readonly repo = REPO;
+  protected readonly legacyRepo = LEGACY_REPO;
 
   /** One state object for the whole page; the components share it. */
   protected readonly cube = new RubixCubeState();

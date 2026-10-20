@@ -261,6 +261,7 @@
     "kicker": "RUST / WASM",
     "title": "Rubik's Cube Solver",
     "description": "Paint your scramble - click the stickers on the cube or in the unfolded net - then let a Herbert Kociemba style two-phase search, compiled from Rust to WebAssembly, find the moves.",
+    "legacy_repo": "View legacy Svelte implementation",
     "section_label": "Two-phase search",
     "section_title": "Paint, solve, replay",
     "aria_label": "Rubik's Cube solver. Click a sticker on the 3D cube or in the 2D net to paint it, then press Solve cube to get the moves.",

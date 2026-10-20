@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { strings } from '../../i18n/i18n';
 
+/** Filled call to action, or the outlined variant used for a legacy repository. */
+export type RepoButtonVariant = 'primary' | 'secondary';
+
 /**
  * "View the repository" call to action, ported from the portfolio's
  * RepoButton: it shows the GitHub path derived from the full URL.
@@ -13,6 +16,10 @@ import { strings } from '../../i18n/i18n';
 })
 export class RepoButton {
   readonly href = input.required<string>();
+  /** Overrides the default label, e.g. "View legacy Svelte implementation". */
+  readonly label = input<string>();
+  /** `secondary` is the outlined treatment the portfolio gives a legacy repo. */
+  readonly variant = input<RepoButtonVariant>('primary');
 
   protected readonly t = strings;
   protected readonly repoPath = githubRepoPath;

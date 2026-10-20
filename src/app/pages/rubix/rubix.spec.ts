@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Rubix } from './rubix';
 
 const REPO = 'https://github.com/pattygcoding/Rubix-Cube-Solver';
+const LEGACY_REPO = 'https://github.com/pattygcoding/Rubik-Cube-Solver-Legacy-Svelte';
 
 describe('Rubix', () => {
   beforeEach(async () => {
@@ -17,10 +18,28 @@ describe('Rubix', () => {
     expect(compiled.querySelector('app-rubix-cube-view')).not.toBeNull();
     expect(compiled.querySelector('app-rubix-controls')).not.toBeNull();
     expect(compiled.querySelector('[role="status"]')?.textContent?.trim()).toBeTruthy();
+  });
+
+  it('should link the live repository and the legacy Svelte one', async () => {
+    const fixture = TestBed.createComponent(Rubix);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
 
     const repo = compiled.querySelector(`a[href="${REPO}"]`);
     expect(repo).not.toBeNull();
+    expect(repo?.getAttribute('target')).toBe('_blank');
     expect(repo?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(repo?.textContent).toContain('View the repository');
+
+    const legacy = compiled.querySelector(`a[href="${LEGACY_REPO}"]`);
+    expect(legacy).not.toBeNull();
+    expect(legacy?.getAttribute('target')).toBe('_blank');
+    expect(legacy?.getAttribute('rel')).toBe('noopener noreferrer');
+    expect(legacy?.textContent).toContain('View legacy Svelte implementation');
+    // The legacy link wears the outlined variant, and the two sit in one row.
+    expect(legacy?.classList.contains('repo-button--secondary')).toBe(true);
+    expect(repo?.classList.contains('repo-button--secondary')).toBe(false);
+    expect(compiled.querySelectorAll('.rubix-repo-actions app-repo-button')).toHaveLength(2);
   });
 
   it('should offer a sticker per facelet in the unfolded net', async () => {

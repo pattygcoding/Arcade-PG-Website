@@ -31,7 +31,10 @@
     </div>
     <h1>{{ t.rubix.title }}</h1>
     <p>{{ t.rubix.description }}</p>
-    <app-repo-button [href]="repo" />
+    <div class="rubix-repo-actions">
+      <app-repo-button [href]="repo" />
+      <app-repo-button [href]="legacyRepo" [label]="t.rubix.legacy_repo" variant="secondary" />
+    </div>
   </header>
 
   <section class="rubix-section" aria-labelledby="rubix-solver-title">

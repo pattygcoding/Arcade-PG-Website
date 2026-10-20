@@ -1,7 +1,9 @@
 /* Ported from the portfolio's RepoButton.css; fonts aligned to this site. */
 .repo-button {
   --repo-accent: var(--page-accent, var(--accent-color));
-  margin-top: 30px;
+  /* The offset is overridable so a page can lay several buttons out as one row
+     and own the spacing itself (see `.rubix-repo-actions`). */
+  margin-top: var(--repo-button-offset, 30px);
   padding: 14px 22px 14px 14px;
   display: inline-flex;
   align-items: center;
@@ -23,6 +25,27 @@
   color: rgb(var(--on-accent));
   transform: translateY(-2px);
   box-shadow: 0 16px 36px -16px var(--repo-accent);
+}
+
+/* Legacy repository: outlined, so it reads as the secondary choice beside the
+   live repo's filled button. */
+.repo-button--secondary {
+  color: var(--repo-accent);
+  background: color-mix(in srgb, var(--repo-accent) 14%, transparent);
+  border-color: color-mix(in srgb, var(--repo-accent) 42%, transparent);
+  box-shadow: none;
+}
+
+.repo-button--secondary:hover,
+.repo-button--secondary:focus-visible {
+  color: var(--repo-accent);
+  background: color-mix(in srgb, var(--repo-accent) 24%, transparent);
+  border-color: var(--repo-accent);
+  box-shadow: none;
+}
+
+.repo-button--secondary .repo-button__icon {
+  background: color-mix(in srgb, var(--repo-accent) 16%, transparent);
 }
 
 .repo-button__icon {
@@ -72,7 +95,7 @@
 
 @media (max-width: 767px) {
   .repo-button {
-    margin-top: 24px;
+    margin-top: var(--repo-button-offset, 24px);
     width: 100%;
     padding: 12px 16px 12px 12px;
   }

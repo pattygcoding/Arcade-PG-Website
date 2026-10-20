@@ -16,6 +16,23 @@
   margin: 34px 0 14px;
 }
 
+/* The repository buttons: the live engine, then the archived Svelte front end it
+   was ported from, in one wrapping row.  The buttons' own top margin is turned
+   off through the component's offset property, so the row owns the spacing. */
+.rubix-repo-actions {
+  --repo-button-offset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+  .rubix-repo-actions {
+    margin-top: 24px;
+  }
+}
+
 .rubix-section-label {
   display: block;
   margin-bottom: 4px;

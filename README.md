@@ -28,6 +28,11 @@ scramble in 3D or on the unfolded net, then let a Herbert Kociemba style two-pha
 search, compiled from Rust to WebAssembly, find the moves and play them back one at a
 time.
 
+The engine and the archived front end are both linked from the page: the live crate at
+[Rubix-Cube-Solver](https://github.com/pattygcoding/Rubix-Cube-Solver), and the SvelteKit
+version this page was ported from at
+[Rubik-Cube-Solver-Legacy-Svelte](https://github.com/pattygcoding/Rubik-Cube-Solver-Legacy-Svelte).
+
 ![Rustcraft — a Minecraft-style voxel game written from scratch in Rust](docs/banner-rustcraft.svg)
 
 [**Rustcraft**](https://arcade.pattygcoding.com/rustcraft) — a lightweight
