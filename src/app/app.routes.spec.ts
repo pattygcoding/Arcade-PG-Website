@@ -20,7 +20,7 @@ describe('app routes', () => {
   it.each([
     ['/', '/'],
     ['/alkalab', '/alkalab'],
-    ['/rubix', '/rubix'],
+    ['/rubik', '/rubik'],
     ['/snake', '/snake'],
     ['/suprememc', '/suprememc'],
     ['/rustcraft', '/rustcraft'],
@@ -30,7 +30,7 @@ describe('app routes', () => {
     expect(router.url).toBe(expected);
   });
 
-  it.each(['/alkalab/', '/rubix/', '/snake/', '/suprememc/', '/rustcraft/'])(
+  it.each(['/alkalab/', '/rubik/', '/snake/', '/suprememc/', '/rustcraft/'])(
     'should resolve the trailing-slash deep link %s',
     async (url) => {
       const router = TestBed.inject(Router);
@@ -44,6 +44,12 @@ describe('app routes', () => {
     const router = TestBed.inject(Router);
     await router.navigateByUrl('/definitely-not-a-page');
     expect(router.url).toBe('/');
+  });
+
+  it('should send the short lived /rubix link to the page', async () => {
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/rubix');
+    expect(router.url).toBe('/rubik');
   });
 });
 

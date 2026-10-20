@@ -27,7 +27,7 @@ const GAME_CARDS: readonly GameCard[] = [
     stack: strings.games.alkalab.stack,
   },
   {
-    route: '/rubix',
+    route: '/rubik',
     mark: 'assets/images/rubix.svg',
     name: strings.games.rubix.name,
     kind: strings.games.rubix.kind,

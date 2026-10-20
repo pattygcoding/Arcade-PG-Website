@@ -23,7 +23,7 @@ describe('Home', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('a[href="/alkalab"]')).not.toBeNull();
-    expect(compiled.querySelector('a[href="/rubix"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/rubik"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/snake"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/suprememc"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/rustcraft"]')).not.toBeNull();
@@ -53,6 +53,6 @@ describe('Home', () => {
     const routes = Array.from(compiled.querySelectorAll('a[href]')).map((link) =>
       link.getAttribute('href'),
     );
-    expect(routes).toEqual(['/alkalab', '/rubix', '/rustcraft', '/snake', '/suprememc']);
+    expect(routes).toEqual(['/alkalab', '/rubik', '/rustcraft', '/snake', '/suprememc']);
   });
 });

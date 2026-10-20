@@ -68,7 +68,7 @@ CARDS = {
         ],
         "tags": ["JAVA", "KOTLIN", "FABRIC", "NEOFORGE"],
     },
-    "rubix": {
+    "rubik": {
         "eyebrow": "TWO-PHASE SEARCH",
         "title": [("Rubik's Cube Solver", False)],
         "body": [

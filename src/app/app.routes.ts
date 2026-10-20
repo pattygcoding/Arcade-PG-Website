@@ -15,10 +15,13 @@ export const routes: Routes = [
     title: `${strings.games.alkalab.name} - ${appName}`,
   },
   {
-    path: 'rubix',
+    path: 'rubik',
     loadComponent: () => import('./pages/rubix/rubix').then((m) => m.Rubix),
     title: `${strings.games.rubix.name} - ${appName}`,
   },
+  // The page shipped briefly at /rubix, so that link keeps working; GitHub Pages
+  // serves 404.html for the unknown path, which boots the app and lands here.
+  { path: 'rubix', redirectTo: 'rubik', pathMatch: 'full' },
   {
     path: 'rustcraft',
     loadComponent: () => import('./pages/rustcraft/rustcraft').then((m) => m.Rustcraft),

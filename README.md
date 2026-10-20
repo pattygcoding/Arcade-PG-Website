@@ -23,7 +23,7 @@ nothing crosses the boundary per frame.
 
 ![Rubik's Cube Solver — the Rust/WebAssembly two-phase solver with its three.js cube](docs/banner-rubix.svg)
 
-[**Rubik's Cube Solver**](https://arcade.pattygcoding.com/rubix) — paint a
+[**Rubik's Cube Solver**](https://arcade.pattygcoding.com/rubik) — paint a
 scramble in 3D or on the unfolded net, then let a Herbert Kociemba style two-phase
 search, compiled from Rust to WebAssembly, find the moves and play them back one at a
 time.
@@ -62,7 +62,7 @@ project only ships when visited.
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
 | `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
-| `/rubix` | `pages/rubix` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
+| `/rubik` | `pages/rubix` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
 | `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
 | `/suprememc` | `pages/suprememc` | Showcase for the SupremeMC Minecraft mod (no runtime WASM). |
@@ -75,7 +75,7 @@ binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
 verbatim, so they are fetched at runtime from `/wasm/...`.
 
 The solver page carries the one third-party runtime dependency in the arcade:
-three.js, which loads with the rest of its lazy chunk and is why `/rubix` costs about
+three.js, which loads with the rest of its lazy chunk and is why `/rubik` costs about
 600 kB raw (128 kB over the wire) where no other route pays for a framework it does
 not use.
 
@@ -163,8 +163,8 @@ URL          STATUS  PAGE TITLE
                        card home.png 1200x630 OK
 /alkalab     200     Alkalab - Patrick Goodwin Arcade
                        card alkalab.png 1200x630 OK
-/rubix       200     Rubik's Cube Solver - Patrick Goodwin Arcade
-                       card rubix.png 1200x630 OK
+/rubik       200     Rubik's Cube Solver - Patrick Goodwin Arcade
+                       card rubik.png 1200x630 OK
 ...
 PASS - 6 shared URLs all serve distinct, crawler-readable OG tags.
 ```
