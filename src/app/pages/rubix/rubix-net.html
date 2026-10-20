@@ -1,0 +1,37 @@
+<section class="net-view" [class.collapsed]="!open()">
+  <header>
+    <button type="button" class="toggle" [attr.aria-expanded]="open()" (click)="toggle()">
+      <span class="chevron" [class.open]="open()">&rsaquo;</span>
+      {{ t.net.toggle }}
+    </button>
+    <span class="legend">{{ t.net.legend }}</span>
+  </header>
+
+  @if (open()) {
+    <div class="net">
+      @for (entry of faces; track entry.face) {
+        <div class="face" [style.grid-row]="entry.row" [style.grid-column]="entry.column">
+          <span class="face-label">{{ letter(entry.face) }}</span>
+          <div class="stickers">
+            @for (position of positions; track position) {
+              <button
+                type="button"
+                class="sticker"
+                [class.fixed]="isCentre(index(entry.face, position))"
+                [class.unknown]="isUnknown(index(entry.face, position))"
+                [style.background]="background(index(entry.face, position))"
+                [disabled]="isCentre(index(entry.face, position))"
+                [attr.title]="title(entry.face, position)"
+                [attr.aria-label]="cellLabel(entry.face, position)"
+                (click)="paint($event, index(entry.face, position))"
+                (contextmenu)="erase($event, index(entry.face, position))"
+              ></button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <p class="note">{{ t.net.note }}</p>
+  }
+</section>

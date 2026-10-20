@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="mark-title">
+	<title id="mark-title">Rustcraft</title>
+	<defs>
+		<radialGradient id="mark-glow" cx="50%" cy="40%" r="58%">
+			<stop offset="0" stop-color="#db8d66" stop-opacity="0.16" />
+			<stop offset="1" stop-color="#db8d66" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+	<rect width="1024" height="1024" rx="180" fill="#281810" />
+	<rect x="4" y="4" width="1016" height="1016" rx="176" fill="none" stroke="#603824" stroke-width="8" />
+	<rect width="1024" height="1024" rx="180" fill="url(#mark-glow)" />
+		<circle cx="512" cy="512" r="230" fill="#db8d66"/>
+		<polygon points="454.8,217.5 569.2,217.5 571.5,289.8 452.5,289.8" fill="#db8d66"/>
+		<polygon points="679.8,263.3 760.7,344.2 711.2,397.0 627.0,312.8" fill="#db8d66"/>
+		<polygon points="806.5,454.8 806.5,569.2 734.2,571.5 734.2,452.5" fill="#db8d66"/>
+		<polygon points="760.7,679.8 679.8,760.7 627.0,711.2 711.2,627.0" fill="#db8d66"/>
+		<polygon points="569.2,806.5 454.8,806.5 452.5,734.2 571.5,734.2" fill="#db8d66"/>
+		<polygon points="344.2,760.7 263.3,679.8 312.8,627.0 397.0,711.2" fill="#db8d66"/>
+		<polygon points="217.5,569.2 217.5,454.8 289.8,452.5 289.8,571.5" fill="#db8d66"/>
+		<polygon points="263.3,344.2 344.2,263.3 397.0,312.8 312.8,397.0" fill="#db8d66"/>
+		<polygon points="512,362 642,437 512,512 382,437" fill="#eeb396"/>
+		<polygon points="642,437 512,512 512,662 642,587" fill="#c2693d"/>
+		<polygon points="382,437 512,512 512,662 382,587" fill="#8a5338"/>
+</svg>

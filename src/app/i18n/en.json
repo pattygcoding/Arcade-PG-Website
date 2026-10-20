@@ -22,6 +22,7 @@
       "alkalab": "Alkalab",
       "snake": "Snake",
       "suprememc": "SupremeMC",
+      "rubix": "Cube solver",
       "rustcraft": "Rustcraft"
     },
     "theme": {
@@ -56,6 +57,12 @@
       "kind": "Minecraft mod",
       "summary": "A content-packed Minecraft mod: new tools, armor, mobs, blocks, dimensions and structures, shipped on Fabric and NeoForge.",
       "stack": "Java & Kotlin"
+    },
+    "rubix": {
+      "name": "Rubik's Cube Solver",
+      "kind": "Puzzle solver",
+      "summary": "Paint a scramble in 3D or on the unfolded net, then watch a Kociemba style two-phase search find the moves.",
+      "stack": "Rust \u2192 WebAssembly"
     },
     "rustcraft": {
       "name": "Rustcraft",
@@ -247,6 +254,143 @@
           "text": "Rebuilt on a MultiLoader template to ship on both Fabric and NeoForge from one codebase."
         }
       ]
+    }
+  },
+  "rubix": {
+    "eyebrow": "Rubik's Cube Solver",
+    "kicker": "RUST / WASM",
+    "title": "Rubik's Cube Solver",
+    "description": "Paint your scramble - click the stickers on the cube or in the unfolded net - then let a Herbert Kociemba style two-phase search, compiled from Rust to WebAssembly, find the moves.",
+    "section_label": "Two-phase search",
+    "section_title": "Paint, solve, replay",
+    "aria_label": "Rubik's Cube solver. Click a sticker on the 3D cube or in the 2D net to paint it, then press Solve cube to get the moves.",
+    "pipeline": {
+      "rust": "Rust",
+      "bindgen": "wasm-bindgen",
+      "frontend": "Angular 21",
+      "view": "three.js"
+    },
+    "status": {
+      "loading": "Loading the engine",
+      "building": "Building lookup tables",
+      "ready": "Engine ready",
+      "solving": "Solving",
+      "error": "Engine failed"
+    },
+    "colors": {
+      "U": "White",
+      "R": "Red",
+      "F": "Green",
+      "D": "Yellow",
+      "L": "Orange",
+      "B": "Blue",
+      "unknown": "not painted"
+    },
+    "cube": {
+      "label": "The cube. Click a sticker to paint it, drag to orbit and scroll to zoom.",
+      "unavailable": "The 3D view needs WebGL, which this browser does not provide. Paint the cube in the 2D net below instead.",
+      "click": "Click a sticker to paint it",
+      "erase": "Right click or shift click to erase",
+      "orbit": "Drag to orbit, scroll to zoom",
+      "no_solution": "no solution",
+      "solved": "solved",
+      "moves": "{{cursor}}/{{total}} moves",
+      "playing": "playing {{cursor}}/{{total}}"
+    },
+    "net": {
+      "toggle": "2D net",
+      "legend": "white up - yellow down - green front - blue back - red right - orange left",
+      "cell": "{{face}} face, sticker {{position}}, {{color}}",
+      "centre_fixed": "Centre stickers are fixed",
+      "note": "Click a sticker to paint it with the selected colour. Right click or shift click clears a sticker. The top row of U is the back of the cube and the top row of D is the front, so the cross folds up exactly like the real cube."
+    },
+    "palette": {
+      "title": "Palette",
+      "erase": "Erase",
+      "counts_label": "Stickers painted per colour",
+      "swatch": "{{name}} ({{key}})",
+      "count_title": "{{color}}: {{count}} of 9 stickers",
+      "unknown_title": "{{count}} stickers are not painted yet",
+      "hint_incomplete": "{{painted}} of 54 stickers painted. Click stickers on the cube or in the net; keys 1-6 pick a colour, 0 erases.",
+      "hint_counts": "Every colour needs exactly nine stickers, but {{detail}}.",
+      "hint_complete": "All 54 stickers painted. Click any sticker to change it."
+    },
+    "solve": {
+      "title": "Solve",
+      "button": "Solve cube",
+      "solving": "Solving...",
+      "max_prefix": "max",
+      "max_suffix": "moves",
+      "scramble": "Scramble",
+      "scramble_title": "Scramble the cube with 22 random moves.",
+      "scramble_title_reset": "This cube cannot be solved, so it will be reset to a solved cube and then scrambled.",
+      "solved_cube": "Solved cube",
+      "solved_cube_title": "Replace the cube with a solved one.",
+      "clear": "Clear stickers",
+      "clear_title": "Unpaint every sticker except the centres.",
+      "loading": "Loading the WebAssembly solver...",
+      "building": "Building the two-phase lookup tables...",
+      "reason_busy": "The solving engine is busy.",
+      "reason_solve": "Solve the cube you painted."
+    },
+    "playback": {
+      "title": "Playback",
+      "step_back": "Step backwards",
+      "step_forward": "Step forwards",
+      "restart": "Restart",
+      "restart_title": "Restart the solution from the beginning",
+      "play": "Play",
+      "pause": "Pause",
+      "solve_and_play": "Solve & play",
+      "reason_play": "Play the solution.",
+      "reason_solve_play": "Solve the cube and play the solution move by move.",
+      "reason_solved": "The cube is already solved, so there is nothing to play.",
+      "speed": "Speed",
+      "speed_value": "{{ms}} ms / move",
+      "slower": "slower",
+      "faster": "faster",
+      "moves": "{{count}} moves",
+      "played": "{{count}} played",
+      "left": "{{count}} left",
+      "over_limit": "longer than the {{depth}} move limit",
+      "jump": "Jump to move {{n}}",
+      "hint_no_solution": "No solution yet: press Play to solve the cube and watch it, or press Solve cube to see the move list first.",
+      "hint_already_solved": "The cube is already solved, so there is nothing to play. Paint a scramble or press Scramble.",
+      "hint_unusable": "This cube cannot be played yet - see the note in the Solve panel above."
+    },
+    "meta": {
+      "no_solver": "solver not loaded",
+      "tables": "{{mb}} MB of tables",
+      "solved": "cube is solved",
+      "ready": "ready to play",
+      "attention": "cube needs attention"
+    },
+    "message": {
+      "engine_ready": "Solving engine ready: {{mb}} MB of lookup tables built in {{ms}} ms.",
+      "engine_failed": "Could not load the WebAssembly solver: {{error}}",
+      "engine_loading": "The solving engine is still loading.",
+      "centre_fixed": "Centre stickers are fixed - they say which face a sticker belongs to.",
+      "edit_cleared": "Editing the cube cleared the previous solution.",
+      "reset": "Cube reset to the solved state.",
+      "cleared": "Cleared every sticker - paint the cube to describe your scramble.",
+      "scramble_reset": "This cube could not be solved, so it was reset to a solved cube and then scrambled with {{count}} random moves.",
+      "scrambled": "Scrambled with {{count}} random moves.",
+      "already_solved": "This cube is already solved.",
+      "over_limit": "Found a {{count}} move solution, which is longer than the requested maximum of {{depth}} moves.",
+      "solved": "Solved in {{count}} moves. Press play or step through it.",
+      "finished": "Solution finished.",
+      "blank_cube": "No stickers painted. Paint the cube or press Scramble to get a random one.",
+      "incomplete": "{{painted}} of 54 stickers painted. Keep going, or right click a sticker to clear it.",
+      "too_many": "{{color}} has {{count}} stickers (too many)",
+      "too_few": "{{color}} has {{count}} stickers (too few)",
+      "counts": "Every colour needs exactly nine stickers: {{detail}}. Fix the stickers, or press Scramble to start from a valid cube.",
+      "waiting": "Waiting for the solving engine before this cube can be checked.",
+      "solvable": "All 54 stickers painted and the cube is solvable."
+    },
+    "footer": {
+      "before": "Phase 1 drives the cube into",
+      "group": "<U, D, R2, L2, F2, B2>",
+      "after": "guided by the twist x slice and flip x slice pruning tables; phase 2 finishes inside that subgroup with the corner permutation x slice permutation and edge permutation x slice permutation tables."
     }
   },
   "rustcraft": {

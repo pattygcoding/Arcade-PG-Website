@@ -21,6 +21,13 @@ lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
 The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
 nothing crosses the boundary per frame.
 
+![Rubik's Cube Solver — the Rust/WebAssembly two-phase solver with its three.js cube](docs/banner-rubix.svg)
+
+[**Rubik's Cube Solver**](https://arcade.pattygcoding.com/rubix) — paint a
+scramble in 3D or on the unfolded net, then let a Herbert Kociemba style two-phase
+search, compiled from Rust to WebAssembly, find the moves and play them back one at a
+time.
+
 ![Rustcraft — a Minecraft-style voxel game written from scratch in Rust](docs/banner-rustcraft.svg)
 
 [**Rustcraft**](https://arcade.pattygcoding.com/rustcraft) — a lightweight
@@ -55,6 +62,7 @@ project only ships when visited.
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
 | `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
+| `/rubix` | `pages/rubix` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
 | `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
 | `/suprememc` | `pages/suprememc` | Showcase for the SupremeMC Minecraft mod (no runtime WASM). |
@@ -62,8 +70,14 @@ project only ships when visited.
 These pages are adapted from the PG-Website portfolio and re-themed to this site's
 palette and fonts (Inter + JetBrains Mono). The wasm-backed projects keep their
 binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
-`alkalab.wasm` and `snake.wasm` — which Angular copies to the build output
+`alkalab.wasm`, `snake.wasm` and the solver's own pair `rubix_wasm_solver.js` /
+`rubix_wasm_solver_bg.wasm` — which Angular copies to the build output
 verbatim, so they are fetched at runtime from `/wasm/...`.
+
+The solver page carries the one third-party runtime dependency in the arcade:
+three.js, which loads with the rest of its lazy chunk and is why `/rubix` costs about
+600 kB raw (128 kB over the wire) where no other route pays for a framework it does
+not use.
 
 SupremeMC has no runtime dependency: its Game Icons / Simple Icons artwork is
 inlined as path data in `pages/suprememc/suprememc-icons.ts` (lifted from the
@@ -74,6 +88,12 @@ Rustcraft is likewise static: its page reads the screenshots from
 `public/assets/images/rustcraft/` into a carousel, so dropping in a new PNG and
 listing it in the page's `SHOTS` array plus `en.json` is all it takes to add a
 slide.
+
+Every card on the selection screen wears the game's own mark, so a project is shown
+here the same way it is on the portfolio: `alkalab.svg`, `rustcraft.svg` and
+`snake.svg` are copied verbatim from PG-Website's `public/assets/images/`, and
+SupremeMC shows the same `suprememc.png` mark PG-Website ships for it — the PNG the
+project page's hero already serves.
 
 
 ## Language
@@ -89,7 +109,7 @@ protected readonly t = strings;
 // template: {{ t.snake.title }}
 ```
 
-Only non-language constants stay in TypeScript (routes, icon names, the
+Only non-language constants stay in TypeScript (routes, artwork paths, the
 element names the WASM catalog reports). Adding a locale means dropping a sibling
 JSON file next to `en.json` and swapping which one `i18n.ts` exports.
 
@@ -143,8 +163,10 @@ URL          STATUS  PAGE TITLE
                        card home.png 1200x630 OK
 /alkalab     200     Alkalab - Patrick Goodwin Arcade
                        card alkalab.png 1200x630 OK
+/rubix       200     Rubik's Cube Solver - Patrick Goodwin Arcade
+                       card rubix.png 1200x630 OK
 ...
-PASS - 5 shared URLs all serve distinct, crawler-readable OG tags.
+PASS - 6 shared URLs all serve distinct, crawler-readable OG tags.
 ```
 
 ### After deploying

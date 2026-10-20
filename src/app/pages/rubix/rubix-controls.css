@@ -1,0 +1,375 @@
+/* The control panel: palette, solve and playback.  Ported from the SvelteKit
+   original, with its hard-coded dark palette swapped for this site's theme
+   tokens so light mode works too. */
+:host {
+  display: block;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgb(var(--line) / 0.1);
+  background: rgb(var(--ink-900) / 0.6);
+}
+
+.panel h2 {
+  margin: 0;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(var(--fg-dim));
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.row.secondary button {
+  flex: 1 1 auto;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  border: 1px solid rgb(var(--line) / 0.16);
+  background: rgb(var(--ink-850));
+  color: rgb(var(--fg));
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    border-color 120ms ease,
+    transform 90ms ease;
+}
+
+button svg {
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
+button:hover:not(:disabled) {
+  background: rgb(var(--ink-800));
+  border-color: rgb(var(--line) / 0.3);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.primary {
+  border-color: rgb(var(--accent) / 0.65);
+  background: linear-gradient(180deg, rgb(var(--accent)), rgb(var(--accent) / 0.8));
+  color: rgb(var(--on-accent));
+  font-weight: 700;
+}
+
+button.primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgb(var(--accent)), rgb(var(--accent)));
+  border-color: rgb(var(--accent));
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
+  gap: 6px;
+}
+
+.swatch {
+  padding: 6px 8px;
+  font-size: 0.74rem;
+}
+
+.swatch .dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 4px;
+  background: var(--swatch);
+  border: 1px solid rgb(var(--ink-950) / 0.45);
+  box-shadow: inset 0 0 0 1px rgb(var(--line) / 0.08);
+  flex: none;
+}
+
+.swatch .name {
+  color: rgb(var(--fg-soft));
+  white-space: nowrap;
+}
+
+.swatch.is-active {
+  border-color: rgb(var(--accent));
+  background: rgb(var(--accent) / 0.12);
+}
+
+.swatch.is-active .name {
+  color: rgb(var(--fg-strong));
+}
+
+.depth {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: rgb(var(--fg-muted));
+}
+
+.depth input {
+  width: 58px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgb(var(--line) / 0.16);
+  background: rgb(var(--ink-950));
+  color: rgb(var(--fg));
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+/* Sticker counts per colour: anything that is not nine is flagged, so a
+   miscounted cube is obvious before you even press Solve. */
+.counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--line) / 0.16);
+  background: rgb(var(--ink-950));
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--fg-muted));
+}
+
+.count .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--swatch);
+  border: 1px solid rgb(var(--ink-950) / 0.45);
+}
+
+.count.is-bad {
+  border-color: rgb(251 191 36 / 0.55);
+  background: rgb(120 53 15 / 0.22);
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.count.is-unknown {
+  --swatch: rgb(var(--ink-700));
+  border-style: dashed;
+  border-color: rgb(var(--line) / 0.3);
+}
+
+.validation {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: 1px solid rgb(var(--line) / 0.16);
+  background: rgb(var(--ink-950));
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: rgb(var(--fg-muted));
+}
+
+.validation.is-ok {
+  border-color: rgb(var(--accent) / 0.45);
+  background: rgb(var(--accent) / 0.08);
+  color: rgb(var(--accent));
+}
+
+.validation.is-impossible {
+  border-color: rgb(248 113 113 / 0.45);
+  background: rgb(80 20 20 / 0.3);
+  color: #fca5a5;
+}
+
+.speed {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 2px 10px;
+  font-size: 0.74rem;
+  color: rgb(var(--fg-muted));
+}
+
+.speed .label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.speed .value {
+  grid-column: 3;
+  grid-row: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* The ends caption sits under the track, so the direction is obvious. */
+.speed .ends {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(var(--hint));
+}
+
+.speed input[type='range'] {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  accent-color: rgb(var(--accent));
+  /* The value is milliseconds per move, so small is fast.  Rendering the
+     control right-to-left puts the *slow* end on the left and the *fast* end
+     on the right, which is how people expect a speed slider to read, while the
+     value itself stays truthful. */
+  direction: rtl;
+}
+
+.transport button {
+  min-width: 46px;
+  font-size: 0.9rem;
+}
+
+.transport button.play {
+  flex: 1 1 auto;
+}
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.74rem;
+  color: rgb(var(--fg-muted));
+  font-variant-numeric: tabular-nums;
+}
+
+.summary .warn {
+  color: #fbbf24;
+}
+
+.timeline {
+  display: flex;
+  gap: 6px;
+  padding-bottom: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.timeline .move {
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 42px;
+  padding: 5px 7px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.timeline .move .number {
+  font-size: 0.56rem;
+  color: rgb(var(--hint));
+  line-height: 1;
+}
+
+.timeline .move .token {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.timeline .move.done {
+  border-color: rgb(var(--accent) / 0.25);
+  background: rgb(var(--accent) / 0.06);
+  color: rgb(var(--fg-dim));
+}
+
+.timeline .move.next {
+  border-color: rgb(var(--line) / 0.4);
+  color: rgb(var(--fg-strong));
+}
+
+.timeline .move.current {
+  border-color: rgb(var(--accent));
+  background: rgb(var(--accent) / 0.14);
+  color: rgb(var(--accent));
+  box-shadow: 0 0 0 1px rgb(var(--accent) / 0.35);
+}
+
+.timeline .move.current .number {
+  color: rgb(var(--accent));
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: rgb(var(--fg-muted));
+}
+
+.error {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 9px;
+  border: 1px solid rgb(248 113 113 / 0.4);
+  background: rgb(127 29 29 / 0.22);
+  color: #fca5a5;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 4px;
+  font-size: 0.64rem;
+  color: rgb(var(--hint));
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+
+  button:active:not(:disabled) {
+    transform: none;
+  }
+}

@@ -39,7 +39,7 @@ CARDS = {
             "A collection of the games, tools and",
             "experiments I build.",
         ],
-        "tags": ["ALKALAB", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
+        "tags": ["ALKALAB", "RUBIX", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
     },
     "alkalab": {
         "eyebrow": "CHEMISTRY SANDBOX",
@@ -67,6 +67,15 @@ CARDS = {
             "dimensions and structures.",
         ],
         "tags": ["JAVA", "KOTLIN", "FABRIC", "NEOFORGE"],
+    },
+    "rubix": {
+        "eyebrow": "TWO-PHASE SEARCH",
+        "title": [("Rubik's Cube Solver", False)],
+        "body": [
+            "Paint a scramble in 3D or on the net,",
+            "then let the Rust engine find the moves.",
+        ],
+        "tags": ["RUST", "WEBASSEMBLY", "THREE.JS"],
     },
     "rustcraft": {
         "eyebrow": "VOXEL GAME",

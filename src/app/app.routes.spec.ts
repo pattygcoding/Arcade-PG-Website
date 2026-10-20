@@ -20,6 +20,7 @@ describe('app routes', () => {
   it.each([
     ['/', '/'],
     ['/alkalab', '/alkalab'],
+    ['/rubix', '/rubix'],
     ['/snake', '/snake'],
     ['/suprememc', '/suprememc'],
     ['/rustcraft', '/rustcraft'],
@@ -29,7 +30,7 @@ describe('app routes', () => {
     expect(router.url).toBe(expected);
   });
 
-  it.each(['/alkalab/', '/snake/', '/suprememc/', '/rustcraft/'])(
+  it.each(['/alkalab/', '/rubix/', '/snake/', '/suprememc/', '/rustcraft/'])(
     'should resolve the trailing-slash deep link %s',
     async (url) => {
       const router = TestBed.inject(Router);

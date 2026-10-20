@@ -1,0 +1,73 @@
+<main class="rubix-page portfolio-shell">
+  <header class="page-heading">
+    <div class="page-eyebrow">
+      <span>{{ t.rubix.eyebrow }}</span>
+      <span class="eyebrow-tech">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+          <rect x="9" y="9" width="6" height="6" />
+          <line x1="9" y1="1" x2="9" y2="4" />
+          <line x1="15" y1="1" x2="15" y2="4" />
+          <line x1="9" y1="20" x2="9" y2="23" />
+          <line x1="15" y1="20" x2="15" y2="23" />
+          <line x1="20" y1="9" x2="23" y2="9" />
+          <line x1="20" y1="14" x2="23" y2="14" />
+          <line x1="1" y1="9" x2="4" y2="9" />
+          <line x1="1" y1="14" x2="4" y2="14" />
+        </svg>
+        {{ t.rubix.kicker }}
+      </span>
+    </div>
+    <h1>{{ t.rubix.title }}</h1>
+    <p>{{ t.rubix.description }}</p>
+    <app-repo-button [href]="repo" />
+  </header>
+
+  <section class="rubix-section" aria-labelledby="rubix-solver-title">
+    <div class="rubix-section-head">
+      <div>
+        <span class="rubix-section-label">{{ t.rubix.section_label }}</span>
+        <h2 id="rubix-solver-title">{{ t.rubix.section_title }}</h2>
+      </div>
+      <span class="rubix-status" role="status">{{ statusLabel() }}</span>
+    </div>
+
+    <div class="rubix-layout">
+      <div class="rubix-stage">
+        <app-rubix-cube-view [cube]="cube" />
+        <app-rubix-net [cube]="cube" />
+      </div>
+
+      <aside class="rubix-sidebar" [attr.aria-label]="t.rubix.section_title">
+        <app-rubix-controls [cube]="cube" />
+      </aside>
+    </div>
+  </section>
+
+  <footer class="rubix-footer">
+    <p>
+      {{ t.rubix.footer.before }} <code>{{ t.rubix.footer.group }}</code>
+      {{ t.rubix.footer.after }}
+    </p>
+    <p class="rubix-pipeline" aria-hidden="true">
+      <span>{{ t.rubix.pipeline.rust }}</span>
+      <i>&rarr;</i>
+      <span>{{ t.rubix.pipeline.bindgen }}</span>
+      <i>&rarr;</i>
+      <span>{{ t.rubix.pipeline.frontend }}</span>
+      <i>&rarr;</i>
+      <span>{{ t.rubix.pipeline.view }}</span>
+    </p>
+  </footer>
+</main>

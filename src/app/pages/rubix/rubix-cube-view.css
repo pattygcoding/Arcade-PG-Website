@@ -1,0 +1,73 @@
+/* The 3D stage.  The <canvas> itself is created by three.js, so it carries no
+   Angular style scope: its own rules are applied in `buildScene` (see
+   `styleCanvas`). */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.cube-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  border-radius: 14px;
+  border: 1px solid rgb(var(--line) / 0.1);
+  background:
+    radial-gradient(circle at 30% 20%, rgb(var(--accent) / 0.08), transparent 55%),
+    radial-gradient(circle at 75% 80%, rgb(var(--glow-b) / 0.9), transparent 60%),
+    rgb(var(--ink-900) / 0.6);
+  overflow: hidden;
+}
+
+.hint {
+  position: absolute;
+  inset: auto auto 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  color: rgb(var(--fg-muted));
+  pointer-events: none;
+}
+
+/* Shown when the browser has no WebGL context: the 2D net and the controls below
+   still do the whole job. */
+.fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: rgb(var(--fg-muted));
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--line) / 0.14);
+  background: rgb(var(--ink-900) / 0.8);
+  color: rgb(var(--fg-muted));
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+.badge.is-solved {
+  border-color: rgb(var(--accent) / 0.5);
+  color: rgb(var(--accent));
+}
+
+.badge.is-playing {
+  border-color: rgb(var(--line) / 0.5);
+  color: rgb(var(--fg-soft));
+}

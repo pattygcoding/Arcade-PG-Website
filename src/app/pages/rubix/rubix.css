@@ -1,0 +1,114 @@
+/* Rubik's Cube solver - the Rust/WebAssembly two-phase engine with its 3D cube,
+   unfolded net and controls.  Ported from the SvelteKit original (one
+   prerendered page) to a lazy route here, re-themed to this site's palette and
+   fonts, and let light mode work by reading the shared theme tokens. */
+
+:host {
+  display: block;
+  flex: 1 1 auto;
+}
+
+.rubix-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 34px 0 14px;
+}
+
+.rubix-section-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--page-accent);
+  font: 700 0.7rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.rubix-section-head h2 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.rubix-status {
+  color: var(--page-muted);
+  font: 600 0.8rem 'Inter', sans-serif;
+}
+
+.rubix-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(20rem, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.rubix-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.rubix-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* The 3D view fills whatever height the page gives its host element (the canvas
+   inside it is sized by three.js from the container). */
+app-rubix-cube-view {
+  display: block;
+  height: clamp(380px, 52vh, 620px);
+}
+
+.rubix-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.rubix-footer p {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--page-line);
+  background: var(--page-surface);
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: var(--page-muted);
+}
+
+.rubix-footer code {
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: rgb(var(--ink-950));
+  color: rgb(var(--accent));
+  font-size: 0.68rem;
+}
+
+.rubix-pipeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rubix-pipeline span {
+  color: var(--text-color);
+}
+
+.rubix-pipeline i {
+  color: var(--page-accent);
+  font-style: normal;
+}
+
+@media (max-width: 1000px) {
+  .rubix-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

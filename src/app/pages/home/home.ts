@@ -2,31 +2,41 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { strings } from '../../i18n/i18n';
 
-type GameIcon = 'flask' | 'gamepad' | 'blocks' | 'pickaxe';
-
 interface GameCard {
   route: string;
+  /**
+   * The mark the PG-Website portfolio uses for this project, copied here so both
+   * sites show a game the same way.  SupremeMC's is a PNG there, and so is this.
+   */
+  mark: string;
   name: string;
   kind: string;
   summary: string;
   stack: string;
-  icon: GameIcon;
 }
 
 // The selection screen's cards.  Copy comes from en.json; only the route and the
-// icon (which are not language) live here.
+// mark (which are not language) live here.
 const GAME_CARDS: readonly GameCard[] = [
   {
     route: '/alkalab',
-    icon: 'flask',
+    mark: 'assets/images/alkalab.svg',
     name: strings.games.alkalab.name,
     kind: strings.games.alkalab.kind,
     summary: strings.games.alkalab.summary,
     stack: strings.games.alkalab.stack,
   },
   {
+    route: '/rubix',
+    mark: 'assets/images/rubix.svg',
+    name: strings.games.rubix.name,
+    kind: strings.games.rubix.kind,
+    summary: strings.games.rubix.summary,
+    stack: strings.games.rubix.stack,
+  },
+  {
     route: '/rustcraft',
-    icon: 'pickaxe',
+    mark: 'assets/images/rustcraft.svg',
     name: strings.games.rustcraft.name,
     kind: strings.games.rustcraft.kind,
     summary: strings.games.rustcraft.summary,
@@ -34,7 +44,7 @@ const GAME_CARDS: readonly GameCard[] = [
   },
   {
     route: '/snake',
-    icon: 'gamepad',
+    mark: 'assets/images/snake.svg',
     name: strings.games.snake.name,
     kind: strings.games.snake.kind,
     summary: strings.games.snake.summary,
@@ -42,7 +52,7 @@ const GAME_CARDS: readonly GameCard[] = [
   },
   {
     route: '/suprememc',
-    icon: 'blocks',
+    mark: 'assets/images/suprememc.png',
     name: strings.games.suprememc.name,
     kind: strings.games.suprememc.kind,
     summary: strings.games.suprememc.summary,

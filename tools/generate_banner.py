@@ -89,6 +89,13 @@ PROJECTS = [
         "skills": ["wasm-bindgen glue", "Zero-copy pixels", "RAF render loop"],
     },
     {
+        "file": "banner-rubix.svg",
+        "name": "Rubik's Cube Solver",
+        "toolchain": "Rust + WebAssembly, three.js",
+        "category": "Rust + WASM",
+        "skills": ["Two-phase search", "Pruning tables", "Layer tween"],
+    },
+    {
         "file": "banner-rustcraft.svg",
         "name": "Rustcraft",
         "toolchain": "Rust, winit and wgpu",

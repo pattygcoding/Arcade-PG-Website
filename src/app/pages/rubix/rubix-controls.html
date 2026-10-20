@@ -1,0 +1,276 @@
+<div class="controls">
+  <section class="panel palette">
+    <h2>{{ t.palette.title }}</h2>
+    <div class="swatches">
+      @for (entry of palette; track entry.value) {
+        <button
+          type="button"
+          class="swatch"
+          [class.is-active]="cube().activeColor() === entry.value"
+          [style.--swatch]="entry.css"
+          [attr.title]="swatchLabel(entry)"
+          [attr.aria-pressed]="cube().activeColor() === entry.value"
+          (click)="cube().activeColor.set(entry.value)"
+        >
+          <span class="dot"></span>
+          <span class="name">{{ entry.name }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="counts" [attr.aria-label]="t.palette.counts_label">
+      @for (entry of counts(); track entry.letter) {
+        <span
+          class="count"
+          [class.is-bad]="entry.count !== 9"
+          [style.--swatch]="entry.css"
+          [attr.title]="countLabel(entry)"
+        >
+          <span class="dot"></span>
+          <span class="num">{{ entry.count }}</span>
+        </span>
+      }
+      @if (missing() > 0) {
+        <span class="count is-unknown" [attr.title]="unknownLabel()">
+          <span class="dot"></span>
+          <span class="num">{{ missing() }}</span>
+        </span>
+      }
+    </div>
+
+    <p class="hint">{{ paletteHint() }}</p>
+  </section>
+
+  <section class="panel actions">
+    <h2>{{ t.solve.title }}</h2>
+    <div class="row">
+      <button
+        type="button"
+        class="primary"
+        [attr.title]="solveReason()"
+        [disabled]="cube().isBusy() || !cube().isSolvable()"
+        (click)="cube().solve()"
+      >
+        {{ cube().status() === 'solving' ? t.solve.solving : t.solve.button }}
+      </button>
+      <label class="depth" for="rubix-max-depth">
+        {{ t.solve.max_prefix }}
+        <input
+          id="rubix-max-depth"
+          name="rubix-max-depth"
+          type="number"
+          min="15"
+          max="30"
+          [value]="cube().maxDepth()"
+          (input)="setMaxDepth($event)"
+        />
+        {{ t.solve.max_suffix }}
+      </label>
+    </div>
+
+    <div class="row secondary">
+      <button
+        type="button"
+        [attr.title]="scrambleReason()"
+        [disabled]="cube().isBusy()"
+        (click)="cube().scramble()"
+      >
+        {{ t.solve.scramble }}
+      </button>
+      <button
+        type="button"
+        [attr.title]="t.solve.solved_cube_title"
+        [disabled]="cube().isBusy()"
+        (click)="cube().resetToSolved()"
+      >
+        {{ t.solve.solved_cube }}
+      </button>
+      <button
+        type="button"
+        [attr.title]="t.solve.clear_title"
+        [disabled]="cube().isBusy()"
+        (click)="cube().clearPaint()"
+      >
+        {{ t.solve.clear }}
+      </button>
+    </div>
+
+    @if (cube().status() === 'loading') {
+      <p class="hint">{{ t.solve.loading }}</p>
+    } @else if (cube().status() === 'building') {
+      <p class="hint">{{ t.solve.building }}</p>
+    } @else {
+      <p
+        class="validation"
+        [class.is-ok]="cube().validation().state === 'ok'"
+        [class.is-impossible]="cube().validation().state === 'impossible'"
+      >
+        {{ cube().validation().message }}
+      </p>
+    }
+
+    @if (cube().error()) {
+      <p class="error" role="alert">{{ cube().error() }}</p>
+    } @else if (cube().message()) {
+      <p class="hint">{{ cube().message() }}</p>
+    }
+  </section>
+
+  <section class="panel playback">
+    <h2>{{ t.playback.title }}</h2>
+    <div class="row transport">
+      <button
+        type="button"
+        [attr.title]="t.playback.step_back"
+        [attr.aria-label]="t.playback.step_back"
+        [disabled]="!cube().hasSolution() || cube().cursor() === 0"
+        (click)="cube().stepBackward()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polygon points="19 20 9 12 19 4 19 20" />
+          <line x1="5" x2="5" y1="19" y2="5" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="primary play"
+        [attr.title]="playReason()"
+        [attr.aria-label]="cube().playing() ? t.playback.pause : t.playback.play"
+        [disabled]="!cube().playing() && !cube().canPlay()"
+        (click)="cube().togglePlay()"
+      >
+        @if (cube().playing()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <rect x="6" y="4" width="4" height="16" />
+            <rect x="14" y="4" width="4" height="16" />
+          </svg>
+        } @else {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <polygon points="6 3 20 12 6 21 6 3" />
+          </svg>
+        }
+        <span>{{ playLabel() }}</span>
+      </button>
+
+      <button
+        type="button"
+        [attr.title]="t.playback.step_forward"
+        [attr.aria-label]="t.playback.step_forward"
+        [disabled]="!cube().hasSolution() || cube().remainingMoves() === 0"
+        (click)="cube().stepForward()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polygon points="5 4 15 12 5 20 5 4" />
+          <line x1="19" x2="19" y1="5" y2="19" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        [attr.title]="t.playback.restart_title"
+        [attr.aria-label]="t.playback.restart"
+        [disabled]="!cube().hasSolution() || cube().cursor() === 0"
+        (click)="cube().jumpTo(0)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+        </svg>
+        <span>{{ t.playback.restart }}</span>
+      </button>
+    </div>
+
+    <label class="speed" for="rubix-playback-speed">
+      <span class="label">{{ t.playback.speed }}</span>
+      <input
+        id="rubix-playback-speed"
+        name="rubix-playback-speed"
+        type="range"
+        min="100"
+        max="800"
+        step="20"
+        [value]="cube().speed()"
+        (input)="setSpeed($event)"
+      />
+      <span class="value">{{ speedLabel() }}</span>
+      <span class="ends" aria-hidden="true">
+        <span>{{ t.playback.slower }}</span>
+        <span>{{ t.playback.faster }}</span>
+      </span>
+    </label>
+
+    @if (cube().hasSolution()) {
+      <div class="summary">
+        <span>{{ summary().total }}</span>
+        <span>{{ summary().played }}</span>
+        <span>{{ summary().left }}</span>
+        @if (cube().exceedsLimit()) {
+          <span class="warn">{{ overLimitLabel() }}</span>
+        }
+      </div>
+
+      <div class="timeline" #timeline>
+        @for (move of cube().moves(); track $index) {
+          <button
+            type="button"
+            [class]="moveClass($index)"
+            [attr.title]="jumpLabel($index)"
+            (click)="cube().jumpTo($index + 1)"
+          >
+            <span class="number">{{ $index + 1 }}</span>
+            <span class="token">{{ move }}</span>
+          </button>
+        }
+      </div>
+    } @else if (cube().canPlay()) {
+      <p class="hint">{{ t.playback.hint_no_solution }}</p>
+    } @else if (cube().isPaintedSolved()) {
+      <p class="hint">{{ t.playback.hint_already_solved }}</p>
+    } @else {
+      <p class="hint">{{ t.playback.hint_unusable }}</p>
+    }
+  </section>
+
+  <footer class="meta">
+    <span>{{ engineLabel() }}</span>
+    <span>{{ stateLabel() }}</span>
+  </footer>
+</div>
