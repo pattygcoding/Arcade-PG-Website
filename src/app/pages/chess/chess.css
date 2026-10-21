@@ -154,27 +154,42 @@
   z-index: 1;
   /* The glyphs are drawn sitting on the text baseline with all of their height
      above it, so a centred line box leaves a piece floating high in its square.
-     The nudge drops it back onto the square's floor, and the filter and stroke
-     are in `em` so they grow with the piece instead of thinning out. */
+     The nudge drops it back onto the square's floor. */
   transform: translateY(0.04em);
   filter: drop-shadow(0 0.015em 0.015em rgba(0, 0, 0, 0.45));
-  /* Both sides draw the same solid glyph, so what separates a piece from the
-     square it stands on is this outline: dark around the white pieces, light
-     around the black ones. */
-  -webkit-text-stroke-width: 0.03em;
-  -webkit-text-stroke-color: rgba(12, 17, 24, 0.55);
+}
+
+/* A piece is drawn in two passes.  The element's own text is the solid glyph, so
+   the piece's `color` fills its body; the hollow glyph of the same drawing is laid
+   over that body here and filled in the colour opposite the body's.  The lines the
+   hollow glyph is drawn with - a pawn's collar and base, a bishop's mitre - are
+   what the solid glyph has filled in and lost, and they are left un-stroked so
+   they stay as fine as the drawing intended. */
+.chess-piece::after,
+.chess-promotion-picker button::after {
+  content: attr(data-lines);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 .chess-piece.is-white {
   color: var(--board-piece-white);
 }
 
+.chess-piece.is-white::after {
+  color: rgba(12, 17, 24, 0.9);
+}
+
 .chess-piece.is-black {
   color: var(--board-piece-black);
-  /* The black pieces only need a hairline of light ink to read against the dark
-     squares; the same weight as the white pieces would halo them. */
-  -webkit-text-stroke-width: 0.022em;
-  -webkit-text-stroke-color: rgba(250, 252, 253, 0.4);
+}
+
+.chess-piece.is-black::after {
+  color: rgba(250, 252, 253, 0.82);
 }
 
 .chess-target {
@@ -247,11 +262,20 @@
 }
 
 .chess-promotion-picker button {
+  position: relative;
   width: 3.4rem;
   height: 3.4rem;
+  /* No padding, so the button's own text and the line art laid over it centre on
+     the same box. */
+  padding: 0;
   font-size: 1.9rem;
   line-height: 1;
   color: var(--board-piece-white);
+}
+
+/* The chooser shows the same pieces the board does, line art and all. */
+.chess-promotion-picker button::after {
+  color: rgba(12, 17, 24, 0.9);
 }
 
 .chess-eval {

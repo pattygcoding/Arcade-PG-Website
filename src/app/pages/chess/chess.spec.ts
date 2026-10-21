@@ -99,11 +99,14 @@ describe('Chess', () => {
     // Sixteen pieces each, drawn as glyphs rather than images.
     expect(compiled.querySelectorAll('.chess-piece')).toHaveLength(32);
     expect(compiled.querySelectorAll('.chess-piece.is-white')).toHaveLength(16);
-    // Both sides draw the same solid artwork; only the colour tells them apart.
+    // Both sides draw the same solid artwork, told apart by their colour, with the
+    // hollow glyph of the same piece laid over it as the line art.
     const whiteKing = compiled.querySelector('.chess-square[data-square="e1"] .chess-piece');
     const blackKing = compiled.querySelector('.chess-square[data-square="e8"] .chess-piece');
     expect(whiteKing?.textContent).toBe('\u265A');
     expect(blackKing?.textContent).toBe('\u265A');
+    expect(whiteKing?.getAttribute('data-lines')).toBe('\u2654');
+    expect(blackKing?.getAttribute('data-lines')).toBe('\u2654');
     expect(whiteKing?.classList).toContain('is-white');
     expect(blackKing?.classList).toContain('is-black');
   });

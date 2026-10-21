@@ -67,6 +67,7 @@
                   class="chess-piece"
                   [class.is-white]="square.letter === square.letter.toUpperCase()"
                   [class.is-black]="square.letter !== square.letter.toUpperCase()"
+                  [attr.data-lines]="lines[square.letter.toUpperCase()]"
                   aria-hidden="true"
                   >{{ glyphs[square.letter.toUpperCase()] }}</span
                 >
@@ -100,6 +101,7 @@
               @for (piece of promotionPieces; track piece) {
                 <button
                   type="button"
+                  [attr.data-lines]="lines[piece.toUpperCase()]"
                   [attr.aria-label]="t.chess.controls.promote + ' ' + piece.toUpperCase()"
                   (click)="choosePromotion(piece)"
                 >

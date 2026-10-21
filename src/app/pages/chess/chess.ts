@@ -19,14 +19,14 @@ import { format, strings } from '../../i18n/i18n';
 const WORKER_URL = '/wasm/chess-worker.js';
 
 /**
- * The glyphs the board draws, by the piece the engine's placement string uses.
+ * The glyphs a piece's body is drawn with, by the piece the engine's placement
+ * string uses.
  *
- * Both colours draw the same artwork: the solid `BLACK CHESS ...` code points
- * (U+265A-U+265F).  Their `WHITE CHESS ...` counterparts (U+2654-U+2659) are the
- * same drawings left hollow, so a white piece showed the square straight through
- * its body.  A solid glyph takes its colour from the piece's own `color`, which
- * is what the two sides are told apart by, and the stroke in the stylesheet
- * outlines it.
+ * Both colours draw the same artwork - the solid `BLACK CHESS ...` code points
+ * (U+265A-U+265F) - and take their white or black body from the piece's own
+ * `color`.  Their `WHITE CHESS ...` counterparts (U+2654-U+2659) are the same
+ * drawings left hollow, so they are no use as a body: the square showed straight
+ * through one.  They are the line art instead; see `LINE_GLYPHS`.
  */
 const GLYPHS: Readonly<Record<string, string>> = {
   P: '\u265F',
@@ -35,6 +35,24 @@ const GLYPHS: Readonly<Record<string, string>> = {
   R: '\u265C',
   Q: '\u265B',
   K: '\u265A',
+};
+
+/**
+ * The line art drawn over a piece's body, as the hollow glyph of the same drawing.
+ *
+ * The solid glyph is the hollow one with its interior filled in, so it loses the
+ * lines that give a piece its shape: a pawn's collar and base, a bishop's mitre.
+ * Laying the hollow glyph over the body in the opposite colour puts them back, on
+ * a body that stays solid - which is what the stylesheet does with the
+ * `data-lines` attribute.
+ */
+const LINE_GLYPHS: Readonly<Record<string, string>> = {
+  P: '\u2659',
+  N: '\u2658',
+  B: '\u2657',
+  R: '\u2656',
+  Q: '\u2655',
+  K: '\u2654',
 };
 
 const FILES = 'abcdefgh';
@@ -142,6 +160,7 @@ export class Chess implements OnInit, OnDestroy {
   protected readonly t = strings;
   protected readonly repo = 'https://github.com/pattygcoding/PG-Chess';
   protected readonly glyphs = GLYPHS;
+  protected readonly lines = LINE_GLYPHS;
   protected readonly files = FILES;
   /** The four pieces a pawn can promote to, in the order the chooser shows them. */
   protected readonly promotionPieces = ['q', 'r', 'b', 'n'] as const;
