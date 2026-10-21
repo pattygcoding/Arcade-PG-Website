@@ -21,6 +21,16 @@ lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
 The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
 nothing crosses the boundary per frame.
 
+![Chess Engine — a bitboard engine in Rust and WebAssembly](docs/banner-chess.svg)
+
+[**Chess Engine**](https://arcade.pattygcoding.com/chess) — a bitboard chess engine
+compiled from Rust: iterative deepening negamax with alpha-beta pruning, a 32 MB
+transposition table, MVV-LVA ordering backed by killers and history, and a
+quiescence search at the leaves.  Play against it at three levels, or let it play
+both sides and watch the depth, score and node count as it goes.  Its move
+generator counts perft live in the browser, against the published totals for the
+starting position.
+
 ![Rubik's Cube Solver — the Rust/WebAssembly two-phase solver with its three.js cube](docs/banner-rubik.svg)
 
 [**Rubik's Cube Solver**](https://arcade.pattygcoding.com/rubik) — paint a
@@ -67,6 +77,7 @@ project only ships when visited.
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
 | `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
+| `/chess` | `pages/chess` | Bitboard chess engine (Rust compiled to WASM) in a Web Worker. |
 | `/rubik` | `pages/rubik` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
 | `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
@@ -75,9 +86,18 @@ project only ships when visited.
 These pages are adapted from the PG-Website portfolio and re-themed to this site's
 palette and fonts (Inter + JetBrains Mono). The wasm-backed projects keep their
 binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
-`alkalab.wasm`, `snake.wasm` and the solver's own pair `rubik_wasm_solver.js` /
-`rubik_wasm_solver_bg.wasm` — which Angular copies to the build output
-verbatim, so they are fetched at runtime from `/wasm/...`.
+`alkalab.wasm`, `snake.wasm`, the solver's own pair `rubik_wasm_solver.js` /
+`rubik_wasm_solver_bg.wasm`, and the engine's `pg_chess.js` / `pg_chess_bg.wasm` —
+which Angular copies to the build output verbatim, so they are fetched at runtime
+from `/wasm/...`.
+
+The chess page is the one project here that runs the engine off the main thread: it
+loads `public/wasm/chess-worker.js` as a module worker, and that worker owns the
+board, the move history and the search.  The page sends commands (`new`, `play`,
+`undo`, `search`, `perft`) and draws the snapshots it gets back, which is what lets a
+0.7-second search happen without the pointer ever stalling.  The engine itself lives
+in its own repository, [PG-Chess](https://github.com/pattygcoding/PG-Chess), where
+`wasm-pack build --target web --release` produces the two files copied in here.
 
 The solver page carries the one third-party runtime dependency in the arcade:
 three.js, which loads with the rest of its lazy chunk and is why `/rubik` costs about
@@ -95,10 +115,10 @@ listing it in the page's `SHOTS` array plus `en.json` is all it takes to add a
 slide.
 
 Every card on the selection screen wears the game's own mark, so a project is shown
-here the same way it is on the portfolio: `alkalab.svg`, `rustcraft.svg` and
-`snake.svg` are copied verbatim from PG-Website's `public/assets/images/`, and
-SupremeMC shows the same `suprememc.png` mark PG-Website ships for it — the PNG the
-project page's hero already serves.
+here the same way it is on the portfolio: `alkalab.svg`, `rustcraft.svg`,
+`snake.svg` and `chess.svg` are copied verbatim from PG-Website's
+`public/assets/images/`, and SupremeMC shows the same `suprememc.png` mark
+PG-Website ships for it — the PNG the project page's hero already serves.
 
 
 ## Language

@@ -20,6 +20,7 @@
       "label": "Projects",
       "home": "Home",
       "alkalab": "Alkalab",
+      "chess": "Chess",
       "snake": "Snake",
       "suprememc": "SupremeMC",
       "rubik": "Cube solver",
@@ -46,6 +47,12 @@
       "summary": "Paint elements onto a powder-sand grid, then watch them burn, dissolve, flow and explode.",
       "stack": "Rust \u2192 WebAssembly"
     },
+    "chess": {
+      "name": "Chess",
+      "kind": "Chess engine",
+      "summary": "Play a bitboard engine that searches alpha-beta with a transposition table and quiescence, and check its move generator against the perft counts.",
+      "stack": "Rust \u2192 WebAssembly"
+    },
     "snake": {
       "name": "Snake",
       "kind": "Arcade game",
@@ -69,6 +76,88 @@
       "kind": "Voxel game",
       "summary": "A lightweight Minecraft-style voxel game written from scratch in Rust, with an infinite noise-generated world, carved caves and deferred lighting.",
       "stack": "Rust & wgpu"
+    }
+  },
+  "chess": {
+    "title": "Chess Engine",
+    "eyebrow": "Chess",
+    "kicker": "RUST / WASM",
+    "description": "A chess engine written in Rust and compiled to WebAssembly. It searches with iterative deepening negamax, alpha-beta pruning, a 32 MB transposition table and a quiescence search at the leaves, and its move generator is checked against the published perft counts. All of it runs in a Web Worker, so the board never freezes.",
+    "section_label": "Playground",
+    "board_title": "Board",
+    "board_aria": "Chess board. Select a piece, then a marked square to move it.",
+    "white": "White",
+    "black": "Black",
+    "your_move": "Your move.",
+    "in_check": "You are in check.",
+    "thinking_white": "White is thinking\u2026",
+    "thinking_black": "Black is thinking\u2026",
+    "played": "{{side}} played {{move}}, depth {{depth}}, {{score}}.",
+    "pv": "Principal variation: {{line}}",
+    "pv_idle": "The engine reports its depth, score, node count and speed after every move.",
+    "pieces": {
+      "P": "white pawn",
+      "N": "white knight",
+      "B": "white bishop",
+      "R": "white rook",
+      "Q": "white queen",
+      "K": "white king",
+      "p": "black pawn",
+      "n": "black knight",
+      "b": "black bishop",
+      "r": "black rook",
+      "q": "black queen",
+      "k": "black king"
+    },
+    "controls": {
+      "new_game": "New game",
+      "take_back": "Take back",
+      "flip": "Flip board",
+      "level": "Level",
+      "you_play": "You play",
+      "both": "Both",
+      "promote": "Choose a piece to promote to",
+      "cancel": "Cancel"
+    },
+    "levels": {
+      "casual": "Casual",
+      "club": "Club",
+      "strong": "Strong"
+    },
+    "stats": {
+      "turn": "Turn",
+      "depth": "Depth",
+      "score": "Score",
+      "nodes": "Nodes",
+      "speed": "Speed"
+    },
+    "panels": {
+      "engine": "Engine",
+      "moves": "Move list",
+      "no_moves": "No moves yet.",
+      "check": "Move generator check"
+    },
+    "perft": {
+      "depth": "Depth",
+      "expected": "Expected",
+      "counted": "Counted",
+      "time": "Time",
+      "idle": "Count the first five depths here, in this tab.",
+      "run": "Run perft 1\u20135",
+      "running": "Counting\u2026",
+      "note": "Perft counts the leaves of the move tree. These are the published counts for the starting position, measured in this browser."
+    },
+    "result": {
+      "checkmate": "Checkmate: {{side}} is mated.",
+      "stalemate": "Stalemate: a draw.",
+      "fifty_move": "Draw by the fifty-move rule.",
+      "repetition": "Draw by threefold repetition.",
+      "material": "Draw: not enough material left to mate."
+    },
+    "status": {
+      "loading": "Loading the engine\u2026",
+      "failed": "The engine failed to load",
+      "illegal": "That move cannot be played"
     }
   },
   "repoButton": {

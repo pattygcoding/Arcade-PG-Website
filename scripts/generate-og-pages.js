@@ -34,6 +34,14 @@ const PAGES = [
     priority: '0.8',
   },
   {
+    route: 'chess',
+    title: `${t.games.chess.name} - ${t.meta.appName}`,
+    description: t.chess.description,
+    image: ogImage('chess'),
+    alt: t.chess.title,
+    priority: '0.8',
+  },
+  {
     route: 'rubik',
     title: `${t.games.rubik.name} - ${t.meta.appName}`,
     description: t.rubik.description,

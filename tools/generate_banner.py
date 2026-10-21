@@ -89,6 +89,13 @@ PROJECTS = [
         "skills": ["wasm-bindgen glue", "Zero-copy pixels", "RAF render loop"],
     },
     {
+        "file": "banner-chess.svg",
+        "name": "Chess Engine",
+        "toolchain": "Rust compiled to WebAssembly",
+        "category": "Rust + WASM",
+        "skills": ["Alpha-beta search", "Transposition table", "perft verified"],
+    },
+    {
         "file": "banner-rubik.svg",
         "name": "Rubik's Cube Solver",
         "toolchain": "Rust + WebAssembly, three.js",

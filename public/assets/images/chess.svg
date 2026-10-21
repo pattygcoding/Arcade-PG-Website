@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="chess-mark-title">
+	<title id="chess-mark-title">Chess Engine</title>
+	<!--
+		The project mark: a knight on a board, in the arcade's navy and mint.  Every
+		shape is a polygon or a rectangle, so it stays crisp at icon size and needs
+		no fonts, scripts or network.  The board is a 4x4 checker held far back, so
+		it reads as ground rather than as a second icon; the knight is the same
+		glyph the page draws on its board, written here as an outline: muzzle,
+		forehead, ear, mane and neck.
+	-->
+	<defs>
+		<radialGradient id="chess-mark-glow" cx="50%" cy="38%" r="60%">
+			<stop offset="0" stop-color="#8debc4" stop-opacity="0.16" />
+			<stop offset="1" stop-color="#8debc4" stop-opacity="0" />
+		</radialGradient>
+		<linearGradient id="chess-mark-piece" x1="0%" y1="0%" x2="60%" y2="100%">
+			<stop offset="0" stop-color="#f2f5f3" />
+			<stop offset="1" stop-color="#c3cad3" />
+		</linearGradient>
+		<pattern id="chess-mark-board" width="512" height="512" patternUnits="userSpaceOnUse">
+			<rect width="256" height="256" fill="#8debc4" fill-opacity="0.05" />
+			<rect x="256" y="256" width="256" height="256" fill="#8debc4" fill-opacity="0.05" />
+		</pattern>
+	</defs>
+	<rect width="1024" height="1024" rx="180" fill="#06090e" />
+	<rect width="1024" height="1024" rx="180" fill="url(#chess-mark-board)" />
+	<rect x="4" y="4" width="1016" height="1016" rx="176" fill="none" stroke="#16202b" stroke-width="8" />
+	<rect width="1024" height="1024" rx="180" fill="url(#chess-mark-glow)" />
+
+	<g transform="translate(0, 70)">
+		<!-- The knight, muzzle to the left. -->
+		<path
+			d="M 348 640 L 348 596 L 392 512 L 322 476 L 322 410 L 384 358 L 360 306 L 428 284 L 462 194 L 504 288 L 556 320 L 638 380 L 728 516 L 728 640 Z"
+			fill="url(#chess-mark-piece)"
+		/>
+		<!-- The eye and the nostril, cut out of the silhouette. -->
+		<circle cx="404" cy="392" r="17" fill="#06090e" />
+		<circle cx="352" cy="452" r="11" fill="#06090e" />
+		<!-- The base the knight stands on. -->
+		<rect x="312" y="648" width="432" height="66" rx="22" fill="#8debc4" />
+		<rect x="368" y="726" width="320" height="44" rx="16" fill="#3d7c64" />
+	</g>
+</svg>

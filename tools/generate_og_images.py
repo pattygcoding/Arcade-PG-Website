@@ -39,7 +39,16 @@ CARDS = {
             "A collection of the games, tools and",
             "experiments I build.",
         ],
-        "tags": ["ALKALAB", "RUBIK", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
+        "tags": ["ALKALAB", "CHESS", "RUBIK", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
+    },
+    "chess": {
+        "eyebrow": "CHESS ENGINE",
+        "title": [("Chess Engine", False)],
+        "body": [
+            "Alpha-beta search with a transposition table,",
+            "a perft-verified move generator, in Rust and Wasm.",
+        ],
+        "tags": ["RUST", "WEBASSEMBLY", "BITBOARDS"],
     },
     "alkalab": {
         "eyebrow": "CHEMISTRY SANDBOX",

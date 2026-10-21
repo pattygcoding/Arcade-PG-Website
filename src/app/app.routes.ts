@@ -15,6 +15,11 @@ export const routes: Routes = [
     title: `${strings.games.alkalab.name} - ${appName}`,
   },
   {
+    path: 'chess',
+    loadComponent: () => import('./pages/chess/chess').then((m) => m.Chess),
+    title: `${strings.games.chess.name} - ${appName}`,
+  },
+  {
     path: 'rubik',
     loadComponent: () => import('./pages/rubik/rubik').then((m) => m.Rubik),
     title: `${strings.games.rubik.name} - ${appName}`,

@@ -1,0 +1,389 @@
+/* Chess - the Rust/WebAssembly engine on a board.
+   The page reuses the arcade's shell (`.portfolio-shell`, `.page-heading`) and
+   reads the shared theme tokens, so light mode works without a second palette.
+   The board's own two colours are the only values defined here, and they are
+   defined once per theme. */
+
+:host {
+  display: block;
+  flex: 1 1 auto;
+}
+
+.chess-page {
+  /* Dark mode keeps the board a shade of the site's navy so the mint accent stays
+     the brightest thing on the page; light mode uses the classic grey/white pair.
+     Both are tuned so the two piece colours have somewhere to sit: the squares are
+     never so pale that a white piece vanishes, and the pieces carry their own
+     outline for the cases where they are. */
+  --board-light: #b9c4d0;
+  --board-dark: #4b5a6e;
+  --board-piece-white: #fbfdfc;
+  --board-piece-black: #161b23;
+  --board-mark: color-mix(in srgb, var(--page-accent) 30%, transparent);
+  --board-select: color-mix(in srgb, var(--page-accent) 48%, transparent);
+  --board-capture: color-mix(in srgb, #d9534f 70%, transparent);
+}
+:host-context(html[data-theme='light']) .chess-page {
+  --board-light: #e2e6ea;
+  --board-dark: #8697a9;
+  --board-piece-white: #ffffff;
+  --board-piece-black: #12161c;
+}
+
+.chess-section {
+  margin-top: 34px;
+}
+
+.chess-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.chess-section-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--page-accent);
+  font: 700 0.7rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.chess-section-head h2 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.chess-status-line {
+  color: var(--page-muted);
+  font: 600 0.82rem 'Inter', sans-serif;
+  text-align: right;
+}
+
+.chess-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(19rem, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.chess-stage {
+  position: relative;
+  padding: 14px;
+  border: 1px solid var(--page-line);
+  border-radius: 14px;
+  background: var(--page-surface);
+}
+
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  aspect-ratio: 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid var(--page-line);
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.chess-square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  line-height: 1;
+}
+
+.chess-square.is-light {
+  background: var(--board-light);
+}
+
+.chess-square.is-dark {
+  background: var(--board-dark);
+}
+
+.chess-square.is-playable {
+  cursor: pointer;
+}
+
+.chess-square.is-last::after,
+.chess-square.is-selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.chess-square.is-last::after {
+  background: var(--board-mark);
+}
+
+.chess-square.is-selected::after {
+  background: var(--board-select);
+}
+
+.chess-square.is-check::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--board-capture) 12%, transparent 72%);
+}
+
+.chess-piece {
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+  /* The Unicode chess glyphs are filled outlines, so a piece is defined by giving
+     it a stroke in the opposite direction of its fill.  Without this a white piece
+     on a light square is invisible, and the board flips through two themes. */
+  -webkit-text-stroke-width: 1.6px;
+  -webkit-text-stroke-color: rgba(12, 17, 24, 0.55);
+}
+
+.chess-piece.is-white {
+  color: var(--board-piece-white);
+}
+
+.chess-piece.is-black {
+  color: var(--board-piece-black);
+  -webkit-text-stroke-color: rgba(250, 252, 253, 0.42);
+}
+
+.chess-target {
+  position: absolute;
+  width: 26%;
+  height: 26%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg-color) 45%, transparent);
+}
+
+.chess-target.is-capture {
+  width: 88%;
+  height: 88%;
+  border-radius: 12%;
+  background: transparent;
+  border: 3px solid var(--board-capture);
+}
+
+.chess-coord {
+  position: absolute;
+  left: 3px;
+  bottom: 1px;
+  font: 600 9px 'JetBrains Mono', monospace;
+  color: color-mix(in srgb, var(--board-piece-black) 55%, transparent);
+}
+
+.chess-coord.is-file {
+  left: auto;
+  right: 3px;
+}
+
+/* The promotion chooser floats over the board, so it never moves the layout. */
+.chess-promotion {
+  position: absolute;
+  inset: 14px;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--bg-color) 78%, transparent);
+}
+
+/* Without this, the grid above would beat the element's own `hidden` attribute and
+   an invisible overlay would swallow every click on the board. */
+.chess-promotion[hidden] {
+  display: none;
+}
+
+.chess-promotion-picker {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--page-line);
+  border-radius: 12px;
+  background: var(--bg-color);
+}
+
+.chess-promotion-picker button {
+  width: 3.4rem;
+  height: 3.4rem;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--board-piece-white);
+}
+
+.chess-eval {
+  height: 8px;
+  margin-top: 14px;
+  border: 1px solid var(--page-line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-color) 80%, transparent);
+  overflow: hidden;
+}
+
+.chess-eval span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #dfe6ec, var(--page-accent));
+  transition: width 0.25s ease;
+}
+
+.chess-message {
+  min-height: 1.4rem;
+  margin: 12px 0 0;
+  color: var(--page-accent);
+  font-size: 0.9rem;
+}
+
+.chess-message.is-warn {
+  color: #f0b429;
+}
+
+.chess-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.chess-controls label {
+  color: var(--page-muted);
+  font: 700 0.7rem 'JetBrains Mono', ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.chess-controls select {
+  font: 600 0.85rem 'Inter', sans-serif;
+  color: var(--text-color);
+  background: var(--bg-color);
+  border: 1px solid var(--page-line);
+  border-radius: 9px;
+  padding: 8px 10px;
+}
+
+.chess-panel {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--page-line);
+  border-radius: 14px;
+  background: var(--page-surface);
+}
+
+.chess-panel h3 {
+  margin: 0 0 10px;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
+
+.chess-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 0;
+}
+
+.chess-stats > div {
+  min-width: 5rem;
+}
+
+.chess-stats dt {
+  margin-bottom: 3px;
+  color: var(--page-muted);
+  font: 700 0.66rem 'JetBrains Mono', ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.chess-stats dd {
+  margin: 0;
+  color: var(--text-color-2);
+  font: 600 1rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.chess-moves {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 16rem;
+  overflow-y: auto;
+  font: 500 0.82rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.chess-moves li {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr 1fr;
+  gap: 8px;
+  padding: 3px 4px;
+  border-radius: 5px;
+}
+
+.chess-moves li:nth-child(odd) {
+  background: color-mix(in srgb, var(--text-color) 4%, transparent);
+}
+
+.chess-moves .is-number {
+  color: var(--page-muted);
+}
+
+.chess-moves .is-empty {
+  color: var(--page-muted);
+}
+
+.chess-perft {
+  width: 100%;
+  border-collapse: collapse;
+  font: 500 0.76rem 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.chess-perft th,
+.chess-perft td {
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--page-line);
+  color: var(--page-muted);
+}
+
+.chess-perft td.is-ok {
+  color: var(--page-accent);
+}
+
+.chess-perft td.is-bad {
+  color: #ef6f6f;
+}
+
+.chess-note {
+  margin: 10px 0 0;
+  color: var(--page-muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.chess-actions {
+  --repo-button-offset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+@media (max-width: 1100px) {
+  .chess-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .chess-stage {
+    padding: 10px;
+  }
+  .chess-promotion {
+    inset: 10px;
+  }
+  .chess-status-line {
+    text-align: left;
+  }
+}
+

@@ -27,6 +27,14 @@ const GAME_CARDS: readonly GameCard[] = [
     stack: strings.games.alkalab.stack,
   },
   {
+    route: '/chess',
+    mark: 'assets/images/chess.svg',
+    name: strings.games.chess.name,
+    kind: strings.games.chess.kind,
+    summary: strings.games.chess.summary,
+    stack: strings.games.chess.stack,
+  },
+  {
     route: '/rubik',
     mark: 'assets/images/rubik.svg',
     name: strings.games.rubik.name,
