@@ -39,7 +39,7 @@ CARDS = {
             "A collection of the games, tools and",
             "experiments I build.",
         ],
-        "tags": ["ALKALAB", "RUBIX", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
+        "tags": ["ALKALAB", "RUBIK", "SNAKE", "SUPREMEMC", "RUSTCRAFT"],
     },
     "alkalab": {
         "eyebrow": "CHEMISTRY SANDBOX",

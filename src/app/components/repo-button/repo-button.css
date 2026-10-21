@@ -2,7 +2,7 @@
 .repo-button {
   --repo-accent: var(--page-accent, var(--accent-color));
   /* The offset is overridable so a page can lay several buttons out as one row
-     and own the spacing itself (see `.rubix-repo-actions`). */
+     and own the spacing itself (see `.rubik-repo-actions`). */
   margin-top: var(--repo-button-offset, 30px);
   padding: 14px 22px 14px 14px;
   display: inline-flex;

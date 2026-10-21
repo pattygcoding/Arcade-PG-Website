@@ -262,13 +262,19 @@ export interface CubePlacements {
 	readonly edges: readonly CubiePlacement[];
 }
 
+/**
+ * The even permutations of three normals, i.e. the three corner twists.
+ *
+ * The odd permutations are reflections.  They can match a half painted corner's
+ * colours just as well, but a reflection is not a rotation: three.js turns it
+ * into an unrelated quaternion, which can leave the corner's interior (black)
+ * faces pointing outwards.  A real corner cubie can only be twisted by one of
+ * these three cycles, so the odd permutations are never valid placements.
+ */
 const PERMUTATIONS_3: readonly (readonly number[])[] = [
 	[0, 1, 2],
 	[1, 2, 0],
-	[2, 0, 1],
-	[0, 2, 1],
-	[1, 0, 2],
-	[2, 1, 0]
+	[2, 0, 1]
 ];
 const PERMUTATIONS_2: readonly (readonly number[])[] = [
 	[0, 1],

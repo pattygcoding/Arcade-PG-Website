@@ -16,11 +16,12 @@ export const routes: Routes = [
   },
   {
     path: 'rubik',
-    loadComponent: () => import('./pages/rubix/rubix').then((m) => m.Rubix),
-    title: `${strings.games.rubix.name} - ${appName}`,
+    loadComponent: () => import('./pages/rubik/rubik').then((m) => m.Rubik),
+    title: `${strings.games.rubik.name} - ${appName}`,
   },
-  // The page shipped briefly at /rubix, so that link keeps working; GitHub Pages
-  // serves 404.html for the unknown path, which boots the app and lands here.
+  // The page shipped briefly with the older /rubix spelling, so that legacy
+  // link keeps working; GitHub Pages serves 404.html for the unknown path,
+  // which boots the app and lands here.
   { path: 'rubix', redirectTo: 'rubik', pathMatch: 'full' },
   {
     path: 'rustcraft',

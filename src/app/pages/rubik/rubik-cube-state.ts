@@ -1,7 +1,7 @@
 /**
  * The reactive cube state of the page.
  *
- * One `RubixCubeState` instance owns everything the UI needs: the 54 painted
+ * One `RubikCubeState` instance owns everything the UI needs: the 54 painted
  * sticker colours, the solver's answer, the playback cursor and the transition
  * the 3D view should animate.  It is written with Angular signals, so every
  * component that reads a value re-renders when it changes.
@@ -13,7 +13,7 @@
 
 import { computed, signal } from '@angular/core';
 import { format, strings } from '../../i18n/i18n';
-import { FACE_COLORS, UNKNOWN_STICKER } from './rubix-geometry';
+import { FACE_COLORS, UNKNOWN_STICKER } from './rubik-geometry';
 import {
   colorsToFacelets,
   describeError,
@@ -21,7 +21,7 @@ import {
   getSolver,
   loadSolver,
   solvedColors,
-} from './rubix-solver';
+} from './rubik-solver';
 
 /** Lifecycle of the WebAssembly engine. */
 export type SolverStatus = 'loading' | 'building' | 'ready' | 'solving' | 'error';
@@ -72,11 +72,11 @@ const SCRAMBLE_LENGTH = 22;
 export function colorName(sticker: number | undefined): string {
   const letter = sticker === undefined ? undefined : FACE_COLORS[sticker]?.letter;
   return letter
-    ? strings.rubix.colors[letter as keyof typeof strings.rubix.colors]
-    : strings.rubix.colors.unknown;
+    ? strings.rubik.colors[letter as keyof typeof strings.rubik.colors]
+    : strings.rubik.colors.unknown;
 }
 
-export class RubixCubeState {
+export class RubikCubeState {
   // -- the cube the user paints ------------------------------------------
   /** Sticker colours: 54 entries of `0..5` or `UNKNOWN_STICKER`. */
   readonly colors = signal<number[]>(solvedColors());
@@ -184,8 +184,8 @@ export class RubixCubeState {
         ok: false,
         message:
           unknown === 54
-            ? strings.rubix.message.blank_cube
-            : format(strings.rubix.message.incomplete, { painted: 54 - unknown, unknown }),
+            ? strings.rubik.message.blank_cube
+            : format(strings.rubik.message.incomplete, { painted: 54 - unknown, unknown }),
       };
     }
 
@@ -198,8 +198,8 @@ export class RubixCubeState {
         .map((entry) =>
           format(
             entry.count > 9
-              ? strings.rubix.message.too_many
-              : strings.rubix.message.too_few,
+              ? strings.rubik.message.too_many
+              : strings.rubik.message.too_few,
             { color: entry.name, count: entry.count },
           ),
         )
@@ -207,13 +207,13 @@ export class RubixCubeState {
       return {
         state: 'counts',
         ok: false,
-        message: format(strings.rubix.message.counts, { detail }),
+        message: format(strings.rubik.message.counts, { detail }),
       };
     }
 
     const solver = getSolver();
     if (!solver) {
-      return { state: 'incomplete', ok: false, message: strings.rubix.message.waiting };
+      return { state: 'incomplete', ok: false, message: strings.rubik.message.waiting };
     }
     try {
       const problem = solver.validationError(this.facelets());
@@ -221,7 +221,7 @@ export class RubixCubeState {
     } catch (error) {
       return { state: 'impossible', ok: false, message: describeError(error) };
     }
-    return { state: 'ok', ok: true, message: strings.rubix.message.solvable };
+    return { state: 'ok', ok: true, message: strings.rubik.message.solvable };
   });
 
   /** True when the engine accepts the painted cube. */
@@ -300,14 +300,14 @@ export class RubixCubeState {
       this.solverGeneration.update((value) => value + 1);
       this.status.set('ready');
       this.message.set(
-        format(strings.rubix.message.engine_ready, {
+        format(strings.rubik.message.engine_ready, {
           mb: (solver.tableBytes / 1024 / 1024).toFixed(1),
           ms: this.buildTimeMs(),
         }),
       );
     } catch (error) {
       this.status.set('error');
-      this.error.set(format(strings.rubix.message.engine_failed, { error: describeError(error) }));
+      this.error.set(format(strings.rubik.message.engine_failed, { error: describeError(error) }));
     }
   }
 
@@ -323,13 +323,13 @@ export class RubixCubeState {
   paintSticker(displayIndex: number, color: number): void {
     const index = this.baseStickerIndex(displayIndex);
     if (isCentre(index)) {
-      this.message.set(strings.rubix.message.centre_fixed);
+      this.message.set(strings.rubik.message.centre_fixed);
       return;
     }
     const next = [...this.colors()];
     next[index] = color;
     this.colors.set(next);
-    this.clearSolution(strings.rubix.message.edit_cleared);
+    this.clearSolution(strings.rubik.message.edit_cleared);
   }
 
   /** Remove the colour of one sticker. */
@@ -341,7 +341,7 @@ export class RubixCubeState {
   resetToSolved(): void {
     this.colors.set(solvedColors());
     this.clearSolution();
-    this.message.set(strings.rubix.message.reset);
+    this.message.set(strings.rubik.message.reset);
     this.error.set('');
   }
 
@@ -351,7 +351,7 @@ export class RubixCubeState {
       this.colors().map((color, index) => (isCentre(index) ? color : UNKNOWN_STICKER)),
     );
     this.clearSolution();
-    this.message.set(strings.rubix.message.cleared);
+    this.message.set(strings.rubik.message.cleared);
     this.error.set('');
   }
 
@@ -366,7 +366,7 @@ export class RubixCubeState {
   scramble(length = SCRAMBLE_LENGTH): void {
     const solver = getSolver();
     if (!solver) {
-      this.error.set(strings.rubix.message.engine_loading);
+      this.error.set(strings.rubik.message.engine_loading);
       return;
     }
     const reset = !this.isSolvable();
@@ -385,7 +385,7 @@ export class RubixCubeState {
       this.colors.set(faceletsToColors(solver.applyMoves(colorsToFacelets(from), parts.join(' '))));
       this.clearSolution();
       this.error.set('');
-      this.message.set(format(reset ? strings.rubix.message.scramble_reset : strings.rubix.message.scrambled, { count: length }));
+      this.message.set(format(reset ? strings.rubik.message.scramble_reset : strings.rubik.message.scrambled, { count: length }));
     } catch (error) {
       this.error.set(describeError(error));
     }
@@ -416,7 +416,7 @@ export class RubixCubeState {
   async solve(): Promise<void> {
     const solver = getSolver();
     if (!solver) {
-      this.error.set(strings.rubix.message.engine_loading);
+      this.error.set(strings.rubik.message.engine_loading);
       return;
     }
     this.pause();
@@ -433,13 +433,13 @@ export class RubixCubeState {
       this.cursor.set(0);
       this.bump('snap');
       if (moves.length === 0) {
-        this.message.set(strings.rubix.message.already_solved);
+        this.message.set(strings.rubik.message.already_solved);
       } else if (moves.length > this.maxDepth()) {
         this.message.set(
-          format(strings.rubix.message.over_limit, { count: moves.length, depth: this.maxDepth() }),
+          format(strings.rubik.message.over_limit, { count: moves.length, depth: this.maxDepth() }),
         );
       } else {
-        this.message.set(format(strings.rubix.message.solved, { count: moves.length }));
+        this.message.set(format(strings.rubik.message.solved, { count: moves.length }));
       }
     } catch (error) {
       this.moves.set([]);
@@ -551,7 +551,7 @@ export class RubixCubeState {
         this.scheduleStep();
       } else {
         this.playing.set(false);
-        if (advanced) this.message.set(strings.rubix.message.finished);
+        if (advanced) this.message.set(strings.rubik.message.finished);
       }
     }, this.speed());
   }

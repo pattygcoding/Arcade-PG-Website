@@ -8,8 +8,8 @@ import {
   viewChild,
 } from '@angular/core';
 import { format, strings } from '../../i18n/i18n';
-import { colorName, type RubixCubeState } from './rubix-cube-state';
-import { FACE_COLORS, UNKNOWN_CSS, UNKNOWN_STICKER } from './rubix-geometry';
+import { colorName, type RubikCubeState } from './rubik-cube-state';
+import { FACE_COLORS, UNKNOWN_CSS, UNKNOWN_STICKER } from './rubik-geometry';
 
 /** One entry of the colour palette: a face colour, or the eraser. */
 interface Swatch {
@@ -28,9 +28,9 @@ interface Swatch {
  * button, playback controls and the move timeline.
  */
 @Component({
-  selector: 'app-rubix-controls',
-  templateUrl: './rubix-controls.html',
-  styleUrl: './rubix-controls.css',
+  selector: 'app-rubik-controls',
+  templateUrl: './rubik-controls.html',
+  styleUrl: './rubik-controls.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     // Number keys pick a colour, so painting stays quick.  Bound on `document`
@@ -38,11 +38,11 @@ interface Swatch {
     '(document:keydown)': 'onKeyDown($event)',
   },
 })
-export class RubixControls {
+export class RubikControls {
   /** The shared cube state, owned by the page. */
-  readonly cube = input.required<RubixCubeState>();
+  readonly cube = input.required<RubikCubeState>();
 
-  protected readonly t = strings.rubix;
+  protected readonly t = strings.rubik;
   protected readonly unknown = UNKNOWN_STICKER;
 
   /** Palette entries: the six colours plus an eraser. */
@@ -55,7 +55,7 @@ export class RubixControls {
     })),
     {
       value: UNKNOWN_STICKER,
-      name: strings.rubix.palette.erase,
+      name: strings.rubik.palette.erase,
       css: UNKNOWN_CSS,
       key: '0',
     },
@@ -181,14 +181,26 @@ export class RubixControls {
   private readonly timelineRef = viewChild<ElementRef<HTMLDivElement>>('timeline');
 
   constructor() {
-    // Keep the move that is about to be applied in view.
+    // Keep the move that is about to be applied in view.  Only the timeline
+    // strip itself may scroll: `scrollIntoView` also scrolls every ancestor,
+    // which stole the page scroll away from the reader on every step of
+    // playback.
     effect(() => {
       const cursor = this.cube().cursor();
       const total = this.cube().moves().length;
       void cursor;
       void total;
-      const active = this.timelineRef()?.nativeElement.querySelector('.move.next, .move.current');
-      active?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      const timeline = this.timelineRef()?.nativeElement;
+      const active = timeline?.querySelector<HTMLElement>('.move.next, .move.current');
+      if (!timeline || !active) return;
+      // Measure against the strip's own box, so the calculation does not depend
+      // on which positioned ancestor the browser picked as the offset parent.
+      const left =
+        timeline.scrollLeft +
+        active.getBoundingClientRect().left -
+        timeline.getBoundingClientRect().left -
+        (timeline.clientWidth - active.offsetWidth) / 2;
+      timeline.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
     });
   }
 

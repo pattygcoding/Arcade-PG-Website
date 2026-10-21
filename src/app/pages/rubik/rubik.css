@@ -8,7 +8,7 @@
   flex: 1 1 auto;
 }
 
-.rubix-section-head {
+.rubik-section-head {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -19,7 +19,7 @@
 /* The repository buttons: the live engine, then the archived Svelte front end it
    was ported from, in one wrapping row.  The buttons' own top margin is turned
    off through the component's offset property, so the row owns the spacing. */
-.rubix-repo-actions {
+.rubik-repo-actions {
   --repo-button-offset: 0;
   display: flex;
   flex-wrap: wrap;
@@ -28,43 +28,43 @@
 }
 
 @media (max-width: 767px) {
-  .rubix-repo-actions {
+  .rubik-repo-actions {
     margin-top: 24px;
   }
 }
 
-.rubix-section-label {
+.rubik-section-label {
   display: block;
   margin-bottom: 4px;
   color: var(--page-accent);
   font: 700 0.7rem 'JetBrains Mono', ui-monospace, monospace;
 }
 
-.rubix-section-head h2 {
+.rubik-section-head h2 {
   margin: 0;
   color: var(--text-color);
 }
 
-.rubix-status {
+.rubik-status {
   color: var(--page-muted);
   font: 600 0.8rem 'Inter', sans-serif;
 }
 
-.rubix-layout {
+.rubik-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(20rem, 1fr);
   gap: 16px;
   align-items: start;
 }
 
-.rubix-stage {
+.rubik-stage {
   display: flex;
   flex-direction: column;
   gap: 16px;
   min-width: 0;
 }
 
-.rubix-sidebar {
+.rubik-sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -73,19 +73,19 @@
 
 /* The 3D view fills whatever height the page gives its host element (the canvas
    inside it is sized by three.js from the container). */
-app-rubix-cube-view {
+app-rubik-cube-view {
   display: block;
   height: clamp(380px, 52vh, 620px);
 }
 
-.rubix-footer {
+.rubik-footer {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 22px;
 }
 
-.rubix-footer p {
+.rubik-footer p {
   margin: 0;
   padding: 12px 14px;
   border-radius: 12px;
@@ -96,7 +96,7 @@ app-rubix-cube-view {
   color: var(--page-muted);
 }
 
-.rubix-footer code {
+.rubik-footer code {
   padding: 1px 5px;
   border-radius: 5px;
   background: rgb(var(--ink-950));
@@ -104,7 +104,7 @@ app-rubix-cube-view {
   font-size: 0.68rem;
 }
 
-.rubix-pipeline {
+.rubik-pipeline {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -115,17 +115,17 @@ app-rubix-cube-view {
   text-transform: uppercase;
 }
 
-.rubix-pipeline span {
+.rubik-pipeline span {
   color: var(--text-color);
 }
 
-.rubix-pipeline i {
+.rubik-pipeline i {
   color: var(--page-accent);
   font-style: normal;
 }
 
 @media (max-width: 1000px) {
-  .rubix-layout {
+  .rubik-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 }

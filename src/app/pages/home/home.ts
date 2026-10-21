@@ -28,11 +28,11 @@ const GAME_CARDS: readonly GameCard[] = [
   },
   {
     route: '/rubik',
-    mark: 'assets/images/rubix.svg',
-    name: strings.games.rubix.name,
-    kind: strings.games.rubix.kind,
-    summary: strings.games.rubix.summary,
-    stack: strings.games.rubix.stack,
+    mark: 'assets/images/rubik.svg',
+    name: strings.games.rubik.name,
+    kind: strings.games.rubik.kind,
+    summary: strings.games.rubik.summary,
+    stack: strings.games.rubik.stack,
   },
   {
     route: '/rustcraft',

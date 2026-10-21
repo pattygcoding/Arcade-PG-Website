@@ -1,0 +1,54 @@
+<section class="cube-view" #container [attr.aria-label]="t.cube.label">
+  @if (unavailable()) {
+    <p class="fallback">{{ t.cube.unavailable }}</p>
+  } @else {
+    <div class="hint">
+      <span>{{ t.cube.click }}</span>
+      <span>{{ t.cube.erase }}</span>
+      <span>{{ t.cube.orbit }}</span>
+    </div>
+  }
+  <div
+    class="badge"
+    aria-hidden="true"
+    [class.is-solved]="cube().isSolved()"
+    [class.is-playing]="cube().playing()"
+  >
+    {{ badge() }}
+  </div>
+
+  <!-- Phones show the transport beside the cube as well as in the panel, so
+       Play is reachable without scrolling past the 3D stage.  Hidden from
+       tablet widths up, where the sidebar button is already in view. -->
+  <button
+    type="button"
+    class="mobile-play"
+    [class.is-playing]="cube().playing()"
+    [attr.title]="playReason()"
+    [attr.aria-label]="cube().playing() ? t.playback.pause : t.playback.play"
+    [disabled]="!cube().playing() && !cube().canPlay()"
+    (click)="cube().togglePlay()"
+  >
+    @if (cube().playing()) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <rect x="6" y="4" width="4" height="16" />
+        <rect x="14" y="4" width="4" height="16" />
+      </svg>
+    } @else {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <polygon points="6 3 20 12 6 21 6 3" />
+      </svg>
+    }
+    <span>{{ playLabel() }}</span>
+  </button>
+</section>

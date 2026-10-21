@@ -10,14 +10,15 @@
  * This file only adapts types and errors.
  */
 
-import { UNKNOWN_STICKER } from './rubix-geometry';
+import { UNKNOWN_STICKER } from './rubik-geometry';
 
 /**
  * The wasm-bindgen glue in `public/wasm/`, next to
- * `rubix_wasm_solver_bg.wasm`.  Both keep the names `wasm-pack` gives them, so a
- * rebuilt engine can be dropped in without editing anything.
+ * `rubik_wasm_solver_bg.wasm`.  These are renamed `wasm-pack` outputs kept under
+ * the page's spelling; a rebuilt engine only needs the same two renames before
+ * it is dropped in.
  */
-const MODULE_URL = '/wasm/rubix_wasm_solver.js';
+const MODULE_URL = '/wasm/rubik_wasm_solver.js';
 
 /** The solved cube, in the solver's facelet string order `U R F D L B`. */
 export const SOLVED_FACELETS = 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB';
@@ -57,8 +58,8 @@ export interface SolverBridge {
   warmUp(): void;
 }
 
-/** Shape of the generated module as `public/wasm/rubix_wasm_solver.js` exports it. */
-interface RubixModule {
+/** Shape of the generated module as `public/wasm/rubik_wasm_solver.js` exports it. */
+interface RubikModule {
   default(): Promise<{ memory: WebAssembly.Memory }>;
   solver_version(): string;
   solved_facelets(): string;
@@ -95,13 +96,13 @@ export function describeError(error: unknown): string {
  *
  * The glue is loaded through a computed specifier so the bundler leaves it as a
  * native import: it lives in the public folder and must keep wasm-bindgen's own
- * `new URL('rubix_wasm_solver_bg.wasm', import.meta.url)` resolution.
+ * `new URL('rubik_wasm_solver_bg.wasm', import.meta.url)` resolution.
  */
 export function loadSolver(): Promise<SolverBridge> {
   if (!bridgePromise) {
     bridgePromise = (async () => {
       const moduleUrl: string = MODULE_URL;
-      const module = (await import(/* @vite-ignore */ moduleUrl)) as RubixModule;
+      const module = (await import(/* @vite-ignore */ moduleUrl)) as RubikModule;
       await module.default();
 
       const api: SolverBridge = {

@@ -89,7 +89,7 @@ PROJECTS = [
         "skills": ["wasm-bindgen glue", "Zero-copy pixels", "RAF render loop"],
     },
     {
-        "file": "banner-rubix.svg",
+        "file": "banner-rubik.svg",
         "name": "Rubik's Cube Solver",
         "toolchain": "Rust + WebAssembly, three.js",
         "category": "Rust + WASM",

@@ -35,10 +35,10 @@ const PAGES = [
   },
   {
     route: 'rubik',
-    title: `${t.games.rubix.name} - ${t.meta.appName}`,
-    description: t.rubix.description,
+    title: `${t.games.rubik.name} - ${t.meta.appName}`,
+    description: t.rubik.description,
     image: ogImage('rubik'),
-    alt: t.rubix.title,
+    alt: t.rubik.title,
     priority: '0.8',
   },
   {

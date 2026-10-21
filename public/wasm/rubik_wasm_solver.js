@@ -1,4 +1,4 @@
-/* @ts-self-types="./rubix_wasm_solver.d.ts" */
+/* @ts-self-types="./rubik_wasm_solver.d.ts" */
 
 /**
  * Apply a Singmaster move list to a facelet string. See [`apply_moves`].
@@ -268,7 +268,7 @@ function __wbg_get_imports() {
     };
     return {
         __proto__: null,
-        "./rubix_wasm_solver_bg.js": import0,
+        "./rubik_wasm_solver_bg.js": import0,
     };
 }
 
@@ -466,7 +466,7 @@ async function __wbg_init(module_or_path) {
     }
 
     if (module_or_path === undefined) {
-        module_or_path = new URL('rubix_wasm_solver_bg.wasm', import.meta.url);
+        module_or_path = new URL('rubik_wasm_solver_bg.wasm', import.meta.url);
     }
     const imports = __wbg_get_imports();
 

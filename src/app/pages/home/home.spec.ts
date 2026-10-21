@@ -37,7 +37,7 @@ describe('Home', () => {
 
     expect(marks.map((mark) => mark.getAttribute('src'))).toEqual([
       'assets/images/alkalab.svg',
-      'assets/images/rubix.svg',
+      'assets/images/rubik.svg',
       'assets/images/rustcraft.svg',
       'assets/images/snake.svg',
       'assets/images/suprememc.png',

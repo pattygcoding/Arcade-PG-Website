@@ -22,7 +22,7 @@
       "alkalab": "Alkalab",
       "snake": "Snake",
       "suprememc": "SupremeMC",
-      "rubix": "Cube solver",
+      "rubik": "Cube solver",
       "rustcraft": "Rustcraft"
     },
     "theme": {
@@ -58,7 +58,7 @@
       "summary": "A content-packed Minecraft mod: new tools, armor, mobs, blocks, dimensions and structures, shipped on Fabric and NeoForge.",
       "stack": "Java & Kotlin"
     },
-    "rubix": {
+    "rubik": {
       "name": "Rubik's Cube Solver",
       "kind": "Puzzle solver",
       "summary": "Paint a scramble in 3D or on the unfolded net, then watch a Kociemba style two-phase search find the moves.",
@@ -256,7 +256,7 @@
       ]
     }
   },
-  "rubix": {
+  "rubik": {
     "eyebrow": "Rubik's Cube Solver",
     "kicker": "RUST / WASM",
     "title": "Rubik's Cube Solver",

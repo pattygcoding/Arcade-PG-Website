@@ -21,7 +21,7 @@ lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
 The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
 nothing crosses the boundary per frame.
 
-![Rubik's Cube Solver — the Rust/WebAssembly two-phase solver with its three.js cube](docs/banner-rubix.svg)
+![Rubik's Cube Solver — the Rust/WebAssembly two-phase solver with its three.js cube](docs/banner-rubik.svg)
 
 [**Rubik's Cube Solver**](https://arcade.pattygcoding.com/rubik) — paint a
 scramble in 3D or on the unfolded net, then let a Herbert Kociemba style two-phase
@@ -67,7 +67,7 @@ project only ships when visited.
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
 | `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
-| `/rubik` | `pages/rubix` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
+| `/rubik` | `pages/rubik` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
 | `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
 | `/snake` | `pages/snake` | Rust/WASM snake driven by miniquad's JS bundle. |
 | `/suprememc` | `pages/suprememc` | Showcase for the SupremeMC Minecraft mod (no runtime WASM). |
@@ -75,8 +75,8 @@ project only ships when visited.
 These pages are adapted from the PG-Website portfolio and re-themed to this site's
 palette and fonts (Inter + JetBrains Mono). The wasm-backed projects keep their
 binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
-`alkalab.wasm`, `snake.wasm` and the solver's own pair `rubix_wasm_solver.js` /
-`rubix_wasm_solver_bg.wasm` — which Angular copies to the build output
+`alkalab.wasm`, `snake.wasm` and the solver's own pair `rubik_wasm_solver.js` /
+`rubik_wasm_solver_bg.wasm` — which Angular copies to the build output
 verbatim, so they are fetched at runtime from `/wasm/...`.
 
 The solver page carries the one third-party runtime dependency in the arcade:
@@ -253,13 +253,19 @@ ng test
 
 ## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+The end-to-end suite uses [Playwright](https://playwright.dev/). Install the
+browser once, then run the suite:
 
 ```bash
-ng e2e
+npx playwright install chromium
+npm run e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+`npm run e2e:headed` runs the same tests with a visible browser. The Rubik
+solver spec starts the development server, generates random valid scrambles,
+clears the net and repaints each scramble through the palette and sticker
+buttons, solves and plays every cube, and inspects the 3D scene's outward
+materials to make sure no corner or edge ever shows the black interior.
 
 ## Additional Resources
 

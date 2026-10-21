@@ -53,11 +53,11 @@
       >
         {{ cube().status() === 'solving' ? t.solve.solving : t.solve.button }}
       </button>
-      <label class="depth" for="rubix-max-depth">
+      <label class="depth" for="rubik-max-depth">
         {{ t.solve.max_prefix }}
         <input
-          id="rubix-max-depth"
-          name="rubix-max-depth"
+          id="rubik-max-depth"
+          name="rubik-max-depth"
           type="number"
           min="15"
           max="30"
@@ -218,11 +218,11 @@
       </button>
     </div>
 
-    <label class="speed" for="rubix-playback-speed">
+    <label class="speed" for="rubik-playback-speed">
       <span class="label">{{ t.playback.speed }}</span>
       <input
-        id="rubix-playback-speed"
-        name="rubix-playback-speed"
+        id="rubik-playback-speed"
+        name="rubik-playback-speed"
         type="range"
         min="100"
         max="800"

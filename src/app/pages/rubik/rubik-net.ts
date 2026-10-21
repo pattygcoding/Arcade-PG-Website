@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
 import { format, strings } from '../../i18n/i18n';
-import { CENTRE_STICKERS, colorName, type RubixCubeState } from './rubix-cube-state';
-import { FACE_COLORS, stickerCss, type FaceId } from './rubix-geometry';
+import { CENTRE_STICKERS, colorName, type RubikCubeState } from './rubik-cube-state';
+import { FACE_COLORS, stickerCss, type FaceId } from './rubik-geometry';
 
 /**
  * The unfolded net of the cube, for quick painting and inspection.
@@ -44,16 +44,16 @@ const NET_LAYOUT: readonly NetFace[] = [
 const POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
 @Component({
-  selector: 'app-rubix-net',
-  templateUrl: './rubix-net.html',
-  styleUrl: './rubix-net.css',
+  selector: 'app-rubik-net',
+  templateUrl: './rubik-net.html',
+  styleUrl: './rubik-net.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RubixNet {
+export class RubikNet {
   /** The shared cube state, owned by the page. */
-  readonly cube = input.required<RubixCubeState>();
+  readonly cube = input.required<RubikCubeState>();
 
-  protected readonly t = strings.rubix;
+  protected readonly t = strings.rubik;
   protected readonly faces = NET_LAYOUT;
   protected readonly positions = POSITIONS;
 

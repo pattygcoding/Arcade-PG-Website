@@ -14,7 +14,7 @@ import {
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { format, strings } from '../../i18n/i18n';
-import type { RubixCubeState, CubeTransition } from './rubix-cube-state';
+import type { RubikCubeState, CubeTransition } from './rubik-cube-state';
 import {
   BOX_FACE_NORMALS,
   CORNER_SLOTS,
@@ -28,8 +28,8 @@ import {
   type CubePlacements,
   type Mat3,
   type Vec3,
-} from './rubix-geometry';
-import { getSolver } from './rubix-solver';
+} from './rubik-geometry';
+import { getSolver } from './rubik-solver';
 
 /**
  * The 3D cube: rendering, click-to-paint raycasting and the pivot animation
@@ -97,16 +97,16 @@ interface Tween {
 }
 
 @Component({
-  selector: 'app-rubix-cube-view',
-  templateUrl: './rubix-cube-view.html',
-  styleUrl: './rubix-cube-view.css',
+  selector: 'app-rubik-cube-view',
+  templateUrl: './rubik-cube-view.html',
+  styleUrl: './rubik-cube-view.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RubixCubeView implements AfterViewInit, OnDestroy {
+export class RubikCubeView implements AfterViewInit, OnDestroy {
   /** The shared cube state, owned by the page. */
-  readonly cube = input.required<RubixCubeState>();
+  readonly cube = input.required<RubikCubeState>();
 
-  protected readonly t = strings.rubix;
+  protected readonly t = strings.rubik;
 
   private readonly containerRef = viewChild.required<ElementRef<HTMLDivElement>>('container');
 
@@ -152,6 +152,23 @@ export class RubixCubeView implements AfterViewInit, OnDestroy {
     if (!cube.hasSolution()) return this.t.cube.no_solution;
     if (cube.isSolved()) return this.t.cube.solved;
     return format(this.t.cube.moves, { cursor: cube.cursor(), total: cube.moves().length });
+  });
+
+  /** Label of the mobile play button floating over the cube. */
+  protected readonly playLabel = computed(() => {
+    const cube = this.cube();
+    if (cube.playing()) return this.t.playback.pause;
+    return cube.hasSolution() ? this.t.playback.play : this.t.playback.solve_and_play;
+  });
+
+  /** Why the mobile play button is (or is not) available. */
+  protected readonly playReason = computed(() => {
+    const cube = this.cube();
+    if (cube.playing()) return this.t.playback.pause;
+    if (cube.isBusy()) return this.t.solve.reason_busy;
+    if (cube.isPaintedSolved()) return this.t.playback.reason_solved;
+    if (!cube.isSolvable()) return cube.validation().message;
+    return cube.hasSolution() ? this.t.playback.reason_play : this.t.playback.reason_solve_play;
   });
 
   private readonly timer = new THREE.Timer();
@@ -214,7 +231,7 @@ export class RubixCubeView implements AfterViewInit, OnDestroy {
    * Style the canvas three.js creates.
    *
    * It is not part of the template, so Angular's emulated encapsulation cannot
-   * reach it - the rules in `rubix-cube-view.css` would not match a canvas with
+   * reach it - the rules in `rubik-cube-view.css` would not match a canvas with
    * no style scope - so its layout rules are applied here instead.
    */
   private styleCanvas(canvas: HTMLCanvasElement): void {

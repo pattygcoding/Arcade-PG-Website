@@ -6,9 +6,18 @@ describe('Alkalab', () => {
     await TestBed.configureTestingModule({ imports: [Alkalab] }).compileComponents();
   });
 
+  /**
+   * The component starts loading its WebAssembly engine in `ngOnInit`.  In the
+   * test runner that import fails asynchronously, so give it a turn to settle
+   * before the fixture is torn down and its late console error would outlive
+   * the worker.
+   */
+  const settleBoot = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 100));
+
   it('should render the lab canvas and the Rust/WASM eyebrow badge', async () => {
     const fixture = TestBed.createComponent(Alkalab);
     await fixture.whenStable();
+    await settleBoot();
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('canvas')).not.toBeNull();
@@ -19,6 +28,7 @@ describe('Alkalab', () => {
   it('should expose the reaction chamber heading and a status line', async () => {
     const fixture = TestBed.createComponent(Alkalab);
     await fixture.whenStable();
+    await settleBoot();
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('#alkalab-lab-title')?.textContent).toBe('Reaction Chamber');

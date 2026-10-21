@@ -71,3 +71,70 @@
   border-color: rgb(var(--line) / 0.5);
   color: rgb(var(--fg-soft));
 }
+
+/* The second Play control: a thumb-sized pill on top of the stage, so phones do
+   not have to scroll past the cube to start the solution.  It is not rendered
+   visibly on wider screens, where the sidebar transport is already in view. */
+.mobile-play {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--accent) / 0.65);
+  background: linear-gradient(180deg, rgb(var(--accent)), rgb(var(--accent) / 0.8));
+  color: rgb(var(--on-accent));
+  font: 700 0.82rem 'Inter', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgb(var(--ink-950) / 0.45);
+  transition:
+    background 120ms ease,
+    transform 90ms ease;
+}
+
+.mobile-play svg {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+}
+
+.mobile-play:hover:not(:disabled) {
+  background: linear-gradient(180deg, rgb(var(--accent)), rgb(var(--accent)));
+}
+
+.mobile-play:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.mobile-play:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mobile-play.is-playing {
+  border-color: rgb(var(--line) / 0.3);
+  background: rgb(var(--ink-850) / 0.92);
+  color: rgb(var(--fg-strong));
+}
+
+@media (max-width: 767px) {
+  .mobile-play {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-play {
+    transition: none;
+  }
+
+  .mobile-play:active:not(:disabled) {
+    transform: none;
+  }
+}

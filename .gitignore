@@ -39,6 +39,11 @@ testem.log
 /typings
 __screenshots__/
 
+# Playwright
+/playwright-report
+/blob-report
+/test-results
+
 # Python (the tools/ scripts)
 __pycache__/
 *.py[cod]

@@ -13,7 +13,7 @@ export type Strings = typeof en;
  * it stays in `en.json` instead of being assembled in a component:
  *
  * ```ts
- * format(strings.rubix.message.solved, { count: 18 })
+ * format(strings.rubik.message.solved, { count: 18 })
  * ```
  *
  * An unknown placeholder is left as written, which makes the mistake visible.

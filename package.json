@@ -8,6 +8,8 @@
     "postbuild": "node scripts/generate-og-pages.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
     "og:images": "python tools/generate_og_images.py",
     "banners": "python tools/generate_banner.py",
     "check:previews": "python tools/check_link_previews.py"
@@ -29,6 +31,7 @@
     "@angular/build": "^21.2.26",
     "@angular/cli": "^21.2.26",
     "@angular/compiler-cli": "^21.2.0",
+    "@playwright/test": "^1.64.1",
     "@types/three": "^0.186.0",
     "autoprefixer": "^10.6.1",
     "jsdom": "^28.0.0",
