@@ -68,7 +68,7 @@
                   [class.is-white]="square.letter === square.letter.toUpperCase()"
                   [class.is-black]="square.letter !== square.letter.toUpperCase()"
                   aria-hidden="true"
-                  >{{ glyphs[square.letter] }}</span
+                  >{{ glyphs[square.letter.toUpperCase()] }}</span
                 >
               }
               @if (square.isTarget) {
@@ -95,7 +95,7 @@
           role="dialog"
           [attr.aria-label]="t.chess.controls.promote"
         >
-          @if (promotion(); as pending) {
+          @if (promotion()) {
             <div class="chess-promotion-picker">
               @for (piece of promotionPieces; track piece) {
                 <button
@@ -103,7 +103,7 @@
                   [attr.aria-label]="t.chess.controls.promote + ' ' + piece.toUpperCase()"
                   (click)="choosePromotion(piece)"
                 >
-                  {{ glyphs[pending.side === 'white' ? piece.toUpperCase() : piece] }}
+                  {{ glyphs[piece.toUpperCase()] }}
                 </button>
               }
               <button type="button" (click)="cancelPromotion()">

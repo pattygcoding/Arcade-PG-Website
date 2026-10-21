@@ -55,9 +55,15 @@ test.describe('chess engine', () => {
     expect(names[56]).toBe('a1');
     expect(names[63]).toBe('h1');
 
-    // The coordinates are on the file and rank a real board shows them on.
-    await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveText('\u2654');
+    // Both sides draw the same solid artwork; only the colour tells them apart.
+    await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveText('\u265A');
+    await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveClass(
+      /is-white/,
+    );
     await expect(page.locator('.chess-square[data-square="e8"] .chess-piece')).toHaveText('\u265A');
+    await expect(page.locator('.chess-square[data-square="e8"] .chess-piece')).toHaveClass(
+      /is-black/,
+    );
   });
 
   test('marks the legal destinations and plays a move the engine answers', async ({ page }) => {

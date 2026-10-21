@@ -99,9 +99,13 @@ describe('Chess', () => {
     // Sixteen pieces each, drawn as glyphs rather than images.
     expect(compiled.querySelectorAll('.chess-piece')).toHaveLength(32);
     expect(compiled.querySelectorAll('.chess-piece.is-white')).toHaveLength(16);
-    expect(compiled.querySelector('.chess-square[data-square="e1"] .chess-piece')?.textContent).toBe(
-      '\u2654',
-    );
+    // Both sides draw the same solid artwork; only the colour tells them apart.
+    const whiteKing = compiled.querySelector('.chess-square[data-square="e1"] .chess-piece');
+    const blackKing = compiled.querySelector('.chess-square[data-square="e8"] .chess-piece');
+    expect(whiteKing?.textContent).toBe('\u265A');
+    expect(blackKing?.textContent).toBe('\u265A');
+    expect(whiteKing?.classList).toContain('is-white');
+    expect(blackKing?.classList).toContain('is-black');
   });
 
   it('should offer the controls, the engine panel and the perft table', async () => {

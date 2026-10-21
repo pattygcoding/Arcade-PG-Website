@@ -18,20 +18,23 @@ import { format, strings } from '../../i18n/i18n';
  */
 const WORKER_URL = '/wasm/chess-worker.js';
 
-/** The glyphs the board draws, by the letter the engine's placement string uses. */
+/**
+ * The glyphs the board draws, by the piece the engine's placement string uses.
+ *
+ * Both colours draw the same artwork: the solid `BLACK CHESS ...` code points
+ * (U+265A-U+265F).  Their `WHITE CHESS ...` counterparts (U+2654-U+2659) are the
+ * same drawings left hollow, so a white piece showed the square straight through
+ * its body.  A solid glyph takes its colour from the piece's own `color`, which
+ * is what the two sides are told apart by, and the stroke in the stylesheet
+ * outlines it.
+ */
 const GLYPHS: Readonly<Record<string, string>> = {
-  P: '\u2659',
-  N: '\u2658',
-  B: '\u2657',
-  R: '\u2656',
-  Q: '\u2655',
-  K: '\u2654',
-  p: '\u265F',
-  n: '\u265E',
-  b: '\u265D',
-  r: '\u265C',
-  q: '\u265B',
-  k: '\u265A',
+  P: '\u265F',
+  N: '\u265E',
+  B: '\u265D',
+  R: '\u265C',
+  Q: '\u265B',
+  K: '\u265A',
 };
 
 const FILES = 'abcdefgh';

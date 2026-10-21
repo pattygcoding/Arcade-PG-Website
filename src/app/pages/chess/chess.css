@@ -158,9 +158,9 @@
      are in `em` so they grow with the piece instead of thinning out. */
   transform: translateY(0.04em);
   filter: drop-shadow(0 0.015em 0.015em rgba(0, 0, 0, 0.45));
-  /* The Unicode chess glyphs are filled outlines, so a piece is defined by giving
-     it a stroke in the opposite direction of its fill.  Without this a white piece
-     on a light square is invisible, and the board flips through two themes. */
+  /* Both sides draw the same solid glyph, so what separates a piece from the
+     square it stands on is this outline: dark around the white pieces, light
+     around the black ones. */
   -webkit-text-stroke-width: 0.03em;
   -webkit-text-stroke-color: rgba(12, 17, 24, 0.55);
 }
