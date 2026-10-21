@@ -19,6 +19,10 @@
   --board-dark: #4b5a6e;
   --board-piece-white: #fbfdfc;
   --board-piece-black: #161b23;
+  /* A coordinate is printed on the square itself, so it borrows the opposite
+     piece colour to stay readable: dark ink on a light square, light on a dark. */
+  --board-coord-on-light: color-mix(in srgb, var(--board-piece-black) 80%, transparent);
+  --board-coord-on-dark: color-mix(in srgb, var(--board-piece-white) 84%, transparent);
   --board-mark: color-mix(in srgb, var(--page-accent) 30%, transparent);
   --board-select: color-mix(in srgb, var(--page-accent) 48%, transparent);
   --board-capture: color-mix(in srgb, #d9534f 70%, transparent);
@@ -78,9 +82,17 @@
 
 .chess-board {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  /* Both axes are fixed `1fr` tracks, so every square is exactly one eighth of
+     the board.  With the implicit `auto` rows the grid gave a row holding pieces
+     its content height and an empty row nothing, which stretched the two kinds
+     of row by different amounts and made the squares come out unequal. */
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
   aspect-ratio: 1;
   width: 100%;
+  /* The board is the measuring stick for everything drawn on it: a square is
+     12.5cqw wide, and the pieces and coordinates are sized from that below. */
+  container-type: inline-size;
   overflow: hidden;
   border-radius: 8px;
   border: 1px solid var(--page-line);
@@ -93,7 +105,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(1.4rem, 3.4vw, 2.6rem);
+  /* `minmax(0, 1fr)` already pins the track; these keep a tall glyph from
+     asking for more room than the square has. */
+  min-width: 0;
+  min-height: 0;
+  /* The glyphs are drawn at just under a square's own width, which is what makes
+     a piece read as a piece rather than as a small mark in the middle. */
+  font-size: 12cqw;
   line-height: 1;
 }
 
@@ -134,11 +152,16 @@
 .chess-piece {
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+  /* The glyphs are drawn sitting on the text baseline with all of their height
+     above it, so a centred line box leaves a piece floating high in its square.
+     The nudge drops it back onto the square's floor, and the filter and stroke
+     are in `em` so they grow with the piece instead of thinning out. */
+  transform: translateY(0.04em);
+  filter: drop-shadow(0 0.015em 0.015em rgba(0, 0, 0, 0.45));
   /* The Unicode chess glyphs are filled outlines, so a piece is defined by giving
      it a stroke in the opposite direction of its fill.  Without this a white piece
      on a light square is invisible, and the board flips through two themes. */
-  -webkit-text-stroke-width: 1.6px;
+  -webkit-text-stroke-width: 0.03em;
   -webkit-text-stroke-color: rgba(12, 17, 24, 0.55);
 }
 
@@ -148,7 +171,10 @@
 
 .chess-piece.is-black {
   color: var(--board-piece-black);
-  -webkit-text-stroke-color: rgba(250, 252, 253, 0.42);
+  /* The black pieces only need a hairline of light ink to read against the dark
+     squares; the same weight as the white pieces would halo them. */
+  -webkit-text-stroke-width: 0.022em;
+  -webkit-text-stroke-color: rgba(250, 252, 253, 0.4);
 }
 
 .chess-target {
@@ -167,17 +193,31 @@
   border: 3px solid var(--board-capture);
 }
 
+/* The file letters and the rank numbers.  They are the board's own furniture, so
+   they scale with a square rather than with the viewport, and each one is drawn in
+   whichever piece colour reads against the square it happens to sit on. */
 .chess-coord {
   position: absolute;
-  left: 3px;
-  bottom: 1px;
-  font: 600 9px 'JetBrains Mono', monospace;
-  color: color-mix(in srgb, var(--board-piece-black) 55%, transparent);
+  left: 0.25em;
+  bottom: 0.12em;
+  font: 700 clamp(0.6rem, 0.17em, 1rem) 'JetBrains Mono', ui-monospace, monospace;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.chess-square.is-light .chess-coord {
+  color: var(--board-coord-on-light);
+  text-shadow: 0 0 0.2em var(--board-light);
+}
+
+.chess-square.is-dark .chess-coord {
+  color: var(--board-coord-on-dark);
+  text-shadow: 0 0 0.2em var(--board-dark);
 }
 
 .chess-coord.is-file {
   left: auto;
-  right: 3px;
+  right: 0.25em;
 }
 
 /* The promotion chooser floats over the board, so it never moves the layout. */
