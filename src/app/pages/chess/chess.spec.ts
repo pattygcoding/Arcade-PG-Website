@@ -100,13 +100,15 @@ describe('Chess', () => {
     expect(compiled.querySelectorAll('.chess-piece')).toHaveLength(32);
     expect(compiled.querySelectorAll('.chess-piece.is-white')).toHaveLength(16);
     // Both sides draw the same solid artwork, told apart by their colour, with the
-    // hollow glyph of the same piece laid over it as the line art.
+    // hollow glyph of the same piece laid over it as the line art.  Each glyph ends
+    // in the text-presentation selector, without which a platform may hand back the
+    // colour emoji glyph, which ignores `color`.
     const whiteKing = compiled.querySelector('.chess-square[data-square="e1"] .chess-piece');
     const blackKing = compiled.querySelector('.chess-square[data-square="e8"] .chess-piece');
-    expect(whiteKing?.textContent).toBe('\u265A');
-    expect(blackKing?.textContent).toBe('\u265A');
-    expect(whiteKing?.getAttribute('data-lines')).toBe('\u2654');
-    expect(blackKing?.getAttribute('data-lines')).toBe('\u2654');
+    expect(whiteKing?.textContent).toBe('\u265A\uFE0E');
+    expect(blackKing?.textContent).toBe('\u265A\uFE0E');
+    expect(whiteKing?.getAttribute('data-lines')).toBe('\u2654\uFE0E');
+    expect(blackKing?.getAttribute('data-lines')).toBe('\u2654\uFE0E');
     expect(whiteKing?.classList).toContain('is-white');
     expect(blackKing?.classList).toContain('is-black');
   });

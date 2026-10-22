@@ -19,6 +19,18 @@ import { format, strings } from '../../i18n/i18n';
 const WORKER_URL = '/wasm/chess-worker.js';
 
 /**
+ * The text-presentation selector, appended to every glyph the board draws.
+ *
+ * The "black" chess code points (U+265A-U+265F) live in the colour emoji fonts as
+ * colour glyphs, even though their "white" counterparts (U+2654-U+2659) are not
+ * emoji at all.  On a platform whose fallback reaches that font - iOS does - the
+ * piece is painted in the font's own colours and ignores `color` entirely, which
+ * left both sides the same dark drawing.  The selector asks for the monochrome
+ * glyph instead, and costs nothing anywhere the glyph was monochrome already.
+ */
+const TEXT_PRESENTATION = '\uFE0E';
+
+/**
  * The glyphs a piece's body is drawn with, by the piece the engine's placement
  * string uses.
  *
@@ -29,12 +41,12 @@ const WORKER_URL = '/wasm/chess-worker.js';
  * through one.  They are the line art instead; see `LINE_GLYPHS`.
  */
 const GLYPHS: Readonly<Record<string, string>> = {
-  P: '\u265F',
-  N: '\u265E',
-  B: '\u265D',
-  R: '\u265C',
-  Q: '\u265B',
-  K: '\u265A',
+  P: `\u265F${TEXT_PRESENTATION}`,
+  N: `\u265E${TEXT_PRESENTATION}`,
+  B: `\u265D${TEXT_PRESENTATION}`,
+  R: `\u265C${TEXT_PRESENTATION}`,
+  Q: `\u265B${TEXT_PRESENTATION}`,
+  K: `\u265A${TEXT_PRESENTATION}`,
 };
 
 /**
@@ -47,12 +59,12 @@ const GLYPHS: Readonly<Record<string, string>> = {
  * `data-lines` attribute.
  */
 const LINE_GLYPHS: Readonly<Record<string, string>> = {
-  P: '\u2659',
-  N: '\u2658',
-  B: '\u2657',
-  R: '\u2656',
-  Q: '\u2655',
-  K: '\u2654',
+  P: `\u2659${TEXT_PRESENTATION}`,
+  N: `\u2658${TEXT_PRESENTATION}`,
+  B: `\u2657${TEXT_PRESENTATION}`,
+  R: `\u2656${TEXT_PRESENTATION}`,
+  Q: `\u2655${TEXT_PRESENTATION}`,
+  K: `\u2654${TEXT_PRESENTATION}`,
 };
 
 const FILES = 'abcdefgh';

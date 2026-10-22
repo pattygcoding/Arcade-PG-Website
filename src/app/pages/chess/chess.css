@@ -152,6 +152,11 @@
 .chess-piece {
   position: relative;
   z-index: 1;
+  /* Monochrome symbol fonts, named ahead of the platform's fallback: the chess
+     code points are also in the colour emoji fonts, and a colour glyph would
+     ignore the piece's `color` and paint both sides the same.  The text
+     presentation selector on each glyph says the same thing a second time. */
+  font-family: 'Segoe UI Symbol', 'Apple Symbols', 'Noto Sans Symbols 2', 'DejaVu Sans', sans-serif;
   /* The glyphs are drawn sitting on the text baseline with all of their height
      above it, so a centred line box leaves a piece floating high in its square.
      The nudge drops it back onto the square's floor. */
@@ -268,6 +273,7 @@
   /* No padding, so the button's own text and the line art laid over it centre on
      the same box. */
   padding: 0;
+  font-family: 'Segoe UI Symbol', 'Apple Symbols', 'Noto Sans Symbols 2', 'DejaVu Sans', sans-serif;
   font-size: 1.9rem;
   line-height: 1;
   color: var(--board-piece-white);

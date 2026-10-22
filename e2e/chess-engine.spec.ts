@@ -55,12 +55,18 @@ test.describe('chess engine', () => {
     expect(names[56]).toBe('a1');
     expect(names[63]).toBe('h1');
 
-    // Both sides draw the same solid artwork; only the colour tells them apart.
-    await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveText('\u265A');
+    // Both sides draw the same solid artwork; only the colour tells them apart.  The
+    // trailing \uFE0E is the text-presentation selector, which keeps a platform from
+    // substituting the colour emoji glyph for one that ignores `color`.
+    await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveText(
+      '\u265A\uFE0E',
+    );
     await expect(page.locator('.chess-square[data-square="e1"] .chess-piece')).toHaveClass(
       /is-white/,
     );
-    await expect(page.locator('.chess-square[data-square="e8"] .chess-piece')).toHaveText('\u265A');
+    await expect(page.locator('.chess-square[data-square="e8"] .chess-piece')).toHaveText(
+      '\u265A\uFE0E',
+    );
     await expect(page.locator('.chess-square[data-square="e8"] .chess-piece')).toHaveClass(
       /is-black/,
     );
