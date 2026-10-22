@@ -52,10 +52,19 @@ let level = 1;
  * deepening one depth at a time so the page can show progress, which is why the
  * same numbers appear here.
  */
+/**
+ * Depth cap and time budget per level, mirrored from the Rust side.
+ *
+ * The engine owns these numbers (`Level::config` in src/search.rs) and this table is
+ * a copy, because the worker drives the deepening one depth at a time so the page can
+ * show progress.  It has to be kept in step by hand: the depth caps went from
+ * 4/7/10 to 5/10/14 with the search rewrite, and the page kept capping the Club level
+ * at seven ply until this copy was updated.
+ */
 const LEVELS = [
-  { depth: 4, time: 250 },
-  { depth: 7, time: 700 },
-  { depth: 10, time: 1500 },
+  { depth: 5, time: 250 },
+  { depth: 10, time: 700 },
+  { depth: 14, time: 1500 },
 ];
 
 /** The published perft counts this worker checks the generator against. */
