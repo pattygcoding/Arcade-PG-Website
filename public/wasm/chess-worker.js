@@ -55,6 +55,11 @@ let level = 1;
  * whole budget, and each time the page kept capping a level at the old depth until
  * this copy was updated.  The cap is a backstop against a runaway node count, not a
  * target: the engine stops at the clock, so a cap it never reaches is the right one.
+ *
+ * One cost of driving the deepening from here: each call re-walks the shallower depths
+ * and this file converts a principal variation to SAN for every progress line, so the
+ * page reaches one ply less than the module does on its own — ten at the Club budget
+ * against the module's eleven, measured on the live page and in Node respectively.
  */
 const LEVELS = [
   { depth: 12, time: 250 },
