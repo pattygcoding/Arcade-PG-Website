@@ -48,23 +48,18 @@ let level = 1;
 /**
  * Depth cap and time budget per level, mirrored from the Rust side.
  *
- * These are the three settings the engine documents; the worker drives the
- * deepening one depth at a time so the page can show progress, which is why the
- * same numbers appear here.
- */
-/**
- * Depth cap and time budget per level, mirrored from the Rust side.
- *
  * The engine owns these numbers (`Level::config` in src/search.rs) and this table is
  * a copy, because the worker drives the deepening one depth at a time so the page can
- * show progress.  It has to be kept in step by hand: the depth caps went from
- * 4/7/10 to 5/10/14 with the search rewrite, and the page kept capping the Club level
- * at seven ply until this copy was updated.
+ * show progress.  It has to be kept in step by hand: the caps went from 4/7/10 to
+ * 5/10/14 with the search rewrite and to 12/16/20 when the engine learned to spend its
+ * whole budget, and each time the page kept capping a level at the old depth until
+ * this copy was updated.  The cap is a backstop against a runaway node count, not a
+ * target: the engine stops at the clock, so a cap it never reaches is the right one.
  */
 const LEVELS = [
-  { depth: 5, time: 250 },
-  { depth: 10, time: 700 },
-  { depth: 14, time: 1500 },
+  { depth: 12, time: 250 },
+  { depth: 16, time: 700 },
+  { depth: 20, time: 1500 },
 ];
 
 /** The published perft counts this worker checks the generator against. */
@@ -131,21 +126,28 @@ function think(levelIndex, fen) {
   let spent = 0;
 
   for (let depth = 1; depth <= config.depth; depth += 1) {
+    // Whatever is left of the level's budget, with a floor so that a search always
+    // gets a chance to finish the depth it is being asked for.
     const budget = Math.max(30, config.time - spent);
     const info = engine.search(depth, budget, levelIndex);
     spent = performance.now() - started;
-    best = info;
-    self.postMessage({
-      type: 'progress',
-      depth: info.depth(),
-      score: info.score(),
-      mateIn: info.mateIn,
-      nodes: info.nodes(),
-      timeMs: info.timeMs,
-      nodesPerSecond: info.nodesPerSecond,
-      pv: pvToSan(fen, info.pv()),
-      san: info.san(),
-    });
+    // A call that runs out of time returns the last depth *it* finished, which can be
+    // shallower than the one already in hand.  The deepest result is the answer, and
+    // the only one the page is told about, so its depth line never goes backwards.
+    if (best === null || info.depth() > best.depth()) {
+      best = info;
+      self.postMessage({
+        type: 'progress',
+        depth: info.depth(),
+        score: info.score(),
+        mateIn: info.mateIn,
+        nodes: info.nodes(),
+        timeMs: info.timeMs,
+        nodesPerSecond: info.nodesPerSecond,
+        pv: pvToSan(fen, info.pv()),
+        san: info.san(),
+      });
+    }
     if (info.mateIn !== 0 || spent >= config.time) {
       break;
     }
