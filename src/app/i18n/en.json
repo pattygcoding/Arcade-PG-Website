@@ -24,7 +24,8 @@
       "snake": "Snake",
       "suprememc": "SupremeMC",
       "rubik": "Cube solver",
-      "rustcraft": "Rustcraft"
+      "rustcraft": "Rustcraft",
+      "reclaim": "Reclaim 4160"
     },
     "theme": {
       "title": "Switch colour theme",
@@ -76,6 +77,12 @@
       "kind": "Voxel game",
       "summary": "A lightweight Minecraft-style voxel game written from scratch in Rust, with an infinite noise-generated world, carved caves and deferred lighting.",
       "stack": "Rust & wgpu"
+    },
+    "reclaim": {
+      "name": "Reclaim 4160",
+      "kind": "Arcade game",
+      "summary": "A side-scrolling grocery run: collect the toilet paper and reach the checkout while dodging germs. A failed college game project, rebuilt from scratch as a modern C++ engine.",
+      "stack": "C++ \u2192 WebAssembly"
     }
   },
   "chess": {
@@ -182,6 +189,25 @@
       "down": "Move down",
       "left": "Move left",
       "right": "Move right"
+    }
+  },
+  "reclaim": {
+    "title": "Reclaim 4160",
+    "kicker": "C++ / WASM",
+    "description": "Reclaim 4160 started life as a half-finished CPSC 4160 game in college and is now a reclamation project: the same grab-the-toilet-paper-before-the-germs-get-you idea, rebuilt from scratch as a modern C++20 engine on SDL2 and compiled to WebAssembly, with ten aisles, patrolling and chasing germ AI, pickups, particles and full keyboard and touch controls.",
+    "section_label": "Playground",
+    "game_title": "Reclaim 4160",
+    "aria_label": "Reclaim 4160 game. A and D or the arrow keys to move, Space to jump, Escape to pause.",
+    "status": {
+      "loading": "Loading game...",
+      "ready": "Ready to play"
+    },
+    "hint": "Click the game to focus \u00b7 A/D move \u00b7 Space jump \u00b7 Esc pause",
+    "controls": {
+      "group": "Reclaim 4160 touch controls",
+      "left": "Move left",
+      "right": "Move right",
+      "jump": "Jump"
     }
   },
   "alkalab": {

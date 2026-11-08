@@ -24,6 +24,7 @@ describe('Home', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('a[href="/alkalab"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/chess"]')).not.toBeNull();
+    expect(compiled.querySelector('a[href="/reclaim"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/rubik"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/snake"]')).not.toBeNull();
     expect(compiled.querySelector('a[href="/suprememc"]')).not.toBeNull();
@@ -39,6 +40,7 @@ describe('Home', () => {
     expect(marks.map((mark) => mark.getAttribute('src'))).toEqual([
       'assets/images/alkalab.svg',
       'assets/images/chess.svg',
+      'assets/images/reclaim.svg',
       'assets/images/rubik.svg',
       'assets/images/rustcraft.svg',
       'assets/images/snake.svg',
@@ -55,6 +57,6 @@ describe('Home', () => {
     const routes = Array.from(compiled.querySelectorAll('a[href]')).map((link) =>
       link.getAttribute('href'),
     );
-    expect(routes).toEqual(['/alkalab', '/chess', '/rubik', '/rustcraft', '/snake', '/suprememc']);
+    expect(routes).toEqual(['/alkalab', '/chess', '/reclaim', '/rubik', '/rustcraft', '/snake', '/suprememc']);
   });
 });

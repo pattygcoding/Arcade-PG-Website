@@ -1,0 +1,134 @@
+<main class="reclaim-page portfolio-shell">
+  <header class="page-heading">
+    <div class="page-eyebrow">
+      <span>{{ t.reclaim.title }}</span>
+      <span class="eyebrow-tech">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="6" y1="12" x2="10" y2="12" />
+          <line x1="8" y1="10" x2="8" y2="14" />
+          <line x1="15" y1="13" x2="15.01" y2="13" />
+          <line x1="18" y1="11" x2="18.01" y2="11" />
+          <rect x="2" y="6" width="20" height="12" rx="6" />
+        </svg>
+        {{ t.reclaim.kicker }}
+      </span>
+    </div>
+    <h1>{{ t.reclaim.title }}</h1>
+    <p>
+      {{ t.reclaim.description }}
+    </p>
+    <app-repo-button href="https://github.com/pattygcoding/Reclaim-4160" />
+  </header>
+
+  <section class="reclaim-game-section" aria-labelledby="reclaim-game-title">
+    <div class="reclaim-game-header">
+      <div>
+        <span class="reclaim-section-label">{{ t.reclaim.section_label }}</span>
+        <h2 id="reclaim-game-title">{{ t.reclaim.game_title }}</h2>
+      </div>
+      <span class="reclaim-status" role="status">{{ status() }}</span>
+    </div>
+
+    <div class="reclaim-frame">
+      <iframe
+        #frame
+        class="reclaim-iframe"
+        [src]="gameUrl"
+        [title]="ariaLabel"
+        (load)="onFrameLoad()"
+        allow="autoplay; fullscreen"
+      ></iframe>
+    </div>
+    <p class="reclaim-hint">{{ t.reclaim.hint }}</p>
+
+    <div class="reclaim-dpad" role="group" [attr.aria-label]="t.reclaim.controls.group">
+      <button
+        type="button"
+        class="reclaim-dpad-button reclaim-dpad-jump"
+        [attr.aria-label]="t.reclaim.controls.jump"
+        (click)="onButtonClick($event, 'Space')"
+        (pointerdown)="press($event, 'Space')"
+        (pointerup)="release($event, 'Space')"
+        (pointercancel)="release($event, 'Space')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="12" y1="19" x2="12" y2="5" />
+          <polyline points="5 12 12 5 19 12" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="reclaim-dpad-button reclaim-dpad-left"
+        [attr.aria-label]="t.reclaim.controls.left"
+        (click)="onButtonClick($event, 'ArrowLeft')"
+        (pointerdown)="press($event, 'ArrowLeft')"
+        (pointerup)="release($event, 'ArrowLeft')"
+        (pointercancel)="release($event, 'ArrowLeft')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      </button>
+      <span class="reclaim-dpad-center" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="reclaim-dpad-button reclaim-dpad-right"
+        [attr.aria-label]="t.reclaim.controls.right"
+        (click)="onButtonClick($event, 'ArrowRight')"
+        (pointerdown)="press($event, 'ArrowRight')"
+        (pointerup)="release($event, 'ArrowRight')"
+        (pointercancel)="release($event, 'ArrowRight')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </button>
+    </div>
+  </section>
+</main>

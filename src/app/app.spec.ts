@@ -39,9 +39,9 @@ describe('App', () => {
     trigger?.click();
     await fixture.whenStable();
     expect(trigger?.getAttribute('aria-expanded')).toBe('true');
-    // Home plus the six project pages: alkalab, chess, rustcraft, rubik, snake and
-    // suprememc.
-    expect(compiled.querySelectorAll('#site-menu a[href]')).toHaveLength(7);
+    // Home plus the seven project pages: alkalab, chess, reclaim, rustcraft, rubik,
+    // snake and suprememc.
+    expect(compiled.querySelectorAll('#site-menu a[href]')).toHaveLength(8);
 
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     await fixture.whenStable();

@@ -39,6 +39,11 @@ export const routes: Routes = [
     title: `${strings.games.snake.name} - ${appName}`,
   },
   {
+    path: 'reclaim',
+    loadComponent: () => import('./pages/reclaim/reclaim').then((m) => m.Reclaim),
+    title: `${strings.games.reclaim.name} - ${appName}`,
+  },
+  {
     path: 'suprememc',
     loadComponent: () => import('./pages/suprememc/suprememc').then((m) => m.SupremeMc),
     title: `${strings.games.suprememc.name} - ${appName}`,

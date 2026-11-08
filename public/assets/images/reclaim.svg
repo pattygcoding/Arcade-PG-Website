@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="mark-title">
+	<title id="mark-title">Reclaim 4160</title>
+	<defs>
+		<linearGradient id="reclaim-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0" stop-color="#1c2444" />
+			<stop offset="1" stop-color="#123b3a" />
+		</linearGradient>
+		<linearGradient id="reclaim-paper" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0" stop-color="#ffffff" />
+			<stop offset="1" stop-color="#dbe4ee" />
+		</linearGradient>
+		<radialGradient id="reclaim-glow" cx="50%" cy="32%" r="64%">
+			<stop offset="0" stop-color="#6bd6b0" stop-opacity="0.18" />
+			<stop offset="1" stop-color="#6bd6b0" stop-opacity="0" />
+		</radialGradient>
+	</defs>
+	<rect width="1024" height="1024" rx="180" fill="url(#reclaim-bg)" />
+	<rect width="1024" height="1024" rx="180" fill="url(#reclaim-glow)" />
+	<rect x="5" y="5" width="1014" height="1014" rx="176" fill="none" stroke="#2f6f66" stroke-width="10" />
+
+	<!-- Toilet-paper roll -->
+	<rect x="322" y="286" width="360" height="470" rx="58" fill="url(#reclaim-paper)" stroke="#c7d2de" stroke-width="10" />
+	<ellipse cx="502" cy="286" rx="180" ry="56" fill="#eef3f8" stroke="#c7d2de" stroke-width="10" />
+	<ellipse cx="502" cy="286" rx="58" ry="22" fill="#aebccb" />
+	<rect x="322" y="430" width="360" height="128" fill="#6bd6b0" />
+	<rect x="322" y="430" width="360" height="128" fill="none" stroke="#49b596" stroke-width="8" />
+	<rect x="392" y="474" width="220" height="40" rx="20" fill="#0f2a28" opacity="0.32" />
+
+	<!-- Reclaimed badge -->
+	<circle cx="748" cy="748" r="132" fill="#6bd6b0" stroke="#0f2a28" stroke-width="12" />
+	<path d="M 692 750 l 40 42 l 74 -88" fill="none" stroke="#0f2a28" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

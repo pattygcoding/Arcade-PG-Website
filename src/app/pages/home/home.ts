@@ -35,6 +35,14 @@ const GAME_CARDS: readonly GameCard[] = [
     stack: strings.games.chess.stack,
   },
   {
+    route: '/reclaim',
+    mark: 'assets/images/reclaim.svg',
+    name: strings.games.reclaim.name,
+    kind: strings.games.reclaim.kind,
+    summary: strings.games.reclaim.summary,
+    stack: strings.games.reclaim.stack,
+  },
+  {
     route: '/rubik',
     mark: 'assets/images/rubik.svg',
     name: strings.games.rubik.name,
