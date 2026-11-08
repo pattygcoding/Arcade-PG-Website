@@ -66,6 +66,14 @@ const PAGES = [
     priority: '0.8',
   },
   {
+    route: 'reclaim',
+    title: `${t.games.reclaim.name} - ${t.meta.appName}`,
+    description: t.reclaim.description,
+    image: ogImage('reclaim'),
+    alt: t.reclaim.title,
+    priority: '0.8',
+  },
+  {
     route: 'suprememc',
     title: `${t.games.suprememc.name} - ${t.meta.appName}`,
     description: t.suprememc.description,
