@@ -14,12 +14,14 @@ is Tailwind CSS v3 driven by CSS-variable colour tokens declared in
 
 ## Projects
 
-![Alkalab — a powder-sand chemistry lab in Rust and WebAssembly](docs/banner-alkalab.svg)
+![Alkalab — a powder-sand chemistry lab in Nim and WebAssembly](docs/banner-alkalab.svg)
 
 [**Alkalab**](https://arcade.pattygcoding.com/alkalab) — a powder-sand chemistry
-lab. Paint elements onto a grid and watch them burn, dissolve, flow and explode.
-The Rust engine renders straight into a `Uint8ClampedArray` view of wasm memory, so
-nothing crosses the boundary per frame.
+lab. Paint forty reactive materials onto a grid and watch them burn, dissolve, flow
+and explode. The Nim engine compiles to a standalone wasm module and renders
+straight into a `Uint8ClampedArray` view of its memory, so nothing crosses the
+boundary per frame. The pre-Nim Rust implementation is preserved at
+[**alkalab-legacy**](https://github.com/pattygcoding/alkalab-legacy).
 
 ![Chess Engine — a bitboard engine in Rust and WebAssembly](docs/banner-chess.svg)
 
@@ -76,7 +78,7 @@ project only ships when visited.
 | Route | Component | Notes |
 | --- | --- | --- |
 | `/` | `pages/home` | Selection screen: the arcade name plus a card per game. |
-| `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Rust compiled to WASM). |
+| `/alkalab` | `pages/alkalab` | Powder-sand chemistry lab (Nim compiled to standalone WASM). |
 | `/chess` | `pages/chess` | Bitboard chess engine (Rust compiled to WASM) in a Web Worker. |
 | `/rubik` | `pages/rubik` | Rubik's cube solver: three.js cube, 2D net and the Rust/WASM engine. |
 | `/rustcraft` | `pages/rustcraft` | Screenshot showcase for the Rust voxel game (no runtime WASM). |
@@ -85,11 +87,13 @@ project only ships when visited.
 
 These pages are adapted from the PG-Website portfolio and re-themed to this site's
 palette and fonts (Inter + JetBrains Mono). The wasm-backed projects keep their
-binaries and glue in `public/wasm/` — `alkalab.js` (wasm-bindgen glue),
+binaries and glue in `public/wasm/` — `alkalab.js` (generated Nim engine glue),
 `alkalab.wasm`, `snake.wasm`, the solver's own pair `rubik_wasm_solver.js` /
 `rubik_wasm_solver_bg.wasm`, and the engine's `pg_chess.js` / `pg_chess_bg.wasm` —
 which Angular copies to the build output verbatim, so they are fetched at runtime
-from `/wasm/...`.
+from `/wasm/...`.  Alkalab's pair comes from its `nim/` port: in the
+[Alkalab](https://github.com/pattygcoding/Alkalab) checkout run `node nim/build.mjs`
+and copy `nim/web/pkg/alkalab.{js,wasm}` into `public/wasm/`.
 
 The chess page is the one project here that runs the engine off the main thread: it
 loads `public/wasm/chess-worker.js` as a module worker, and that worker owns the

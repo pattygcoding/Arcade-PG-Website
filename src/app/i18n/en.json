@@ -45,8 +45,8 @@
     "alkalab": {
       "name": "Alkalab",
       "kind": "Chemistry sandbox",
-      "summary": "Paint elements onto a powder-sand grid, then watch them burn, dissolve, flow and explode.",
-      "stack": "Rust \u2192 WebAssembly"
+      "summary": "Paint forty reactive materials onto a powder-sand grid, then watch them burn, dissolve, flow and explode.",
+      "stack": "Nim \u2192 WebAssembly"
     },
     "chess": {
       "name": "Chess",
@@ -212,9 +212,10 @@
   },
   "alkalab": {
     "eyebrow": "Alkalab",
-    "kicker": "RUST / WASM",
+    "kicker": "NIM / WASM",
     "title": "Alkalab",
-    "description": "Alkalab is a powder-sand chemistry lab that runs in the browser, written in Rust and compiled to WebAssembly.",
+    "description": "Alkalab is a powder-sand chemistry lab that runs in the browser, written in Nim and compiled to standalone WebAssembly. Paint forty materials - sodium, carbide, thermite, liquid nitrogen, gold - and watch them burn, dissolve, flow and explode as density, heat and gravity do the rest.",
+    "legacy_repo": "View legacy Rust implementation",
     "section_label": "Chemistry sandbox",
     "lab_title": "Reaction Chamber",
     "aria_label": "Alkalab sandbox. Drag to paint, right-click to erase, Space to pause, S to step, C to clear, Ctrl+Z to undo, X for the boom tool.",
@@ -261,11 +262,12 @@
       "carbide_cannon": "Carbide cannon"
     },
     "notes": [
-      "One flat buffer: the grid is a single Vec<Cell>, (x, y) maps to y * width + x, and a one-cell inert border removes every bounds check.",
+      "One flat buffer: the grid is a single seq[Cell], (x, y) maps to y * width + x, and a one-cell inert border removes every bounds check.",
       "Bottom-up ticks: rows scan bottom to top so falling material cannot update twice, and the column direction flips each frame so water has no favourite side.",
       "Density, not special cases: sand sinks in water, oil floats on it, and mercury sinks through both, all from one comparison.",
-      "Zero-copy pixels: Rust renders straight into a Uint8ClampedArray view of wasm memory, so nothing crosses the boundary per frame.",
-      "Declarative chemistry: 2 Na + 2 H2O -> 2 NaOH + H2, CaC2 + 2 H2O -> Ca(OH)2 + C2H2, and lava + sand -> glass are single table rows."
+      "Zero-copy pixels: Nim renders straight into a Uint8ClampedArray view of wasm memory, so nothing crosses the boundary per frame.",
+      "Declarative chemistry: 49 table rows cover 2 Na + 2 H2O -> 2 NaOH + H2, CaC2 + 2 H2O -> Ca(OH)2 + C2H2, and lava + sand -> glass.",
+      "No wasm-bindgen: the standalone module exports a small C ABI and its own memory, and the generated ES module wraps it in an Engine class."
     ]
   },
   "suprememc": {

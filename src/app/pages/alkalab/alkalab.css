@@ -8,6 +8,22 @@
   flex: 1 1 auto;
 }
 
+/* The live repository and the archived Rust implementation, in one wrapping row.
+   The buttons' own top margin is turned off, so the row owns the spacing. */
+.alkalab-repo-actions {
+  --repo-button-offset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+  .alkalab-repo-actions {
+    margin-top: 24px;
+  }
+}
+
 .alkalab-page {
   --alkalab-chrome: #17191d;
   --alkalab-panel: #101216;

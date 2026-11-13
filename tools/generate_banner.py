@@ -84,9 +84,9 @@ PROJECTS = [
     {
         "file": "banner-alkalab.svg",
         "name": "Alkalab",
-        "toolchain": "Rust compiled to WebAssembly",
-        "category": "Rust + WASM",
-        "skills": ["wasm-bindgen glue", "Zero-copy pixels", "RAF render loop"],
+        "toolchain": "Nim compiled to standalone WebAssembly",
+        "category": "Nim + WASM",
+        "skills": ["Standalone wasm ABI", "Zero-copy pixels", "RAF render loop"],
     },
     {
         "file": "banner-chess.svg",

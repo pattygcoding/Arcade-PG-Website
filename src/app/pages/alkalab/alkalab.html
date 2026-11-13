@@ -33,7 +33,10 @@
     <p>
       {{ t.alkalab.description }}
     </p>
-    <app-repo-button href="https://github.com/pattygcoding/Alkalab" />
+    <div class="alkalab-repo-actions">
+      <app-repo-button [href]="repo" />
+      <app-repo-button [href]="legacyRepo" [label]="t.alkalab.legacy_repo" variant="secondary" />
+    </div>
   </header>
 
   <section class="alkalab-section" aria-labelledby="alkalab-lab-title">

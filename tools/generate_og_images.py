@@ -54,10 +54,10 @@ CARDS = {
         "eyebrow": "CHEMISTRY SANDBOX",
         "title": [("Alkalab", False)],
         "body": [
-            "A powder-sand chemistry lab that runs",
-            "in the browser.",
+            "Forty reactive materials in a powder-sand",
+            "lab written in Nim and compiled to Wasm.",
         ],
-        "tags": ["RUST", "WEBASSEMBLY"],
+        "tags": ["NIM", "WEBASSEMBLY"],
     },
     "snake": {
         "eyebrow": "ARCADE GAME",

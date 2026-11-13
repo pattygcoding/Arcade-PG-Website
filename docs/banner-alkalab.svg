@@ -20,13 +20,13 @@
     <text x="56" y="54" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" letter-spacing="2.5" fill="#8debc4">PG &#183; ARCADE</text>
     <text x="56" y="110" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="46" font-weight="700" fill="#f2f5f3">Alkalab</text>
     <rect x="56" y="126" width="56" height="3" rx="1.5" fill="#8debc4"/>
-    <text x="56" y="152" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8a93a0">Rust compiled to WebAssembly</text>
-    <rect x="56" y="172" width="119" height="34" rx="17" fill="#12291f" stroke="#3d7c64" stroke-width="1"/>
-    <text x="71" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8debc4">Rust + WASM</text>
-    <rect x="185" y="172" width="167" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
-    <text x="200" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">wasm-bindgen glue</text>
-    <rect x="362" y="172" width="159" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
-    <text x="377" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">Zero-copy pixels</text>
-    <rect x="531" y="172" width="151" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
-    <text x="546" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">RAF render loop</text>
+    <text x="56" y="152" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="14" fill="#8a93a0">Nim compiled to standalone WebAssembly</text>
+    <rect x="56" y="172" width="111" height="34" rx="17" fill="#12291f" stroke="#3d7c64" stroke-width="1"/>
+    <text x="71" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#8debc4">Nim + WASM</text>
+    <rect x="177" y="172" width="183" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
+    <text x="192" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">Standalone wasm ABI</text>
+    <rect x="370" y="172" width="159" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
+    <text x="385" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">Zero-copy pixels</text>
+    <rect x="539" y="172" width="151" height="34" rx="17" fill="#0a0e15" stroke="#26303f" stroke-width="1"/>
+    <text x="554" y="194" font-family="'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace" font-size="13" fill="#c3cad3">RAF render loop</text>
 </svg>

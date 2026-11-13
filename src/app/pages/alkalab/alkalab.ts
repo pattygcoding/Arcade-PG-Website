@@ -13,11 +13,20 @@ import { strings } from '../../i18n/i18n';
 
 const WIDTH = 320;
 const HEIGHT = 200;
-/** wasm-bindgen glue served from the public folder, next to alkalab.wasm. */
+/** Generated Nim engine glue, served from the public folder next to alkalab.wasm. */
 const MODULE_URL = '/wasm/alkalab.js';
 
 /** Keyboard quick-pick palette (1-9 and 0), matching the original front end. */
 const HOTKEYS = ['Sand', 'Water', 'Stone', 'Wood', 'Fire', 'Oil', 'Sodium', 'Lava', 'Acid', 'TNT'];
+
+/** The live Nim implementation. */
+const REPO = 'https://github.com/pattygcoding/Alkalab';
+
+/**
+ * The pre-Nim Rust + WebAssembly implementation, kept as an archived snapshot
+ * and offered as the second button beside the live repository.
+ */
+const LEGACY_REPO = 'https://github.com/pattygcoding/alkalab-legacy';
 
 const STATUS_LABELS: Record<Status, string> = {
   loading: strings.alkalab.status.loading,
@@ -76,7 +85,7 @@ interface AlkalabEngine {
   free(): void;
 }
 
-/** Shape of the wasm-bindgen module (`/wasm/alkalab.js`). */
+/** Shape of the generated Nim engine module (`/wasm/alkalab.js`). */
 interface AlkalabModule {
   default(): Promise<AlkalabWasm>;
   Engine: new (width: number, height: number, seed: number) => AlkalabEngine;
@@ -89,7 +98,7 @@ interface Preset {
 }
 
 // Demo scenes.  Each takes the engine and an element-id lookup so the palette
-// generated from the Rust property table stays the single source of truth.
+// generated from the Nim property table stays the single source of truth.
 const PRESETS: readonly Preset[] = [
   {
     key: 'sodium_water',
@@ -171,6 +180,8 @@ const PRESETS: readonly Preset[] = [
 })
 export class Alkalab implements AfterViewInit, OnDestroy {
   protected readonly t = strings;
+  protected readonly repo = REPO;
+  protected readonly legacyRepo = LEGACY_REPO;
   protected readonly notes = strings.alkalab.notes;
   protected readonly presets = PRESETS;
   protected readonly speedOptions = [1, 2, 3, 4];
@@ -233,8 +244,8 @@ export class Alkalab implements AfterViewInit, OnDestroy {
   // ------------------------------------------------------------------ boot
   //
   // The glue is loaded through a computed specifier so the bundler leaves it as
-  // a native import: it lives in the public folder and must keep wasm-bindgen's
-  // own `new URL('alkalab.wasm', import.meta.url)` resolution.
+  // a native import: it lives in the public folder and must keep the generated
+  // glue's own `new URL('alkalab.wasm', import.meta.url)` resolution.
   private async boot(): Promise<void> {
     try {
       const moduleUrl: string = MODULE_URL;
